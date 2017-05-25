@@ -50,6 +50,7 @@ $(function () {
     /**
      * Genera la vista para mostrar el JSON de las estadisticas
      */
+
     function Estadistica() {
         $.get("api/?statistic").done(function (data) {
             if (data.indexOf("Necesitas registrarte como usuario") == -1) {
@@ -161,7 +162,6 @@ $(function () {
     }
     /**
      * Genera una vista  para visualizar la lista de imagenes desde el array de json enviado
-     * 
      */
     function Medios() {
         var contenedor = createEmmetNodes(".uploadimg.medios>.header>h4.title{Im&aacutegenes}^.contenido>h4{Tus im&aacutegenes}+.imagen+p{-o-}+h4{Sube una imagen}+.subir>input[type=file,id=archivo]+i.fa.fa-upload.sube[aria-hidden=true,name=set_image]");
@@ -186,7 +186,7 @@ $(function () {
     function Comentar()
     {
          $.get("api/?Allarticle").done(function (data) {
-             var cont = "<div class='comment'><h3>Comentarios</h3><div class='moderation'>Activar la Moderación: <select id='mod_comment'><option value='true'>Sí</option><option value='false'>No</option></select></div><br />";
+             var cont = "<div class='comment'><h3>Comentarios</h3><div class='moderation'>Activar la Moderación: <select id='mod_comment'><option value='true'>Sí</option><option value='false'>No</option></select></div><br /><div class='anonimo'>Activar Comentarios para invitados: <select id='anom_comment'><option value='true'>Sí</option><option value='false'>No</option></select></div><br />";
              for(var art of JSON.parse(data))
              {
                 cont += "<div class='accordion' id='"+art.id+"'><span class='titulo'>"+art.name+"</span><p class='parr'><span>Descripción: </span>"+art.description+"</p><p class='parr'><span>Fecha: </span>"+art.date+"</p><div class='accordion'><h4>Comentarios a Moderar:</h4><div class='commentmodo"+art.id+"'></div></div> <div class='accordion'><h4>Comentarios Visibles:</h4><div class='comment"+art.id+"'></div></div></div>";
@@ -247,9 +247,26 @@ $(function () {
                         }
                     });
                 });
+               $("#anom_comment").on("change",function()
+                {
+                    $.post("api/",{set_anonym:$("#anom_comment").val()}).done(function(info){
+                        if(info)
+                        {
+                            alert("Configuración de comentarios anonimos cambiada");
+                        }
+                    });
+                });
                 $.get("api/?isModerated").done(function(data) 
                 {
                     $("#mod_comment option[value="+data+"]").attr("selected","selected");
+                });
+                $.get("api/?canAnonymComment").done(function(data) 
+                {
+                    if(data==1)
+                        data = "true";
+                    else
+                        data = "false";
+                    $("#anom_comment option[value="+data+"]").attr("selected","selected");
                 });
                 $(".revisar").click(ApproveComment);
                 $(".eliminar").click(EliminarComment);

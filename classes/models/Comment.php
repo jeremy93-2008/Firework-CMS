@@ -176,6 +176,54 @@
             $moderacion = strtolower($tabla->moderacion);
             return $moderacion;
         }
+        public function getAnonymCommentOption()
+        {
+            $tabla = $this->_usuarios;
+            $usuarios = $tabla->usuario;
+            foreach($usuarios as $obj_user)
+            {
+                if($obj_user->nombre == "anonimo")
+                    return true;
+            }
+            return false;
+        }
+        public function setAnonimoCommentOption($str)
+        {
+            $bool = $this->getAnonymCommentOption();
+            if(!$bool)
+            {
+                $tabla = $this->_usuarios;
+                if($str=="true")
+                    $tabla->usuario[] = array("nombre"=>"anonimo");
+                $conf = "classes/models/comment/user.json";
+                $bool = false;
+                if(file_exists($conf))
+                    $bool = file_put_contents($conf,json_encode($tabla));
+                else
+                    $bool = file_put_contents("../".$conf,json_encode($tabla));
+                return ($bool!==false);
+            }else
+            {
+                if($str == "false")
+                {
+                    $tabla = $this->_usuarios;
+                    $usuarios = $tabla->usuario;
+                    for($a = 0;$a < count($usuarios);$a++)
+                    {
+                        if($usuarios[$a]->nombre == "anonimo")
+                            unset($usuarios[$a]);
+                    }
+                    $tabla->usuario = $usuarios;
+                    $conf = "classes/models/comment/user.json";
+                    $bool = false;
+                    if(file_exists($conf))
+                        $bool = file_put_contents($conf,json_encode($tabla));
+                    else
+                        $bool = file_put_contents("../".$conf,json_encode($tabla));
+                }
+                return true;
+            }
+        }
         public function setModerar($str)
         {
             $tabla = $this->_usuarios;

@@ -1,1 +1,1 @@
-<!--Comment--><div class='com com_0'><h4>admin:</h4><p>Hola a todos</p></div><!--Comment--><div class='com com_1'><h4>admin:</h4><p>Esto es un comentario, que se va a aprobar</p></div>
+<!--Comment--><div class='com com_0'><h4>admin:</h4><p>Hola a todos</p></div><!--Comment--><div class='com com_1'><h4>admin:</h4><p>Esto es un comentario, que se va a aprobar</p></div><!--Comment--><div class='com com_2'><h4>pablo:</h4><p>Otro comentario</p></div>

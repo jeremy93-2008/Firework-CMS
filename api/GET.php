@@ -169,4 +169,8 @@ else if(isset($_GET["getConfig"]))
 {
     $c= new Comment(1);
     echo $c->getModeracion();
+}else if(isset($_GET["canAnonymComment"]))
+{
+    $c= new Comment(1);
+    echo $c->getAnonymCommentOption();
 }

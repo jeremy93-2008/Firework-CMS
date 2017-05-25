@@ -116,6 +116,11 @@ else if(isset($_POST["set_moderation"]))
     $c = new Comment(1);
     echo $c->setModerar($_POST["set_moderation"]);
 }
+else if(isset($_POST["set_anonym"]))
+{
+    $c = new Comment(1);
+    echo $c->setAnonimoCommentOption($_POST["set_anonym"]);
+}
 else if(isset($_POST["set_main_theme"]))
 {
     $t = new Theme();
