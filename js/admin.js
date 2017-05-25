@@ -43,6 +43,9 @@ $(function () {
                 break;
         }
     }
+    /**
+     * Genera la estadistica, cuando se visualiza por primera vez, el panel de administración
+     */
     Estadistica();
     /**
      * Genera la vista para mostrar el JSON de las estadisticas
@@ -54,7 +57,6 @@ $(function () {
                 var txt = "<div class='stats'><h2 style='margin-top: 0px;padding-top: 5px;'>Estadisticas <sub style='font-size:12px'>De esta semana</sub></h2>";
                 //Estadistica
                 var datos = JSON.parse(data);
-
                 var curr = new Date;
                 var first = curr.getDate() - curr.getDay() + 1;
                 var max_numero = 0;
