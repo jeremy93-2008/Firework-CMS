@@ -1,0 +1,9 @@
+{
+	"name":"Slideshow Plugin",
+	"description":"Create a slideshow easily",
+	"author":"Jeremy Auvray",
+	"image":"../img/client/images.jpg",
+	"url":"http://www.algo.com/",
+	"file":"main.php",
+	"mainClass":"Slideshow"
+}

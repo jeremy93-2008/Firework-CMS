@@ -1,0 +1,20 @@
+{
+    "propiedades": 
+    [
+        {
+            "class":".header",
+            "property":"background-color:",
+            "value":"#FFF"
+        },
+        {
+            "class":".footer",
+            "property":"background-color:",
+            "value":"#DDD"
+        },
+        {
+            "class":".login_grp",
+            "property":"background-color:",
+            "value":"#BBB"
+        }
+    ]
+}

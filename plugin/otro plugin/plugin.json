@@ -1,0 +1,9 @@
+{
+	"name":"Gallery Plugin",
+	"description":"Create a gallery easily",
+	"author":"Jeremy Auvray",
+	"image":"../img/client/img_fjords.jpg",
+	"url":"http://www.algo.com/",
+	"file":"main.php",
+	"mainClass":"Gallery"
+}

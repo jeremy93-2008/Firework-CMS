@@ -1,0 +1,1 @@
+<!--Comment--><div class='com com_1'><h4>admin:</h4><p>Una prueba</p></div><!--Comment--><div class='com com_2'><h4>paulos:</h4><p>Hola, que tal</p></div>

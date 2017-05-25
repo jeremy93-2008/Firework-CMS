@@ -1,0 +1,278 @@
+<meta charset="utf-8" />
+<link rel='stylesheet' href='doc.css' />
+<div class="doc">
+<h1 id="firework-plugin-access">Firework Plugin Access</h1>
+<p>El CMS permite crear plugins para completar y aumentar las funcionalidades bases de este, para ello, los desarolladores tienen acceso a múltiples funciones, que se diferencian en dos grandes categorias, <strong>Hooks</strong> e <strong>Interplays</strong>, y esto está coordinado por un fichero JSON único por cada plugin.</p>
+<h2 id="como-se-crea-un-plugin">¿Como se crea un plugin?</h2>
+<p>Primeramente debe haber visto que en la jerarquía raiz, existe ya una carpeta <em>plugin</em>, si entra dentro verá ya una carpeta que sirve de plugin de ejemplo, donde verá lo siguiente:</p>
+<ul>
+<li><p><em>Plugin.json</em>: Corresponde con el fichero de configuración necesario para hacer funcionar nuestro plugin.</p></li>
+<li><p><em>Main.php</em>: Corresponde con el PHP inicial que se cargará a la hora de inicializar el plugin, este puede tener otro nombre, ya que es totalmente configurable gracias al JSON visto anteriormente.</p></li>
+</ul>
+<p>Para crear un nuevo plugin, lo único que debe hacer es crear una nueva carpeta dentro de la carpeta plugin y copiar el contenido del plugin de ejemplo a la nueva carpeta, también puede optar por crear su propio JSON desde cero, en ese caso necesita saber varias cosas:</p>
+<h3 id="plugin.json">Plugin.json</h3>
+<p>Un fichero Plugin debe tener la estructura siguiente:</p>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="dt">&quot;name&quot;</span>:<span class="st">&quot;Nombre del Plugin&quot;</span>,
+    <span class="dt">&quot;description&quot;</span>:<span class="st">&quot;Descripción de este&quot;</span>,
+    <span class="dt">&quot;author&quot;</span>:<span class="st">&quot;Autor del contenido&quot;</span>,
+    <span class="dt">&quot;image&quot;</span>:<span class="st">&quot;Imagen promocional de vuestra creación&quot;</span>,
+    <span class="dt">&quot;url&quot;</span>:<span class="st">&quot;URL para consultar más de sus trabajos&quot;</span>,
+    <span class="dt">&quot;file&quot;</span>:<span class="st">&quot;Archivo Inicial que se cargará al </span>
+<span class="st">    inicializarse el plugin. p.ej: main.php&quot;</span>,
+    <span class="dt">&quot;mainClass&quot;</span>:<span class="st">&quot;Clase que se cargará dentro del </span>
+<span class="st">    fichero a la hora de inicializar el plugin. p.ej: </span>
+<span class="st">    NuevoMenu&quot;</span>
+}</code></pre>
+<h3 id="file.php">file.php</h3>
+<p>El fichero PHP que se inicializará a la hora de cargarse su plugin.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?php</span>
+    <span class="kw">class</span> mainClass
+    {
+        <span class="co">/* Todas las funciones necesarias al buen </span>
+<span class="co">        funcionamiento del plugin*/</span>
+        
+        <span class="co">// Hook</span>
+        <span class="kw">public</span> <span class="kw">function</span> init<span class="ot">()</span> 
+        {
+            <span class="co">// Interplay</span>
+            Plugin::Article<span class="ot">(</span><span class="dv">1</span><span class="ot">)</span>
+
+            <span class="co">// Se ejecutará en el momento de inicializarse por primera vez</span>
+        }
+
+        <span class="ot">[</span><span class="st">...</span><span class="ot">]</span>
+    }</code></pre>
+<p>Ahora que sabemos como crear un Plugin en Firework vamos a ver lo que podemos realizar con su interfaz.</p>
+<h2 id="hooks">Hooks</h2>
+<p>Estos son los ganchos (funciones) que permiten hacer ejecutar nuestro código en un momento dado de la carga del CMS, por ejemplo, podríamos decirle de realizar una función antes de que se cargue el encabezado de la página o antes que se cargue el menú, también podriamos hacerlo recursivo y pedir que se cargue una función por cada articulo que se muestre en la web, etc..</p>
+<p>Pero los hooks no nos permite sólo ejecutar funciones en un momento dado del ciclo de vida de la página, sino que también nos permite visualizar los resultados de tal función, simplemente añadiendo tantas funciones <strong>echo</strong> como queramos en los mismos métodos que realizan una función en un momento dado.</p>
+<p>Para ello se tiene <em>26 Hooks</em>, donde cada uno corresponde con un estado dado del CMS:</p>
+<h3 id="init">Init</h3>
+<p>Hook que se carga cuando el sitio web inicia una nueva sesión.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">init</span>(){
+        <span class="co">//Codigo que se cargará al iniciar una nueva sesión</span>
+        }</code></pre>
+<h3 id="reload">Reload</h3>
+<p>Hook que se carga a cada refresco de la página, menos la primera vez que se inicia una nueva sesión, ya que <em>init</em> tiene prioridad sobre <em>reload</em>.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">reload</span>(){
+        <span class="co">//Codigo que se cargará al recargar el sitio en una misma sesión</span>
+        }</code></pre>
+<h3 id="beforeheader">beforeHeader</h3>
+<p>Hook que se carga antes de la visualización del header.php del template del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeHeader</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="afterheader">afterHeader</h3>
+<p>Hook que se carga después de la visualización del header.php del template del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterHeader</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforemenu">beforeMenu</h3>
+<p>Hook que se carga antes de la visualización del menú del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeMenu</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="aftermenu">afterMenu</h3>
+<p>Hook que se carga después de la visualización del menú del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterMenu</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforeloginform">beforeLoginForm</h3>
+<p>Hook que se carga antes de la visualización del <em>User Login</em> del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeLoginForm</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="afterloginform">afterLoginForm</h3>
+<p>Hook que se carga después de la visualización del <em>User Login</em> del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterLoginForm</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforeregisterform">beforeRegisterForm</h3>
+<p>Hook que se carga antes de la visualización del <em>User Register</em> del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeRegisterForm</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="afterregisterform">afterRegisterForm</h3>
+<p>Hook que se carga después de la visualización del <em>User Register</em> del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterRegisterForm</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforearticle">beforeArticle</h3>
+<p>Hook que se carga antes de la visualización de un articulo del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeArticle</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="afterarticle">afterArticle</h3>
+<p>Hook que se carga después de la visualización de un articulo del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterArticle</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforecomment">beforeComment</h3>
+<p>Hook que se carga antes de la visualización de los comentarios de cada articulo del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeComment</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="aftercomment">afterComment</h3>
+<p>Hook que se carga después de la visualización de los comentarios de cada articulo del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterComment</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforepage">beforePage</h3>
+<p>Hook que se carga antes de la visualización de una página del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforePage</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="afterpage">afterPage</h3>
+<p>Hook que se carga después de la visualización de una página del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterPage</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforesidebar">beforeSideBar</h3>
+<p>Hook que se carga antes de la visualización del sidebar.php del template del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeSideBar</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="aftersidebar">afterSideBar</h3>
+<p>Hook que se carga después de la visualización del sidebar.php del template del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterSideBar</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforefooter">beforeFooter</h3>
+<p>Hook que se carga antes de la visualización del footer.php del template del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeFooter</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="afterfooter">afterFooter</h3>
+<p>Hook que se carga después de la visualización del footer.php del template del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterFooter</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="beforeview">beforeView</h3>
+<p>Hook que se carga antes de la visualización de una vista del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">beforeView</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<blockquote>
+<p><em>Las Vistas</em> son los diferentes PHP que pueden ser cargados por una plantilla, puede ser: index.php, main.php, about.php etc...</p>
+</blockquote>
+<h3 id="afterview">afterView</h3>
+<p>Hook que se carga después de la visualización de una vista del CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">afterView</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<blockquote>
+<p><em>Las Vistas</em> son los diferentes PHP que pueden ser cargados por una plantilla, puede ser: index.php, main.php, about.php etc...</p>
+</blockquote>
+<h3 id="logging">logging</h3>
+<p>Hook que se carga cuando se ha iniciado sesión en el CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">logging</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h3 id="registering">registering</h3>
+<p>Hook que se carga cuando se ha registrado un nuevo usuario en el CMS.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">registering</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<hr />
+<h3 id="showadminview">showAdminView</h3>
+<p>Hook que se carga cuando se está en el panel de administración y se le hace clic al botón correspondiente a su plugin.</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">showAdminView</span>(){
+        <span class="co">//Codigo</span>
+        }</code></pre>
+<h2 id="interplays">Interplays</h2>
+<p>Asi como los Hooks eran los ganchos que permitián realizar acciones dentro del CMS, estos son los que interracionan con el CMS para obtener,añadir,modificar y eliminar información de este, por tanto los Interplays se usan para toda la interacción necesaria entre nuestro Plugin y los datos de nuestro CMS.</p>
+<p>Hay 10 Interplays diferentes, de ello se diferencian tres tipos: <em>CRUD Interplays</em> , <em>Users Interplays</em> , <em>Getters Interplays</em>.</p>
+<h3 id="crud-interplays">CRUD Interplays</h3>
+<p><strong>Artículo</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Article($id_articulo,$operacion,$json_editado)</code></pre>
+<p>Este metodo tiene cuatro sobrecargas:</p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Article() 
+    // Obtiene todos los articulos.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Article(2) 
+    // Obtiene el articulo del id estipulado.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Article(2,[&quot;get&quot;,&quot;set&quot;,&quot;del&quot;]) 
+    // Se elije una de las tres operaciones disponibles, y según esta se realizará una función determinada sobre el id especificado.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Article(2,&quot;set&quot;,[JSON_Object]) 
+    //En ese caso, el tercer parametro solo sirve para la operación set, y sirve para añadir o moficar un articulo a partir del JSON enviado.</code></pre>
+<blockquote>
+<p><em>JSON_Object</em>: Mirar en el apartado <strong>Articulo</strong> en la sección <strong>Objetos JSON</strong></p>
+</blockquote>
+<p><strong>Página</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Page($id_page,$operacion,$json_editado)</code></pre>
+<p>Este método tiene cuatro sobrecargas:</p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Page() 
+    // Obtiene todas las páginas.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Page(2) 
+    // Obtiene la página del id estipulado.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Page(2,[&quot;get&quot;,&quot;set&quot;,&quot;del&quot;]) 
+    // Se elije una de las tres operaciones disponibles, y según esta se realizará una función determinada sobre el id especificado.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Page(2,&quot;set&quot;,[JSON_Object]) 
+    //En ese caso, el tercer parametro solo sirve para la operación set, y sirve para añadir o modificar una página a partir del JSON enviado.</code></pre>
+<blockquote>
+<p><em>JSON_Object</em>: Mirar en el apartado <strong>Página</strong> en la sección <strong>Objetos JSON</strong></p>
+</blockquote>
+<p><strong>Imagen</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Image($id_image,$operacion,$file)</code></pre>
+<p>Este método tiene cuatro sobrecargas:</p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Image() 
+    // Obtiene todas las imágenes.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Image(2) 
+    // Obtiene la imagen del id estipulado.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Image(2,[&quot;get&quot;,&quot;set&quot;]) 
+    // Se elije una de las dos operaciones disponibles, y según esta se realizará una función determinada sobre el id especificado.</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Image(2,&quot;set&quot;,[$File]) 
+    //En ese caso, el tercer parametro solo sirve para la operación set, y sirve para añadir o modificar una página a partir de un objeto FILE de PHP.</code></pre>
+<blockquote>
+<p><span class="math"><em>F</em><em>I</em><em>L</em><em>E</em> : <em>O</em><em>b</em><em>j</em><em>e</em><em>t</em><em>o</em><em>P</em><em>H</em><em>P</em></span> <b>$_FILE</b> , que contiene la imagen que debe subirse con el nombre en el array asociativo del objeto PHP, como: &quot;image&quot;</p>
+</blockquote>
+<h3 id="users-interplays">Users Interplays</h3>
+<p><strong>isLogged</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    // Determina si está logeado algún usuario
+    Plugin::isLogged() : Booleano</code></pre>
+<p><strong>CurrentUser</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    // Determina el usuario actualmente conectado
+    Plugin::CurrentUser() : JSON_Object</code></pre>
+<blockquote>
+<p><em>JSON_Object:</em> Mirar en el apartado <strong>Usuario</strong> en la sección <strong>Objetos JSON</strong></p>
+</blockquote>
+<p><strong>Login</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    // Logea un usuario con los parametros introducidos
+    Plugin::Login($username,$password) : Booleano</code></pre>
+<p><strong>Register</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    // Determina si está logeado algún usuario
+    Plugin::Register($username,$password,$password2,$rol) : Booleano</code></pre>
+<p>Este método tiene dos sobrecargas:</p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Register(&quot;usuario&quot;,&quot;abcdef&quot;,&quot;abcdef&quot;) : Booleano
+    // Registra un usuario con el nombre de usuario y las contraseñas introducidas, con el rol por defecto, que es, 1</code></pre>
+<blockquote>
+<p><em>Rol:</em> Mirar en el apartado <strong>Rol</strong> en la sección <strong>Objetos JSON</strong></p>
+</blockquote>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Register(&quot;usuario&quot;,&quot;abcdef&quot;,&quot;abcdef&quot;,[0,1,2,3,4]) : Booleano
+    // Registra un usuario con el nombre de usuario y las contraseñas introducidas, y con el rol establecido.</code></pre>
+<blockquote>
+<p><em>Rol:</em> Mirar en el apartado <strong>Rol</strong> en la sección <strong>Objetos JSON</strong></p>
+</blockquote>
+<h2 id="getters-interplays">Getters Interplays</h2>
+<p><strong>View</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    // Determina el fichero cargado como principal en el template
+    Plugin::View() : String</code></pre>
+<p><strong>Get</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    // Determina el fichero cargado como principal en el template
+    Plugin::Get($param_name) : String or String[]</code></pre>
+<p>Este método tiene dos sobrecargas:</p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Get() : String[]
+    // Devuelve todo el array de la variable global $_GET</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::Get(&quot;pa&quot;) : String
+    // Devuelve el parametro &#39;pa&#39; ubicado en la variable global $_GET</code></pre>
+<p><strong>WebsiteInfo</strong></p>
+<pre class="sourceCode php"><code class="sourceCode php">    // Obtiene las diferentes configuraciones del CMS
+    Plugin::WebsiteInfo(["titulo","descripcion","palabras_claves","tema"]) : String or String[]</code></pre>
+<p>Este método tiene dos sobrecargas:</p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::WebsiteInfo() : String[]
+    // Devuelve todo el array de configuración del CMS</code></pre>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::WebsiteInfo(&quot;titulo&quot;) : String
+    // Devuelve el parametro &#39;titulo&#39; de la configuración del CMS</code></pre>
+<h2 id="próximamente">Próximamente</h2>
+<p>El Firework Plugin Access sigue creciendo, pronto nuevas funcionalidades, etc...</p>
+</div>

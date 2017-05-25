@@ -1,0 +1,62 @@
+<meta charset="utf-8" />
+<link rel='stylesheet' href='doc.css' />
+<div class="doc">
+<h2 id="objetos-json-de-firework-cms">Objetos JSON de Firework CMS</h2>
+<h3 id="estructura-json-de-articulos">Estructura JSON de Articulos:</h3>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="dt">&quot;id&quot;</span>:<span class="st">&quot;Corresponde a la identificación única del </span>
+<span class="st">    articulo, debe ser un entero&quot;</span>,
+    <span class="dt">&quot;name&quot;</span>:<span class="st">&quot;nombre del articulo&quot;</span>,
+    <span class="dt">&quot;description&quot;</span>:<span class="st">&quot;descripcion del articulo&quot;</span>,
+    <span class="dt">&quot;date&quot;</span>:<span class="st">&quot;Fecha de la ultima edición [dd/mm/YYY]&quot;</span>,
+    <span class="dt">&quot;image&quot;</span>:<span class="st">&quot;Inserte una URL para visualizar la imagen </span>
+<span class="st">    destacada del articulo&quot;</span>,
+    <span class="dt">&quot;content&quot;</span>:<span class="st">&quot;Contenido HTML del articulo&quot;</span>,
+    <span class="dt">&quot;autor&quot;</span>:<span class="st">&quot;Autor/es del articulo, pueden existir </span>
+<span class="st">    varios separados por comas. </span>
+<span class="st">    p.ej: Paco || Paco,Antonio&quot;</span>,
+    <span class="dt">&quot;access&quot;</span>:<span class="st">&quot;Acceso a la hora de visualizar los </span>
+<span class="st">    articulos, puede contener tanto nombres de usuarios,</span>
+<span class="st">    como numero de roles, separados por comas. P.ej: </span>
+<span class="st">    paco,2,jeremy&quot;</span>,
+    <span class="dt">&quot;category&quot;</span>:<span class="st">&quot;Debe ser un entero que concorde con una </span>
+<span class="st">    de las categorias creadas previamente en el CMS.&quot;</span>,
+
+}</code></pre>
+<h3 id="estructura-json-de-páginas">Estructura JSON de Páginas:</h3>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="dt">&quot;id&quot;</span>:<span class="st">&quot;Corresponde a la identificación única de la </span>
+<span class="st">    página, debe ser un entero&quot;</span>,
+    <span class="dt">&quot;name&quot;</span>:<span class="st">&quot;nombre de la página&quot;</span>,
+    <span class="dt">&quot;description&quot;</span>:<span class="st">&quot;descripcion de la página&quot;</span>,
+    <span class="dt">&quot;image&quot;</span>:<span class="st">&quot;Inserte una URL para visualizar la imagen </span>
+<span class="st">    destacada de la página&quot;</span>,
+    <span class="dt">&quot;content&quot;</span>:<span class="st">&quot;Contenido HTML de la página&quot;</span>,
+    <span class="dt">&quot;autor&quot;</span>:<span class="st">&quot;Autor/es de la página, pueden existir </span>
+<span class="st">    varios separados por comas. </span>
+<span class="st">    p.ej: Paco || Paco,Antonio&quot;</span>,
+    <span class="dt">&quot;keyword&quot;</span>:<span class="st">&quot;Palabras claves separadas por comas&quot;</span>
+}</code></pre>
+<h3 id="estructura-json-del-menú">Estructura JSON del Menú</h3>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="dt">&quot;titulo&quot;</span>:<span class="st">&quot;Titulo que se visualizará en el menú&quot;</span>,
+    <span class="dt">&quot;orden&quot;</span>:<span class="st">&quot;Orden dentro del Menú. Debe ser un entero&quot;</span>,
+    <span class="dt">&quot;url&quot;</span>:<span class="st">&quot;Destino del Menú&quot;</span>
+}</code></pre>
+<h3 id="estructura-json-del-usuario">Estructura JSON del Usuario</h3>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="dt">&quot;nombre&quot;</span>:<span class="st">&quot;Nombre de Usuario&quot;</span>,
+    <span class="dt">&quot;contrasenia&quot;</span>:<span class="st">&quot;Contraseña del usuario almacenada en </span>
+<span class="st">    MD5&quot;</span>,
+    <span class="dt">&quot;rol&quot;</span>:<span class="st">&quot;A que grupo de usuarios pertenece, debe ser </span>
+<span class="st">    un entero&quot;</span>
+}</code></pre>
+<h3 id="roles">Roles</h3>
+<pre><code>[
+    0: Anonimo
+    1: Usuario normal
+    2: Colaboradores
+    3: Editores
+    4: Administradores
+]</code></pre>
+</div>

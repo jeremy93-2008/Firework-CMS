@@ -1,0 +1,159 @@
+<meta charset="utf-8" />
+<link rel='stylesheet' href='doc.css' />
+<div class="doc">
+<h1 id="firework-api">Firework CMS API</h1>
+<p>La API de Firework CMS permite acceder a los datos de la página de una forma fácil a través de los diferentes protocolos HTTP existentes, siempre y cuando tenga el usuario los permisos necesarios para ello.</p>
+<h2 id="getpost">GET/POST</h2>
+<p>Hay dos formas para poder autentificarse, a través de GET o a través de POST, aún asi se recomienda el uso de POST, ya que se maneja información que podría ser potencialmente sensible.</p>
+<h3 id="autentificación">Autentificación:</h3>
+<p>Genera el token de autorización necesario para usar la API</p>
+<pre class="http"><code>.../api?username=[YouUser]&amp;password=[YouPassword]</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">    {<span class="dt">&quot;Usuario conectado con éxito&quot;</span>}
+    {<span class="dt">&quot;Usuario incorrecto&quot;</span>}</code></pre>
+<h3 id="cerrar-sesión">Cerrar Sesión:</h3>
+<p>Cierra la Sesión explícitamente del usuario actualmente conectado a la API</p>
+<pre class="http"><code>.../api?close</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">    {<span class="dt">&quot;Session closed&quot;</span>}</code></pre>
+<h2 id="get">GET</h2>
+<p>Todas las funciones que permiten recuperar información del CMS, se encuentran aqui.</p>
+<h3 id="current_user">current_user:</h3>
+<p>Permite recuperar el usuario actual</p>
+<pre class="http"><code>.../api?current_user</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">usuario</span>}</code></pre>
+<h3 id="current_user_role">current_user_role:</h3>
+<p>Permite recuperar el rol del usuario actual</p>
+<pre class="http"><code>.../api?current_user_role</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">rol</span>}</code></pre>
+<h3 id="current_theme">current_theme:</h3>
+<p>Permite recuperar el tema</p>
+<pre class="http"><code>.../api?current_theme</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">tema_ruta</span>}</code></pre>
+<h3 id="current_theme_more">current_theme_more:</h3>
+<p>Permite recuperar datos adicionales del tema</p>
+<pre class="http"><code>.../api?current_theme_more</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">nombre</span>,<span class="er">descripcion</span>,<span class="er">autor</span>,<span class="er">url</span>}</code></pre>
+<h3 id="current_title">current_title:</h3>
+<p>Permite recuperar el titulo actual de la web</p>
+<pre class="http"><code>.../api?current_title</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">titulo</span>}</code></pre>
+<h3 id="statistic">statistic:</h3>
+<p>Permite recuperar las estadisticas del CMS, con filtro de fecha o no</p>
+<p>Sin Filtro</p>
+<pre class="http"><code>.../api?statistic</code></pre>
+<p>Con Filtro (desde <em>date</em> hasta <em>hoy</em>)</p>
+<pre class="http"><code>.../api?statistic&amp;date=[dd/mm/YYYY]</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">estadistica</span>:[{<span class="er">fecha</span>,<span class="er">url</span>},[<span class="er">...</span>]]}</code></pre>
+<h3 id="page">page:</h3>
+<p>Permite recuperar una página del CMS, según el id escogido</p>
+<pre class="http"><code>.../api?page=[id]</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">name</span>,<span class="er">id</span>,<span class="er">content</span>,<span class="er">image</span>,<span class="er">autor</span>,<span class="er">description</span>,<span class="er">keyword</span>}</code></pre>
+<h3 id="allpage">Allpage:</h3>
+<p>Permite recuperar todas las páginas del CMS</p>
+<pre class="http"><code>.../api?Allpage</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">[{<span class="er">name</span>,<span class="er">id</span>,<span class="er">content</span>,<span class="er">image</span>,<span class="er">autor</span>,<span class="er">description</span>,<span class="er">keyword</span>},[<span class="er">...</span>]]</code></pre>
+<h3 id="article">article:</h3>
+<p>Permite recuperar un articulo del CMS, según el id escogido</p>
+<pre class="http"><code>.../api?article=[id]</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">name</span>,<span class="er">id</span>,<span class="er">content</span>,<span class="er">image</span>,<span class="er">autor</span>,<span class="er">description</span>,<span class="er">keyword</span>}</code></pre>
+<h3 id="allarticle">Allarticle:</h3>
+<p>Permite recuperar todos los articulos del CMS</p>
+<pre class="http"><code>.../api?Allarticle</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">[{<span class="er">name</span>,<span class="er">id</span>,<span class="er">content</span>,<span class="er">image</span>,<span class="er">autor</span>,<span class="er">access</span>,<span class="er">description</span>,<span class="er">category</span>,<span class="er">date</span>},[<span class="er">...</span>]]</code></pre>
+<h3 id="getcategory">GetCategory</h3>
+<p>Permite recuperar las categorias del CMS</p>
+<pre class="http"><code>.../api?getCategory</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">nombre</span>,[<span class="er">...</span>]}</code></pre>
+<h3 id="getmenu">GetMenu</h3>
+<p>Permite recuperar el menu del CMS</p>
+<pre class="http"><code>.../api?getMenu</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">[{<span class="er">titulo</span>,<span class="er">orden</span>,<span class="er">url</span>},[<span class="er">...</span>]]</code></pre>
+<h3 id="getimage">GetImage</h3>
+<p>Permite recuperar las imagenes almacenadas del CMS</p>
+<pre class="http"><code>.../api?getImage</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">[{<span class="er">titulo</span>,<span class="er">orden</span>,<span class="er">url</span>},[<span class="er">...</span>]]</code></pre>
+<h3 id="pagenextid">PageNextId</h3>
+<p>Permite recuperar el proximo id en ser creado, a la hora de añadir una página</p>
+<pre class="http"><code>.../api?pageNextId</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">number</span>}</code></pre>
+<h3 id="articlenextid">ArticleNextId</h3>
+<p>Permite recuperar el proximo id en ser creado, a la hora de añadir un articulo</p>
+<pre class="http"><code>.../api?articleNextId</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">number</span>}</code></pre>
+<h2 id="post">POST</h2>
+<p>Todas las funciones que permiten el añadido, la edición o el borrado de la información del CMS se encuentran aqui.</p>
+<h3 id="set_article">Set_article</h3>
+<p>Permite editar o añadir un articulo al CMS dependiendo del id pasado como parametro en el objeto JSON.</p>
+<pre class="http"><code>.../api?{set_article:[JSON_Object]}</code></pre>
+<blockquote>
+<p><em>JSON_Object</em>: Mirar en el apartado <strong>Articulo</strong> en la sección <strong>Objetos JSON</strong> (No importa el orden de los parámetros)</p>
+</blockquote>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="dt">&quot;Articulo guardado exitosamente&quot;</span>}<span class="er">,</span>
+{<span class="dt">&quot;Fallo a la hora de guardar el Articulo&quot;</span>}</code></pre>
+<h3 id="set_page">Set_page</h3>
+<p>Permite editar o añadir una página al CMS dependiendo del id pasado como parametro en el objeto JSON.</p>
+<pre class="http"><code>.../api?{set_page:[JSON_Object]}</code></pre>
+<blockquote>
+<p><em>JSON_Object</em>: Mirar en el apartado <strong>Página</strong> en la sección <strong>Objetos JSON</strong> (No importa el orden de los parámetros)</p>
+</blockquote>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="dt">&quot;Página guardada exitosamente&quot;</span>}<span class="er">,</span>
+{<span class="dt">&quot;Fallo a la hora de guardar la Página&quot;</span>}</code></pre>
+<h3 id="del_article">Del_article</h3>
+<p>Permite eliminar un articulo del CMS dependiendo del id pasado como parametro.</p>
+<pre class="http"><code>.../api?{del_article:[id]}</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="dt">&quot;Eliminación realizada con éxito&quot;</span>}<span class="er">,</span>
+{<span class="dt">&quot;Un fallo se ha producido y no se pudo eliminar su contenido&quot;</span>}</code></pre>
+<h3 id="del_page">Del_page</h3>
+<p>Permite eliminar una página al CMS dependiendo del id pasado como parametro.</p>
+<pre class="http"><code>.../api?{del_page:[id]}</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="dt">&quot;Eliminación realizada con éxito&quot;</span>}<span class="er">,</span>
+{<span class="dt">&quot;Un fallo se ha producido y no se pudo eliminar su contenido&quot;</span>}</code></pre>
+<h3 id="set_image">Set_image</h3>
+<p>Permite el añadido de una imagen en el CMS, está será accesible de igual modo que las otras imágenes insertadas normalmente</p>
+<pre class="http"><code>.../api?{set_image:[_FILE]}</code></pre>
+<blockquote>
+<p><i>_FILE:</i> Objeto PHP <b>$_FILE</b> , que contiene la imagen que debe subirse con el nombre en el array asociativo del objeto PHP, como: &quot;image&quot;</p>
+</blockquote>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">true</span>}<span class="er">,</span>{<span class="er">false</span>}</code></pre>
+<h3 id="set_category">Set_category</h3>
+<p>Permite añadir una categoria al CMS, para insertar posteriormente en un articulo.</p>
+<pre class="http"><code>.../api?{set_category:[nombre]}</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">true</span>}<span class="er">,</span>{<span class="er">false</span>}</code></pre>
+<h3 id="add_menu">Add_menu</h3>
+<p>Permite añadir un menu al CMS.</p>
+<pre class="http"><code>.../api?{add_mennu:[JSON_Object]}</code></pre>
+<blockquote>
+<p><em>JSON_Object</em>: Mirar en el apartado <strong>Menú</strong> en la sección <strong>Objetos JSON</strong> (No importa el orden de los parámetros)</p>
+</blockquote>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">true</span>}<span class="er">,</span>{<span class="er">false</span>}</code></pre>
+<h3 id="del_menu">Del_menu</h3>
+<p>Permite eliminar un menú del CMS, a partir del Id introducido.</p>
+<pre class="http"><code>.../api?{del_menu:[id]}</code></pre>
+<p><em>return:</em></p>
+<pre class="sourceCode json"><code class="sourceCode json">{<span class="er">true</span>}<span class="er">,</span>{<span class="er">false</span>}</code></pre>
+<h2 id="proximámente...">Proximámente...</h2>
+<p>Se añadirán funcionalidades a cada nueva versión, consulte cada mes para estar seguro de no perder ninguna ventaja, que podría suplir un defecto o mejorar una opción...</p>
+</div>

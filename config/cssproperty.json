@@ -1,0 +1,124 @@
+{
+    "clases": [".header,Encabezado",".footer,Pies de Página",".sidebar,Barra Lateral",".main,Cuerpo",".login_grp,Contenedor Principal del Login",".login_each,Cada linea de Login",".page_single,Página individual",".page_group,Contenedor de Páginas",".page_inside,Página individual dentro de un Contenedor",".page_each,Campos de página mostrado",".art_single,Articulo individual",".art_group,Contenedor de Articulos",".art_inside,Articulo individual dentro de un Contenedor",".art_each,Campos de articulo mostrado",".register_grp,Contenedor principal del Registro",".register_each,Cada linea del Registro",".header_menu,Contenedor del Menú",".list_menu,Lista Completa del Menú",".item_menu,Elementos del Menú",".art_comment,Contenedor de Comentarios",".list_comment,Lista de Comentarios",".com,Comentarios Individuales"],
+    "propiedades": [
+        {
+            "name":"Color de fondo de pantalla",
+            "property":"background-color:",
+            "value":"#FFF",
+            "type":"color"
+        },
+        {
+            "name":"Imagen de fondo de pantalla",
+            "property":"background-image:",
+            "value":"http://",
+            "type":"text"
+        },
+        {
+            "name":"Tipo de posición",
+            "property":"position:",
+            "value":"absolute,fixed,relative,static",
+            "type":"select"            
+        },
+        {
+            "name":"Izquierda",
+            "property":"left:",
+            "value":"0",
+            "type":"numeric"            
+        },
+        {
+            "name":"Arriba",
+            "property":"top:",
+            "value":"0",
+            "type":"numeric"            
+        },
+        {
+            "name":"Profundidad",
+            "property":"z-index:",
+            "value":"0",
+            "type":"numeric"            
+        },        
+        {
+            "name":"Margen",
+            "property":"margin:",
+            "value":"0,0,0,0",
+            "type":"numeric"
+        },
+        {
+            "name":"Margen Interior",
+            "property":"padding:",
+            "value":"0,0,0,0",
+            "type":"numeric"
+        },
+        {
+            "name":"Anchura de Bordes",
+            "property":"border-width:",
+            "value":"1",
+            "type":"numeric"
+        },
+        {
+            "name":"Color de Bordes",
+            "property":"border-color:",
+            "value":"#FFF",
+            "type":"color"
+        },
+        {
+            "name":"Estilo de Bordes",
+            "property":"border-style:",
+            "value":"solid,dotted,dashed,none",
+            "type":"select"
+        },
+        {
+            "name":"Anchura Máxima",
+            "property":"max-width:",
+            "value":"100",
+            "type":"numeric"
+        },
+        {
+            "name":"Anchura Minima",
+            "property":"min-width:",
+            "value":"0",
+            "type":"numeric"
+        },
+        {
+            "name":"Anchura Máxima",
+            "property":"max-width:",
+            "value":"100",
+            "type":"numeric"
+        },        
+        {
+            "name":"Altura Máxima",
+            "property":"max-height:",
+            "value":"100",
+            "type":"numeric"
+        },
+        {
+            "name":"Altura Mínima",
+            "property":"min-height:",
+            "value":"0",
+            "type":"numeric"
+        },
+        {
+            "name":"Exposición",
+            "property":"display:",
+            "value":"block,inline-block,inline,table,inline-table,none",
+            "type":"select"
+        },
+        {
+            "name":"Nombre de la Fuente",
+            "property":"font-family:",
+            "value":"Helvetica,Lucida,Georgia,Menlo,Hoefler",
+            "type":"select"
+        },
+        {
+            "name":"Tamaño de la Fuente",
+            "property":"font-size:",
+            "value":"0",
+            "type":"numeric"
+        },
+        {
+            "name":"Color de la Fuente",
+            "property":"color:",
+            "value":"0",
+            "type":"numeric"
+        }]
+}

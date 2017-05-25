@@ -1,0 +1,65 @@
+body
+{
+    margin:0;
+}
+.doc
+{
+    background: lightgrey;
+    padding:5px 15px;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif
+}
+.doc h1
+{
+    padding-bottom: 5px;
+    border-bottom:solid 1px grey;
+}
+h1,h2,h3,h4
+{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.doc pre
+{
+    padding:10px;
+    background: darkgrey;
+    border:solid 1px #909090;
+}
+.doc blockquote
+{
+    padding:5px 15px;
+    background: #595959;
+    border-left: solid 15px #9d9d9d;
+    color:white;
+}
+.doc .json .dt,.doc .json .er
+{
+    color:#5f0404;
+}
+.doc .php .co,.doc .javascript .co
+{
+    color:green;
+}
+.doc .php .dv
+{
+    color:orangered;
+}
+.doc .php .kw
+{
+    color: darkblue;
+}
+.doc .javascript .kw
+{
+    color: darkred;
+}
+.doc .javascript .fu
+{
+    color:#0b3d8a;
+}
+.doc .json .st
+{
+    color: #3e3e3e;
+}
+.http code
+{
+    color: #9a6c01;
+    font-weight: bold;
+}

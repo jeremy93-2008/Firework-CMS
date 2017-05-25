@@ -1,0 +1,845 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Baloo Bhaina';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Baloo Bhaina'), local('BalooBhaina-Regular'), url(https://fonts.gstatic.com/s/baloobhaina/v1/HxxbxOVf9WQem_hKo1MXSj0LW-43aMEzIO6XUTLjad8.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Baloo Bhaina';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Baloo Bhaina'), local('BalooBhaina-Regular'), url(https://fonts.gstatic.com/s/baloobhaina/v1/HxxbxOVf9WQem_hKo1MXSugdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+html,body
+{
+  height: 100%;
+}
+body
+{
+  font-family: 'Open Sans';
+  background: whitesmoke;
+  margin: 0;
+}
+.login
+{
+  background: #EEE;
+  width:50%;
+  margin: auto;
+  margin-top: 8%;
+  padding:15px;
+  min-width:325px;
+  border-radius:10px;
+  border:solid 1px lightgrey;
+  text-align: center;
+}
+.login img
+{
+  width:30%;
+  max-width:160px;
+}
+.login h2
+{
+  text-align: center;
+}
+.login h4
+{
+    background: #c50b0b;
+    padding: 5px;
+    color: white;
+    border: solid 1px #9c0707;
+    border-radius: 5px;
+}
+.login table
+{
+  width: 100%;
+}
+.login table tr td:first-child
+{
+  text-align: right;
+  padding-right: 10px;
+  width: 43%;
+}
+.login table tr td:first-child label
+{
+  width:100px;
+  display: inline-block;
+}
+.login input
+{
+  padding:5px;
+  border-radius:5px;
+  border: solid 1px lightgrey;
+  font-size: 16px;
+}
+.login .log
+{
+  text-align: center;
+}
+.btn
+{
+    padding: 5px 10px 5px 10px;
+    margin-top: 10px;
+    width: 100%;
+    background: linear-gradient(#EEE,#DDD);
+    border: solid 1px lightgrey;
+    border-radius: 5px;
+    font-weight: bold;
+    max-width:374px;
+}
+.content h2
+{
+  text-shadow: 1px 1px 2px white;
+}
+.side
+{
+  margin: 5px 5px 0px 5px;
+  width:94%;
+  outline:none;
+  text-shadow: 1px 1px 2px white;
+  cursor: pointer;
+  max-width: none;
+}
+.sidebar
+{
+  position: fixed;
+  overflow: auto;
+  display: inline-block;
+  vertical-align: top;
+  width:200px;
+  height:100%;
+  background-color: #EEE;
+  border-right: solid 1px lightgrey;
+}
+.sidebar .titulo
+{
+  text-align: center;
+  padding:10px 0 10px 0;
+}
+.sidebar .titulo h4, h6
+{
+  margin:0;
+}
+.submenu
+{
+  margin: 10px 0px 5px 10px;
+  color:#948b8b;
+  font-size: 15px;
+}
+.content
+{
+    width: 76%;
+    text-align: center;
+    height: 89%;
+    margin-left: 200px;
+    padding:22px 0 10px 0;
+    display: inline-block;
+}
+.selecc
+{
+    background: linear-gradient(to top,#ffd400,#d4b000);
+    border:solid 1px darkgrey;
+}
+.stats,.articles,.menu,.users,.plugins,.configuration,.temas,.comment
+{
+    margin-left: 2%;
+    background: linear-gradient(to bottom,#eeeeee,#dddddd);
+    border: solid 1px #d3d3d3;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.colstats
+{
+  display:inline-block;
+  width:14%;
+  min-width:88px;
+}
+.chart
+{
+    margin: auto;
+    width: 50px;
+    background: linear-gradient(to top,#dbb600,#fbd100);
+    border: solid 1px #a58903;
+    cursor: pointer;
+}
+.title_chart
+{
+  font-weight: bold;
+}
+.info
+{
+  margin-bottom:15px;
+}
+.single
+{
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    background: linear-gradient(to bottom,#eeeeee,#dddddd);
+    border: solid 1px #d3d3d3;
+    border-radius: 5px;
+    width: 300px;
+    min-height: 312px;
+    cursor: pointer;
+}
+.single p
+{
+  margin:0;
+}
+.single .desc
+{
+  margin-top: 10px;
+  font-style: italic;
+}
+.single .cat
+{
+  color:grey;
+}
+.single .cat, .single .date
+{
+  display:inline-block;
+  margin-right: 5px;
+}
+.single .date
+{
+    border: solid 1px #929292;
+    padding: 2px 5px 2px 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    background: linear-gradient(to bottom,#d6d4d4,#b3b3b3);
+}
+.single .author
+{
+  font-weight: bold;
+}
+.close-page
+{
+    display: inline-block;
+    background: linear-gradient(#fbd100,#ddb800);
+    position: absolute;
+    padding: 3px 9px;
+    font-weight: bold;
+    border-radius: 50%;
+    border: solid 1px darkgrey;
+    margin-left: 278px;
+    z-index: 50;
+    margin-top: -8px;
+    color: #3e3402;
+    cursor: pointer;
+}
+.close-page .fa
+{
+  height: 19px;
+  padding-top: 4px;
+}
+#category,#selec_rol
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url(../img/arrow.png);
+    background-repeat: no-repeat;
+    background-position: 95% 5px;
+    padding: 5px 30px 5px 5px;
+    border: solid 1px black;
+    border-radius: 10px;
+    outline: none;
+    transition: border .3s ease-in-out;
+}
+#selec_rol
+{
+    margin-left: 5px;
+}
+#category:focus
+{
+  border: solid 1px lightskyblue;
+}
+#ephox_contenido
+{
+  width:90% !important;
+  margin:auto !important;
+  height:350px !important;
+  margin-bottom:15px !important;
+}
+.ephox-polish-editor-container:focus
+{
+  border: solid 1px lightskyblue !important;
+}
+.articles>.title
+{
+    border: none;
+    width: 45%;
+    border-bottom: solid 1px black;
+    margin: 10px;
+    background: transparent;
+    font-size: 30px;
+    text-align: center;
+    outline: none;
+}
+.articles>.desc,.autor,.acc,.key
+{
+    border: none;
+    border-bottom: solid 1px black;
+    margin: 10px;
+    width: 72%;
+    background: transparent;
+    font-size: 16px;
+    outline: none;  
+    transition: border-bottom .3s ease-in-out;
+}
+.key
+{
+  width: 55%;
+}
+.articles input:focus
+{
+  border-bottom: solid 1px lightskyblue;
+}
+.articles .aut
+{
+  border-bottom: dashed 1px black;
+  cursor: help;
+}
+.acc_label,.word
+{
+  margin-left:10px;
+  border-bottom: dashed 1px black;
+  cursor: help;  
+}
+.img_art
+{
+  border: solid 1px black;
+  vertical-align: middle;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+  transition: box-shadow .4s ease-in-out;
+}
+.img_art:hover
+{
+  box-shadow: 1px 1px 10px black;
+}
+.guardar
+{
+    margin: 15px;
+    padding: 15px;
+    width: 90%;
+    border: solid 1px darkgrey;
+    border-radius: 10px;
+    background: linear-gradient(to bottom,#eee,#ddd);
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+}
+.add_article,.add_page
+{
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border: solid 1px darkgrey;
+    border-radius: 10px;
+    width: 90%;
+    background: linear-gradient(to bottom,#ededed,#ddd);
+    font-weight: bold;
+    margin-bottom: 15px;
+    cursor: pointer;
+    outline:none;
+}
+#cerrar
+{
+  cursor: pointer;
+  color:blue;
+  text-decoration: underline;
+}
+.ephox-gopher-item:nth-child(2)
+{
+  display: none !important;
+}
+.uploadimg
+{
+    position: absolute;
+    background: linear-gradient(#ebebeb,#ddd);
+    border: solid 1px darkgrey;
+    border-radius: 10px;
+    margin-left:1%;
+    padding: 15px;
+    width: 70%;
+    top: 10%;
+    z-index: 620;
+    box-shadow: 1px 1px 10px black;
+}
+.uploadimg .header
+{
+    background: linear-gradient(#e0e0e0,#d3d3d3);
+    border: solid 1px darkgray;
+    border-radius: 5px;
+    padding: 8px;
+}
+.uploadimg .contenido
+{
+    background: linear-gradient(#dedede,#d4d4d4);
+    border: solid 1px darkgrey;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+.uploadimg .subir
+{
+    background: linear-gradient(#dedede,#d4d4d4);
+    border: solid 1px darkgrey;
+    border-radius: 10px;
+    padding: 15px;
+}
+.uploadimg .footer
+{
+    background: linear-gradient(#e0e0e0,#d3d3d3);
+    border: solid 1px darkgray;
+    border-radius: 5px;
+    padding: 8px;
+    text-align: right;
+    margin-top: 15px;
+}
+.uploadimg .cancelar,.aceptar
+{
+    margin: 10px;
+    padding: 10px 5px 10px 5px;
+    width: 20%;
+    border: solid 1px darkgray;
+    border-radius: 10px;
+    background: linear-gradient(to bottom,#e0e0e0,#d3d3d3);
+    outline:none;
+    transition:border .5s ease-in-out;
+    cursor: pointer;
+}
+.uploadimg .aceptar
+{
+    width: 30%;
+}
+.uploadimg .cancelar:hover
+{
+    color: white;
+    border: solid 1px darkred;
+    background: linear-gradient(to bottom,#e64c4c,#c72c2c);
+}
+.uploadimg .aceptar:hover
+{
+    color: white;
+    border: solid 1px darkblue;
+    background: linear-gradient(to bottom,#1da7ff,#2c79e6);
+}
+.uploadimg .sube
+{
+    background: linear-gradient(#dedede,#d4d4d4);
+    border: solid 1px darkgrey;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 28px;
+    margin-left: 20px;
+}
+.uploadimg .contenido img
+{
+  border:solid 1px darkgrey;
+  border-radius:5px;
+  transition: box-shadow .3s ease-in-out;
+  cursor: pointer;
+}
+.uploadimg .contenido img:hover
+{
+  box-shadow: 1px 1px 10px black;
+}
+.uploadimg .header .title
+{
+    width: 90%;
+    display: inline-block;
+}
+.uploadimg .cerrar_img
+{
+    cursor: pointer;
+    top: 15px;
+    background: linear-gradient(#dfdfdf,#d3d3d3);
+    width: 3%;
+    height: 46px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    position: absolute;
+    border: solid 1px darkgrey;
+    padding: 6px 12px;
+    padding-top: 29px;
+    font-weight: bold;
+}
+.uploadimg .cerrar_img:hover
+{
+    background: linear-gradient(to top,#dfdfdf,#d3d3d3);
+}
+.uploadimg .imagen
+{
+    max-height: 240px;
+    overflow: auto;
+}
+.medios
+{
+    position: relative;
+    margin: auto;
+    top: 0px;
+    border-color: #d3d3d3;
+    width: initial;
+    margin-left: 2%;
+    margin-bottom: 20px;
+    box-shadow: none;
+}
+.medios .header
+{
+    font-size: 22px;
+    height: 78px;
+    margin-top: -15px;
+    background: none;
+    border: none;
+}
+.medios .contenido img
+{
+  cursor: zoom-in;
+}
+.menu
+{
+    padding-bottom: 10px;
+    border-left-width: 1px;
+    padding-left: 10px;
+}
+.acc_plugin
+{
+    vertical-align: top;
+    display: inline-block;
+    font-weight: bold;
+    margin: auto;
+    border-radius: 5px;
+    padding: 10px;
+    border: solid darkgrey 1px;
+    background: linear-gradient(#ebebeb,#ddd);
+    height: 280px;
+    width: 25%;
+    margin-bottom: 10px;
+    margin-right: 15px;
+}
+.accordion
+{
+    font-weight: bold;
+    margin: auto;
+    border-radius: 5px;
+    padding: 10px;
+    border: solid darkgrey 1px;
+    background: linear-gradient(#ebebeb,#ddd);
+    width: 85%;
+    margin-bottom: 10px;
+}
+.accordion .icon
+{
+  display:inline-block;
+  float:right;
+}
+.accordion .icon .fa
+{
+  border-radius: 50%;
+  margin-left:5px;
+  margin-top: -3px;
+  padding: 7px 9px;
+  border: solid darkgrey 1px;
+  background: linear-gradient(#fbd100,#ddb800);
+  cursor:pointer;
+  color: #3f3606;
+}
+.menu button.annadir_menu, .menu button.guardar_menu, .users button.add_user,.usuario button,.plugins .btn {
+    margin-bottom: 10px;
+    width: 75%;
+    padding: 10px;
+    font-weight: bold;
+    border: solid 1px darkgrey;
+    background: linear-gradient(#ebebeb,#dddddd);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+.plugins .doc
+{
+    display: block;
+    margin: auto;
+    width: 65%;
+    max-width: initial;
+    margin-bottom: 6px;
+}
+.plugins .doc:nth-child(4)
+{
+   margin-bottom: 16px; 
+}
+.accordion .acc_submenu div
+{
+  width:300px;
+  margin: auto;
+}
+.accordion .acc_submenu div label {
+    display: inline-block;
+    width: 75px;
+    text-align: right;
+}
+.accordion .acc_submenu div input,.accordion .acc_submenu div select
+{
+  width: 150px;
+  margin-left: 5px;
+}
+.accordion .parr,.acc_plugin .parr
+{
+  font-size: 12px;
+  margin-left: -30px;
+  font-weight: initial;
+}
+.parr span
+{
+  font-weight: bold;
+  font-style: normal;
+}
+.acc_plugin .parr
+{
+    margin-left: 0px;
+    max-width: 100%;
+}
+.title_menu {
+    padding-top: 5px;
+}
+.admin
+{
+  display: none;
+}
+.usuario
+{
+  display:none;
+  position: fixed;
+  top: 20%;
+  padding: 10px;
+  width:65%;
+  left: 22%;
+  border: solid 1px darkgrey;
+  background: linear-gradient(#ebebeb,#dddddd);
+  border-radius: 5px;
+}
+.usuario label
+{
+  display:inline-block;
+  width:160px;
+  text-align: right;
+  padding-right: 5px;
+}
+.usuario select,.usuario input
+{
+  min-width:160px;
+  width:50%;
+  margin-right: 5px;
+}
+.api_row
+{
+    min-width: 460px;
+    font-weight: bold;
+    margin: auto;
+    border-radius: 5px;
+    padding: 10px;
+    border: solid darkgrey 1px;
+    background: linear-gradient(#ebebeb,#ddd);
+    margin-bottom: 10px;
+    width: 50%;
+}
+.api_row .us
+{
+    margin-right: 10px;
+    width: 215px;
+    text-align: right;
+    display: inline-block;
+}
+.api_row select,.comment select
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url(../img/arrow.png);
+    background-repeat: no-repeat;
+    background-position: 95% 5px;
+    padding: 5px 30px 5px 5px;
+    border: solid 1px black;
+    border-radius: 10px;
+    outline: none;
+    width:100px;
+    transition: border .3s ease-in-out;
+    margin-right:10px;
+}
+.api_row select:hover
+{
+  border-color:lightskyblue;
+}
+.api_row button
+{
+    padding: 10px;
+    font-weight: bold;
+    border: solid 1px darkgrey;
+    background: linear-gradient(#ebebeb,#dddddd);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+.plugins a
+{
+  text-decoration: none;
+}
+.configuration .row
+{
+  padding: 5px 15px;
+}
+.configuration .row:nth-child(7)
+{
+  padding-bottom: 20px;
+}
+.configuration .save
+{
+    padding: 10px;
+    font-weight: bold;
+    width:75%;
+    border: solid 1px darkgrey;
+    background: linear-gradient(#ebebeb,#dddddd);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;  
+    margin-bottom: 10px;
+}
+.configuration .row span
+{
+  margin-right: 10px;
+  width:200px;
+  display:inline-block;
+}
+.configuration .row input
+{
+    border: none;
+    border-bottom: solid 1px black;
+    margin: 10px;
+    width: 85%;
+    background: transparent;
+    outline: none;  
+    transition: border-bottom .3s ease-in-out;
+}
+.configuration .row input:focus
+{
+  border-bottom: solid 1px lightskyblue;
+}
+.temas .selectedTheme::before
+{
+    font-family: FontAwesome;
+    content: "\f00c";
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #0c9011;
+    font-size: 18px;
+    padding-right: 0.5em;
+}
+.temas .btn_cont
+{
+  margin: auto;
+}
+.temas .parr .btn
+{
+    padding: 5px 10px 5px 10px;
+    margin-top: 10px;
+    width: 45%;
+    background: linear-gradient(#EEE,#DDD);
+    border: solid 1px lightgrey;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.comment .comment_container
+{
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+    margin-bottom: 10px;
+    width: 45%;
+    background: linear-gradient(#EEE,#DDD);
+    border: solid 1px lightgrey;
+    border-radius: 5px;
+    font-weight: bold;
+    margin:auto;
+    margin-bottom: 10px;
+}
+.comment .comment_container p
+{
+  font-weight: normal;
+}
+.comment .comment_container button
+{
+    border: solid 1px darkgrey;
+    font-size: 18px;
+    margin-left: 5px;
+    padding: 5px 15px;
+    background: linear-gradient(#EEE,#DDD);
+    float: right;
+}
+.comment .comment_container button:active
+{
+  background: linear-gradient(to top,#EEE,#DDD);
+}
+.comment .nothing
+{
+  font-size: 12px;
+  font-weight: normal;
+}
+@media screen and (max-width:700px)
+{
+  .login
+  {
+    width:96%;
+    border-radius: 0px;
+  }
+  body
+  {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .sidebar
+  {
+    width:100%;
+    height:500px;
+    position: relative;
+    border-bottom: solid 1px lightgrey;
+  }.submenu
+  {
+    text-align: center;
+    margin: 10px 0px 5px 0px;
+  }
+  .content
+  {
+    margin-left: 0px;
+    width: 98%;
+  }
+  .btn
+  {
+    width:98%;
+  }
+  .uploadimg
+  {
+    width:92%;
+  }
+}
