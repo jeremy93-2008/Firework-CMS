@@ -383,4 +383,14 @@ class Template
             $edicion = "<form action='#' method='POST'><input type='hidden' name='comment_id' value='".$id."' /><div class='edition-comment'><input name='comment' type='text' value='' /><textarea name='comment_text'></textarea><input type='submit' value='Enviar' /></div></form>";
         return $comentarios.$edicion."</div>".Plugin::AfterComment();
     }
+    public function isHome()
+    {
+        if(!isset($_GET))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 }
