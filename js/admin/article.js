@@ -74,9 +74,32 @@ function guardarArticulo()
         })
     });
 }
+function SelObjeto(img)
+{
+    if(obj.indexOf(".jpg") != -1 || obj.indexOf(".png") != -1 || obj.indexOf(".gif") != -1 || obj.indexOf(".bmp") != -1)
+    {
+        return "<img src='"+img+"' />";
+    }
+    else if(obj.indexOf(".mp4") != -1 || obj.indexOf(".avi") != -1 || obj.indexOf(".webm") != -1 || obj.indexOf(".ogv") != -1)
+    {
+        return "<video controls src='"+img+"' />";
+    }
+    else if(obj.indexOf(".mp3") != -1 || obj.indexOf(".ogg") != -1 || obj.indexOf(".wav") != -1)
+    {
+        return "<audio controls src='"+img+"' />";
+    }
+    else if(obj.indexOf(".pdf") != -1)
+    {
+        return "<iframe src='"+img+"' ></iframe>";
+    }
+    else
+    {
+        return "<a href='"+img+"'>"+img+"</a>";
+    }
+}
 function insertarEditor()
 {
-    var img = "<img src='"+$(this).attr("src")+"' />";
+    var img = SelObjeto($(this).attr("obj"));
     setEditorContent(img);
     cerrarImg();
 }
@@ -96,7 +119,7 @@ function cerrarImg()
 }
 function imagen()
 {
-    var contenedor = createEmmetNodes(".uploadimg>.header>h4.title{Im&aacutegenes}+span.cerrar_img{X}^.contenido>h4{Elige una imagen}+.imagen+p{-o-}+h4{Sube una imagen}+.subir>input[type=file,id=archivo]+i.fa.fa-upload.sube[aria-hidden=true,name=set_image]");
+    var contenedor = createEmmetNodes(".uploadimg>.header>h4.title{Medios}+span.cerrar_img{X}^.contenido>h4{Elige un Objeto}+.imagen+p{-o-}+h4{Sube un Archivo}+.subir>input[type=file,id=archivo]+i.fa.fa-upload.sube[aria-hidden=true,name=set_image]");
     $(".content").append(contenedor);
     $(".sube").click(subirImagenes);
     $(".cerrar_img").click(cerrarImg);
@@ -106,13 +129,37 @@ function imagen()
         for(var img of JSON.parse(data))
         {
             var antiguo = $(".imagen").html();
-            $(".imagen").html(antiguo+"<img src='img/client/"+img+"' style='width:128px;margin: 10px;' />");
+            var objeto = getRightObject(img);
+            $(".imagen").html(antiguo+objeto);
             if(titulo)
                 $(".imagen img").click(insertarDestacado);
             else
                 $(".imagen img").click(insertarEditor);
         }
     });
+}
+function getRightObject(obj)
+{
+    if(obj.indexOf(".jpg") != -1 || obj.indexOf(".png") != -1 || obj.indexOf(".gif") != -1 || obj.indexOf(".bmp") != -1)
+    {
+        return "<img obj='img/client/"+img+"' src='img/client/"+img+"' style='width:128px;margin: 10px;' />";
+    }
+    else if(obj.indexOf(".mp4") != -1 || obj.indexOf(".avi") != -1 || obj.indexOf(".webm") != -1 || obj.indexOf(".ogv") != -1)
+    {
+        return "<img obj='img/client/"+img+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Video&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
+    else if(obj.indexOf(".mp3") != -1 || obj.indexOf(".ogg") != -1 || obj.indexOf(".wav") != -1)
+    {
+        return "<img obj='img/client/"+img+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Audio&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
+    else if(obj.indexOf(".pdf") != -1)
+    {
+        return "<img obj='img/client/"+img+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=PDF&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
+    else
+    {
+        return "<img obj='img/client/"+img+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Objeto&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
 }
 function subirImagenes()
 {
@@ -135,7 +182,8 @@ function subirImagenes()
                     for(var img of JSON.parse(data))
                     {
                         var antiguo = $(".imagen").html();
-                        $(".imagen").html(antiguo+"<img src='img/client/"+img+"' style='width:128px;margin: 10px;' />");
+                        var objeto = getRightObject(img);
+                        $(".imagen").html(antiguo+objeto);
                         if(titulo)
                             $(".imagen img").click(insertarDestacado);
                         else
@@ -276,8 +324,14 @@ function VerArtIndiv(on,tittxt)
     var txt = "<div class='articles'><h2 style='margin-top: 0px;padding-top: 5px;'>"+tittxt+" <sub style='font-size:12px'>Articulo - "+fecha+"</sub></h2>"+fin+"</div>";
     $(".content").html(txt);
     $(".guardar").click(guardarArticulo);
+    try
+    {
+        $("#selec_rol_deny option[value="+on.deny+"]").attr("selected","selected");
+    }catch(eto)
+    {
+        console.log("No hay denegación en este articulo");
+    }
     $("#selec_rol option[value="+on.access+"]").attr("selected","selected");
-    $("#selec_rol_deny option[value="+on.deny+"]").attr("selected","selected");
     $("#selec_rol").on("change",function(){InsertarRole()});
     $("#selec_rol_deny").on("change",function(){InsertarRoleDeny()});
     $(".img_art").click(annadirImg);

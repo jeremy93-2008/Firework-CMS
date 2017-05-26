@@ -1,7 +1,7 @@
 var titulo = false;
 var imageco = {
     id : 'Imagen',
-    text : 'Añadir Imagen',
+    text : 'Añadir Archivo',
     icon: '../img/picture.png',
     action : function () {
         titulo = false;
@@ -72,9 +72,32 @@ function guardarPage()
         })
     });
 }
+function SelObjeto(img)
+{
+    if(img.indexOf(".jpg") != -1 || img.indexOf(".png") != -1 || img.indexOf(".gif") != -1 || img.indexOf(".bmp") != -1)
+    {
+        return "<img src='"+img+"' />";
+    }
+    else if(img.indexOf(".mp4") != -1 || img.indexOf(".avi") != -1 || img.indexOf(".webm") != -1 || img.indexOf(".ogv") != -1)
+    {
+        return "<video controls src='"+img+"' />";
+    }
+    else if(img.indexOf(".mp3") != -1 || img.indexOf(".ogg") != -1 || img.indexOf(".wav") != -1)
+    {
+        return "<audio controls src='"+img+"' />";
+    }
+    else if(img.indexOf(".pdf") != -1)
+    {
+        return "<iframe src='"+img+"' ></iframe>";
+    }
+    else
+    {
+        return "<a href='"+img+"'>"+img+"</a>";
+    }
+}
 function insertarEditor()
 {
-    var img = "<img src='"+$(this).attr("src")+"' />";
+    var img = SelObjeto($(this).attr("obj"));
     setEditorContent(img);
     cerrarImg();
 }
@@ -94,7 +117,7 @@ function cerrarImg()
 }
 function imagen()
 {
-    var contenedor = createEmmetNodes(".uploadimg>.header>h4.title{Im&aacutegenes}+span.cerrar_img{X}^.contenido>h4{Elige una imagen}+.imagen+p{-o-}+h4{Sube una imagen}+.subir>input[type=file,id=archivo]+i.fa.fa-upload.sube[aria-hidden=true,name=set_image]");
+    var contenedor = createEmmetNodes(".uploadimg>.header>h4.title{Medios}+span.cerrar_img{X}^.contenido>h4{Elige un Objeto}+.imagen+p{-o-}+h4{Sube un Archivo}+.subir>input[type=file,id=archivo]+i.fa.fa-upload.sube[aria-hidden=true,name=set_image]");
     $(".content").append(contenedor);
     $(".sube").click(subirImagenes);
     $(".cerrar_img").click(cerrarImg);
@@ -104,13 +127,37 @@ function imagen()
         for(var img of JSON.parse(data))
         {
             var antiguo = $(".imagen").html();
-            $(".imagen").html(antiguo+"<img src='img/client/"+img+"' style='width:128px;margin: 10px;' />");
+            var objeto = getRightObject(img);
+            $(".imagen").html(antiguo+objeto);
             if(titulo)
                 $(".imagen img").click(insertarDestacado);
             else
                 $(".imagen img").click(insertarEditor);
         }
     });
+}
+function getRightObject(obj)
+{
+    if(obj.indexOf(".jpg") != -1 || obj.indexOf(".png") != -1 || obj.indexOf(".gif") != -1 || obj.indexOf(".bmp") != -1)
+    {
+        return "<img obj='img/client/"+obj+"' src='img/client/"+obj+"' style='width:128px;margin: 10px;' />";
+    }
+    else if(obj.indexOf(".mp4") != -1 || obj.indexOf(".avi") != -1 || obj.indexOf(".webm") != -1 || obj.indexOf(".ogv") != -1)
+    {
+        return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Video&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
+    else if(obj.indexOf(".mp3") != -1 || obj.indexOf(".ogg") != -1 || obj.indexOf(".wav") != -1)
+    {
+        return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Audio&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
+    else if(obj.indexOf(".pdf") != -1)
+    {
+        return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=PDF&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
+    else
+    {
+        return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Objeto&w=128&h=128' style='width:128px;margin: 10px;' />";
+    }
 }
 function subirImagenes()
 {
@@ -133,7 +180,8 @@ function subirImagenes()
                     for(var img of JSON.parse(data))
                     {
                         var antiguo = $(".imagen").html();
-                        $(".imagen").html(antiguo+"<img src='img/client/"+img+"' style='width:128px;margin: 10px;' />");
+                        var objeto = getRightObject(img);
+                        $(".imagen").html(antiguo+objeto);
                         if(titulo)
                             $(".imagen img").click(insertarDestacado);
                         else

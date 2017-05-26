@@ -50,7 +50,6 @@ $(function () {
     /**
      * Genera la vista para mostrar el JSON de las estadisticas
      */
-
     function Estadistica() {
         $.get("api/?statistic").done(function (data) {
             if (data.indexOf("Necesitas registrarte como usuario") == -1) {
@@ -164,7 +163,7 @@ $(function () {
      * Genera una vista  para visualizar la lista de imagenes desde el array de json enviado
      */
     function Medios() {
-        var contenedor = createEmmetNodes(".uploadimg.medios>.header>h4.title{Im&aacutegenes}^.contenido>h4{Tus im&aacutegenes}+.imagen+p{-o-}+h4{Sube una imagen}+.subir>input[type=file,id=archivo]+i.fa.fa-upload.sube[aria-hidden=true,name=set_image]");
+        var contenedor = createEmmetNodes(".uploadimg.medios>.header>h4.title{Medios}^.contenido>h4{Tus archivos}+.imagen+p{-o-}+h4{Sube un archivo}+.subir>input[type=file,id=archivo]+i.fa.fa-upload.sube[aria-hidden=true,name=set_image]");
         $(".content").html("");
         $(".content").append(contenedor);
         $(".sube").click(subirImagenes);
@@ -172,13 +171,36 @@ $(function () {
             $(".imagen").html("");
             for (var img of JSON.parse(data)) {
                 var antiguo = $(".imagen").html();
-                $(".imagen").html(antiguo + "<img src='img/client/" + img + "' style='width:128px;margin: 10px;' />");
+                $(".imagen").html(antiguo + getRightObject(img));
                 if (titulo)
                     $(".imagen img").click(VerImg);
                 else
                     $(".imagen img").click(VerImg);
             }
         });
+    }
+    function getRightObject(obj)
+    {
+        if(obj.indexOf(".jpg") != -1 || obj.indexOf(".png") != -1 || obj.indexOf(".gif") != -1 || obj.indexOf(".bmp") != -1)
+        {
+            return "<img obj='img/client/"+obj+"' src='img/client/"+obj+"' style='width:128px;margin: 10px;' />";
+        }
+        else if(obj.indexOf(".mp4") != -1 || obj.indexOf(".avi") != -1 || obj.indexOf(".webm") != -1 || obj.indexOf(".ogv") != -1)
+        {
+            return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Video&w=128&h=128' style='width:128px;margin: 10px;' />";
+        }
+        else if(obj.indexOf(".mp3") != -1 || obj.indexOf(".ogg") != -1 || obj.indexOf(".wav") != -1)
+        {
+            return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Audio&w=128&h=128' style='width:128px;margin: 10px;' />";
+        }
+        else if(obj.indexOf(".pdf") != -1)
+        {
+            return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=PDF&w=128&h=128' style='width:128px;margin: 10px;' />";
+        }
+        else
+        {
+            return "<img obj='img/client/"+obj+"' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Objeto&w=128&h=128' style='width:128px;margin: 10px;' />";
+        }
     }
      /**
      * Genera la Vista para los comentarios
@@ -480,7 +502,7 @@ $(function () {
      * Ver una imagen en una nueva pestaña 
      */
     function VerImg() {
-        window.open($(this).attr("src"), "_blank");
+        window.open($(this).attr("obj"), "_blank");
     }
     /**
      * Sube una imagen al hacer clic en el botón subir imagen 
@@ -498,12 +520,12 @@ $(function () {
             processData: false,        // To send DOMDocument or non processed data file it is set to false
             success: function (data)   // A function to be called if request succeeds
             {
-                alert("Imagen súbida con éxito");
+                alert("Archivo súbido con éxito");
                 $.get("api/?getImage").done(function (data) {
                     $(".imagen").html("");
                     for (var img of JSON.parse(data)) {
                         var antiguo = $(".imagen").html();
-                        $(".imagen").html(antiguo + "<img src='img/client/" + img + "' style='width:128px;margin: 10px;' />");
+                        $(".imagen").html(antiguo + getRightObject(img));
                         if (titulo)
                             $(".imagen img").click(VerImg);
                         else
