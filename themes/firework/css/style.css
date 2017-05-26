@@ -1,0 +1,27 @@
+body
+{
+    margin:0;
+}
+.header_menu
+{
+    padding-left: 60%;
+    background: saddlebrown;
+}
+
+li.item_menu
+{
+    display: inline-block;
+    margin: 10px;
+}
+.slide
+{
+    background: green;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+.head
+{
+    text-align: center;
+}

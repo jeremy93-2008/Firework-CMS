@@ -1,26 +1,10 @@
 <?php
 class Slideshow
 {
-    function init()
+    function beforeMenu()
     {
-        echo "Mi primer plugin";
-    }
-    function reload()
-    {
-        echo "Recargando Página";
-    }
-    function afterMenu()
-    {
-        echo "Slideshow";
+        echo "<div class='slide'></div>";
     }  
-    function beforeArticle()
-    {
-        echo "antes";
-    }
-    function afterArticle()
-    {
-        echo "despues";
-    }
     function showAdminView()
     {
         echo "Esto es un panel de administración";
