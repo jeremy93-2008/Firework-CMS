@@ -124,7 +124,17 @@ class Page
     }
     public function removePage($id)
     {
-        $bool = unlink("../store/paginas_maestras/page-".$id.".php");
-        return $bool;
+        $pag = new Page($id);
+        $clase_json = json_encode($pag->getPage($id));
+        $r = new Rol();
+        $bPage = $r->getAccessPage($id,json_decode($clase_json));
+        if($bPage)
+        {
+            $bool = unlink("../store/paginas_maestras/page-".$id.".php");
+            return $bool;
+        }else
+        {
+            return false;
+        }
     }
 }

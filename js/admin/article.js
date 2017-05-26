@@ -241,8 +241,15 @@ function NuevoArtIndiv()
 }
 function EditarArtIndiv()
 {
+    var usuario_actual = $("#user_id").html();
     var on = JSON.parse(this.getAttribute("alt"));
-    VerArtIndiv(on,"Editar");
+    if(on.autor.indexOf(usuario_actual) !== -1)
+    {
+        VerArtIndiv(on,"Editar");
+    }else
+    {
+        alert("No tiene acceso a este Articulo");
+    }
 }
 function VerArtIndiv(on,tittxt)
 {       

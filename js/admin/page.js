@@ -184,6 +184,7 @@ function NuevoPageIndiv()
 }
 function EditarPageIndiv()
 {
+    var usuario_actual = $("#user_id").html();
     var on = JSON.parse(this.getAttribute("alt"));
     if(on.content.indexOf("<?=$page") != -1)
     {
@@ -191,7 +192,13 @@ function EditarPageIndiv()
         {
             if(confirm("Esta página tiene funciones PHP especiales, si edita esta página se perderá estas funciones. ¿Está seguro que desea continuar?"))
             {
-                VerPageIndiv(on,"Editar");
+                 if(on.autor.indexOf(usuario_actual) !== -1)
+                {
+                    VerPageIndiv(on,"Editar");
+                }else
+                {
+                    alert("No se permite editar esta página.");
+                }
             }
         }else
         {
@@ -200,7 +207,13 @@ function EditarPageIndiv()
     }
     else
     {
-        VerPageIndiv(on,"Editar");
+        if(on.autor.indexOf(usuario_actual) !== -1)
+        {
+            VerPageIndiv(on,"Editar");
+        }else
+        {
+            alert("No se permite editar esta página.");
+        }
     }
 }
 function VerPageIndiv(on,tittxt)

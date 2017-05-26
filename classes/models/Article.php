@@ -137,11 +137,21 @@ class Article
     }
     public function removeArticle($id)
     {
-        $bool = unlink("../store/articulos/article-".$id.".php");
-        if(file_exists("../store/articulos/comment-".$id.".php"))
+        $art = new Article($id);
+        $clase_json = json_encode($art->getArticle($id));
+        $r = new Rol();
+        $bArticle = $r->getAccessArticle($id,json_decode($clase_json));
+        if($bArticle)
         {
-            unlink("../store/articulos/comment-".$id.".php");
+            $bool = unlink("../store/articulos/article-".$id.".php");
+            if(file_exists("../store/articulos/comment-".$id.".php"))
+            {
+                unlink("../store/articulos/comment-".$id.".php");
+            }
+            return $bool;
+        }else
+        {
+            return false;
         }
-        return $bool;
     }
 }

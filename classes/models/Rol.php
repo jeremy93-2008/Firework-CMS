@@ -45,7 +45,7 @@ class Rol
     public function getAccessPage($id,$clase_json)
     {
         $t_autor = explode(",",$clase_json->autor);
-        foreach($autor as $t_autor)
+        foreach($t_autor as $autor)
         {
             $rol = $this->retrieveRolByName($autor);
             $rol_iniciado = $this->retrieveRolByName($_SESSION["usuario"]["user"]);
