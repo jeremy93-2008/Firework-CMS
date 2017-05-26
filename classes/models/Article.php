@@ -1,7 +1,7 @@
 <?php
 class Article
 {
-    public $name,$id,$description,$date,$category,$autor,$image,$access,$content;
+    public $name,$id,$description,$date,$category,$autor,$image,$access,$content,$deny;
     public function getAllArticle()
     {
         $tabla = array();
@@ -45,7 +45,8 @@ class Article
         $this->getMetaArticle($id);
         $r = new Rol();
         $booleano = $r->RequestAccessSite(explode(",",$this->access));
-        if($booleano)
+        $booleano2 = $r->DenyAccessSite(explode(",",$this->deny));
+        if($booleano && $booleano2)
             if(file_exists("./store/articulos/article-".$id.".php"))
                 $this->content = "./store/articulos/article-".$id.".php";
             else
@@ -86,6 +87,11 @@ class Article
                 $this->access = trim($this->access[1]);
             else
                 $this->access = "0";
+            preg_match("/Fw-Deny:(.+);/",$comentario,$this->deny);
+            if($this->deny != null)
+                $this->deny = trim($this->deny[1]);
+            else
+                $this->deny = "0";
             $this->id = $id;
         }else
         {
@@ -105,6 +111,7 @@ class Article
     Fw-Category: ".$clase_json->category.";
     Fw-Author: ".$clase_json->autor.";
     Fw-Access: ".$clase_json->access.";
+    Fw-Deny: ".$clase_json->deny.";
     ".$clase_json->image."
 */
 ?>";

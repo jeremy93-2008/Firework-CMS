@@ -252,7 +252,7 @@ body
   height: 19px;
   padding-top: 4px;
 }
-#category,#selec_rol
+#category,#selec_rol,#selec_rol_deny
 {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -265,7 +265,7 @@ body
     outline: none;
     transition: border .3s ease-in-out;
 }
-#selec_rol
+#selec_rol,#selec_rol_deny
 {
     margin-left: 5px;
 }
@@ -295,7 +295,7 @@ body
     text-align: center;
     outline: none;
 }
-.articles>.desc,.autor,.acc,.key
+.articles>.desc,.autor,.acc,.key,.deny
 {
     border: none;
     border-bottom: solid 1px black;
@@ -319,7 +319,7 @@ body
   border-bottom: dashed 1px black;
   cursor: help;
 }
-.acc_label,.word
+.acc_label,.word,.den_label
 {
   margin-left:10px;
   border-bottom: dashed 1px black;

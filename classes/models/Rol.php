@@ -85,6 +85,34 @@ class Rol
         }
         return false;
     }
+
+    public function DenyAccessSite($tabla)
+    {
+        $rol = 0;
+        $nombre = "nothinglessnada";
+        if(isset($_SESSION["usuario"]))
+        {
+            $rol = $this->retrieveRolByName($_SESSION["usuario"]["user"]);
+            $nombre = $_SESSION["usuario"]["user"];
+        }
+        foreach($tabla as $linea)
+        {
+            if(is_numeric($linea))
+            {
+                if($rol <= $linea)
+                    return false;
+            }else
+            {
+                foreach($this->usuarios as $us)
+                {
+                    if($linea == $nombre)
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public function retrieveRolByName($name)
     {
         foreach($this->usuarios as $linea)

@@ -65,6 +65,7 @@ function guardarArticulo()
             "autor":$(".autor").val(),
             "category":$("#category").val(),
             "access":$(".acc").val(),
+            "deny":$(".deny").val(),
             "id":parseInt(data)
         }
         $.post("api/", { set_article: JSON.stringify(json) }).done(function(info)
@@ -168,6 +169,30 @@ function InsertarRole()
         }
     }
 }
+function InsertarRoleDeny()
+{
+    if($("#selec_rol_deny").val() == "borrador")
+    {
+        $(".deny").val($("#user_id").html());
+    }else
+    {
+        var accesos = $(".deny").val();
+        var regex = new RegExp(/[0-9]/g);
+        if(accesos == "")
+        {
+            $(".deny").val($("#selec_rol_deny").val());
+        }else if(regex.test(accesos))
+        {
+            var num = accesos.match(/[0-9]/g)[0];
+            var nuevo = accesos.replace(num,$("#selec_rol_deny").val());
+            $(".deny").val(nuevo);
+        }else
+        {
+            var antiguo = $(".deny").val();
+            $(".deny").val(antiguo+","+$("#selec_rol_deny").val());
+        }
+    }
+}
 function AnnadirCategoria()
 {
     if($(this).val() == "nuevo")
@@ -209,6 +234,7 @@ function NuevoArtIndiv()
         "autor":$("#usuario").val(),
         "category":"",
         "access":"0",
+        "deny":"",
         "image":""
     };
     VerArtIndiv(json,"Crear");
@@ -234,15 +260,19 @@ function VerArtIndiv(on,tittxt)
     else
             img = "<img title='Haz clic para insertar una imagen...' class='img_art' height='150px' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Imagen&w=150&h=150' />";  
     
+    var deny_acceso = "<select id='selec_rol_deny'><optgroup label='Principales'><option value='0'>Todos</option><option value='borrador'>Este mismo</option></optgroup><optgroup label='Roles'><option value='1'>Usuarios Registrados</option><option value='2'>Colaboradores</option><option value='3'>Editores</option><option value='4'>Administradores</option></optgroup></select>";
+
     var nuevo_acceso = "<select id='selec_rol'><optgroup label='Principales'><option value='0'>Todos</option><option value='borrador'>Borrador</option></optgroup><optgroup label='Roles'><option value='1'>Usuarios Registrados</option><option value='2'>Colaboradores</option><option value='3'>Editores</option><option value='4'>Administradores</option></optgroup></select>";
 
-    fin += "<textarea id='contenido'>"+on.content+"</textarea><span title='Los autores son SOLO los usuarios que tienen acceso a la edición del articulo,\npueden ser uno o varios separados por comas, p.ej.: admin,gregorio' class='aut'>Autor: </span><input class='autor' type='text' style='width:150px' value='"+on.autor+"' /><span>Categoria: </span><select alt='"+on.category+"' id='category'><option>"+on.category+"</option></select><span title='Acceso son los roles y usuarios que tienen acceso al articulo una vez publicado,\n para ello puede escribir manualmente los usuarios que tienen acceso\n o/y también puede seleccionar un rol completo de la lista desplegable.' class='acc_label'>Acceso: </span>"+nuevo_acceso+"<input title='Roles:\n0: Todos\n1: Usuarios Registrados\n2: Colaboradores\n3: Editores\n4: Administradores' class='acc' type='text' style='width:150px' value='"+on.access+"' /><br /><span>Imagen: </span>"+img+"<br /><button class='guardar'>Guardar Articulo</button>";
+    fin += "<textarea id='contenido'>"+on.content+"</textarea><span title='Los autores son SOLO los usuarios que tienen acceso a la edición del articulo,\npueden ser uno o varios separados por comas, p.ej.: admin,gregorio' class='aut'>Autor: </span><input class='autor' type='text' style='width:150px' value='"+on.autor+"' /><span>Categoria: </span><select alt='"+on.category+"' id='category'><option>"+on.category+"</option></select><span title='Acceso son los roles y usuarios que tienen acceso al articulo una vez publicado,\n para ello puede escribir manualmente los usuarios que tienen acceso\n o/y también puede seleccionar un rol completo de la lista desplegable.' class='acc_label'>Acceso: </span>"+nuevo_acceso+"<input title='Roles:\n0: Todos\n1: Usuarios Registrados\n2: Colaboradores\n3: Editores\n4: Administradores' class='acc' type='text' style='width:150px' value='"+on.access+"' /><span title='Denegado son los roles y usuarios que tienen denegado el acceso al articulo una vez publicado,\n para ello puede escribir manualmente los usuarios que tienen acceso\n o/y también puede seleccionar un rol completo de la lista desplegable.' class='den_label'>Denegado: </span>"+deny_acceso+"<input title='Roles:\n0: Todos\n1: Usuarios Registrados\n2: Colaboradores\n3: Editores\n4: Administradores' class='deny' type='text' style='width:150px' value='"+on.deny+"' /><br /><span>Imagen: </span>"+img+"<br /><button class='guardar'>Guardar Articulo</button>";
     $(".content").html("");
     var txt = "<div class='articles'><h2 style='margin-top: 0px;padding-top: 5px;'>"+tittxt+" <sub style='font-size:12px'>Articulo - "+fecha+"</sub></h2>"+fin+"</div>";
     $(".content").html(txt);
     $(".guardar").click(guardarArticulo);
     $("#selec_rol option[value="+on.access+"]").attr("selected","selected");
+    $("#selec_rol_deny option[value="+on.deny+"]").attr("selected","selected");
     $("#selec_rol").on("change",function(){InsertarRole()});
+    $("#selec_rol_deny").on("change",function(){InsertarRoleDeny()});
     $(".img_art").click(annadirImg);
     instantiateTextbox();
     $.get("api/?getCategory").done(function(data)
