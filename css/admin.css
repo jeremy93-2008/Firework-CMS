@@ -156,7 +156,9 @@ body
 }
 .selecc
 {
-    background: linear-gradient(to top,#ffd400,#d4b000);
+    background: linear-gradient(to top,#f00,#d40000);
+    color:white;
+    text-shadow:1px 1px 2px black;
     border:solid 1px darkgrey;
 }
 .stats,.articles,.menu,.users,.plugins,.configuration,.temas,.comment
@@ -177,8 +179,8 @@ body
 {
     margin: auto;
     width: 50px;
-    background: linear-gradient(to top,#dbb600,#fbd100);
-    border: solid 1px #a58903;
+    background: linear-gradient(to top,#db0000,#fb0000);
+    border: solid 1px #a50303;
     cursor: pointer;
 }
 .title_chart
@@ -235,16 +237,16 @@ body
 .close-page
 {
     display: inline-block;
-    background: linear-gradient(#fbd100,#ddb800);
+    background: linear-gradient(#fb0000,#d00);
     position: absolute;
     padding: 3px 9px;
     font-weight: bold;
     border-radius: 50%;
-    border: solid 1px darkgrey;
+    border: solid 1px #e7e6e6;
     margin-left: 278px;
     z-index: 50;
     margin-top: -8px;
-    color: #3e3402;
+    color: #eae9e9;
     cursor: pointer;
 }
 .close-page .fa
@@ -562,10 +564,10 @@ body
   margin-left:5px;
   margin-top: -3px;
   padding: 7px 9px;
-  border: solid darkgrey 1px;
-  background: linear-gradient(#fbd100,#ddb800);
-  cursor:pointer;
-  color: #3f3606;
+  border: solid #e3e0e0 1px;
+  background: linear-gradient(#fb0000,#d00);
+  cursor: pointer;
+  color: #e3e0e0;
 }
 .menu button.annadir_menu, .menu button.guardar_menu, .users button.add_user,.usuario button,.plugins .btn {
     margin-bottom: 10px;
