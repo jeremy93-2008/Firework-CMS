@@ -132,6 +132,8 @@
         }
         public function addComment($usuario,$texto)
         {
+            $u = new Users();
+            $usuario_conectado = $u->getCurrentUser();
             $tabla = $this->_usuarios;
             $tabla_user = $this->_usuarios->usuario;
             if($this->getAuthforAddComment($tabla_user) && !($this->isModerationActived($tabla)))
@@ -139,7 +141,11 @@
                 $this->_comment_content .= "<!--Comment--><div class='com com_".$this->getNumComment()."'><h4>".$usuario.":</h4><p>".$texto."</p></div>";
                 $this->saveComment();
                 return "<h3 class='com_notice'>Comentario Enviado</h3>";
-            }else if($this->isModerationActived($tabla))
+            }else if($this->getAnonymCommentOption() == false && $usuario_conectado === false)
+            {
+                return "<h3 class='com_notice'>Sin permiso para comentar</h3>";
+            }
+            else if($this->isModerationActived($tabla))
             {
                 $this->_comment_moderator .= "<!--Comment--><div class='com com_".$this->getNumComment()."'><h4>".$usuario.":</h4><p>".$texto."</p></div>";
                 $this->saveCommentModeration();

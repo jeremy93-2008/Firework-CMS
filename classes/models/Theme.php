@@ -42,7 +42,7 @@ class Theme
     public function getThemesInfo()
     {
         $ret_arr = array();
-        for($a = 3;$a < count($this->themes_arr);$a++)
+        for($a = 2;$a < count($this->themes_arr);$a++)
         {
             $theme_path = $this->carpeta.$this->themes_arr[$a]."/theme.json";
             if(file_exists($theme_path))
