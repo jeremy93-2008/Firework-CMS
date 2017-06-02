@@ -45,8 +45,7 @@ class Page
         $this->getMetaPage($id);
         $r = new Rol();
         $booleano = $r->RequestAccessSite(explode(",",$this->access));
-        $booleano2 = $r->DenyAccessSite(explode(",",$this->access));
-        if($booleano && $booleano2)
+        if($booleano)
             if(file_exists("./store/paginas_maestras/page-".$id.".php"))
                 $this->content = "./store/paginas_maestras/page-".$id.".php";
             else
