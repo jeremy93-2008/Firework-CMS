@@ -44,10 +44,15 @@
         <span class="ot">[</span><span class="st">...</span><span class="ot">]</span>
     }</code></pre>
 <p>Ahora que sabemos como crear un Plugin en Firework vamos a ver lo que podemos realizar con su interfaz.</p>
+<h2 id="clase-principal-del-plugin">Clase principal del plugin</h2>
+<p>Una vez cargado nuestro plugin en Firework CMS, podemos llamar su clase maestra desde cualquier sitio de Firework, para posteriormente usarla para lo que plazcas como ejecutar una función, recuperar una variable, etc...</p>
+<p>Asi para crear una instancia de clase deberemos:</p>
+<pre class="sourceCode php"><code class="sourceCode php">    Plugin::instanceClass($nombre_del_plugin)</code></pre>
+<p>Esto nos devolverá nuestra clase principal instanciada, que deberemos recuperar en una variable, para poder usarla a lo largo de la aplicación sin preocuparnos del <em>scope</em>.</p>
 <h2 id="hooks">Hooks</h2>
 <p>Estos son los ganchos (funciones) que permiten hacer ejecutar nuestro código en un momento dado de la carga del CMS, por ejemplo, podríamos decirle de realizar una función antes de que se cargue el encabezado de la página o antes que se cargue el menú, también podriamos hacerlo recursivo y pedir que se cargue una función por cada articulo que se muestre en la web, etc..</p>
 <p>Pero los hooks no nos permite sólo ejecutar funciones en un momento dado del ciclo de vida de la página, sino que también nos permite visualizar los resultados de tal función, simplemente añadiendo tantas funciones <strong>echo</strong> como queramos en los mismos métodos que realizan una función en un momento dado.</p>
-<p>Para ello se tiene <em>26 Hooks</em>, donde cada uno corresponde con un estado dado del CMS:</p>
+<p>Para ello se tiene <em>27 Hooks</em>, donde cada uno corresponde con un estado dado del CMS:</p>
 <h3 id="init">Init</h3>
 <p>Hook que se carga cuando el sitio web inicia una nueva sesión.</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">init</span>(){
@@ -56,6 +61,11 @@
 <h3 id="reload">Reload</h3>
 <p>Hook que se carga a cada refresco de la página, menos la primera vez que se inicia una nueva sesión, ya que <em>init</em> tiene prioridad sobre <em>reload</em>.</p>
 <pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">reload</span>(){
+        <span class="co">//Codigo que se cargará al recargar el sitio en una misma sesión</span>
+        }</code></pre>
+<h3 id="ready">Ready</h3>
+<p>Hook que se carga cuando el sitio web a terminado de cargarse completamente</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript">    <span class="kw">function</span> <span class="fu">ready</span>(){
         <span class="co">//Codigo que se cargará al recargar el sitio en una misma sesión</span>
         }</code></pre>
 <h3 id="beforeheader">beforeHeader</h3>
@@ -224,7 +234,7 @@
 <pre class="sourceCode php"><code class="sourceCode php">    Plugin::Image(2,&quot;set&quot;,[$File]) 
     //En ese caso, el tercer parametro solo sirve para la operación set, y sirve para añadir o modificar una página a partir de un objeto FILE de PHP.</code></pre>
 <blockquote>
-<p><span class="math"><em>F</em><em>I</em><em>L</em><em>E</em> : <em>O</em><em>b</em><em>j</em><em>e</em><em>t</em><em>o</em><em>P</em><em>H</em><em>P</em></span> <b>$_FILE</b> , que contiene la imagen que debe subirse con el nombre en el array asociativo del objeto PHP, como: &quot;image&quot;</p>
+<p>*<span class="math"><em>F</em><em>I</em><em>L</em><em>E</em> *  : <em>O</em><em>b</em><em>j</em><em>e</em><em>t</em><em>o</em><em>P</em><em>H</em><em>P</em> *  *  * </span>_FILE*** , que contiene la imagen que debe subirse con el nombre en el array asociativo del objeto PHP, como: &quot;image&quot;</p>
 </blockquote>
 <h3 id="users-interplays">Users Interplays</h3>
 <p><strong>isLogged</strong></p>
@@ -253,7 +263,7 @@
 <blockquote>
 <p><em>Rol:</em> Mirar en el apartado <strong>Rol</strong> en la sección <strong>Objetos JSON</strong></p>
 </blockquote>
-<h2 id="getters-interplays">Getters Interplays</h2>
+<h3 id="getters-interplays">Getters Interplays</h3>
 <p><strong>View</strong></p>
 <pre class="sourceCode php"><code class="sourceCode php">    // Determina el fichero cargado como principal en el template
     Plugin::View() : String</code></pre>
@@ -267,7 +277,7 @@
     // Devuelve el parametro &#39;pa&#39; ubicado en la variable global $_GET</code></pre>
 <p><strong>WebsiteInfo</strong></p>
 <pre class="sourceCode php"><code class="sourceCode php">    // Obtiene las diferentes configuraciones del CMS
-    Plugin::WebsiteInfo(["titulo","descripcion","palabras_claves","tema"]) : String or String[]</code></pre>
+    Plugin::WebsiteInfo([&quot;titulo&quot;,&quot;descripcion&quot;,&quot;palabras_claves&quot;,&quot;tema&quot;]) : String or String[]</code></pre>
 <p>Este método tiene dos sobrecargas:</p>
 <pre class="sourceCode php"><code class="sourceCode php">    Plugin::WebsiteInfo() : String[]
     // Devuelve todo el array de configuración del CMS</code></pre>

@@ -36,5 +36,6 @@ function espacios(str)
  */
 function SetCustom()
 {
-    alert("custom");
+    document.body.style.cursor = "wait";
+    verPersonalizacion();
 }

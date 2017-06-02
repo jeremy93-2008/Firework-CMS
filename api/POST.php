@@ -126,3 +126,13 @@ else if(isset($_POST["set_main_theme"]))
     $t = new Theme();
     echo $t->setMainTheme($_POST["set_main_theme"]);
 }
+else if(isset($_POST["set_theme_custom_enabled"]))
+{
+    $t = new Theme_Custom();
+    return $t->setThemeCustomEnabled($_POST["set_theme_custom_enabled"]);
+}
+else if(isset($_POST["set_css_and_generate"]))
+{
+    $t = new Theme_Custom();
+    return $t->generateCSSFromSave($_POST["set_css_and_generate"]);
+}

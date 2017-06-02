@@ -4,7 +4,7 @@
         {
             "name":"Color de fondo de pantalla",
             "property":"background-color:",
-            "value":"#FFF",
+            "value":"#FFFF00",
             "type":"color"
         },
         {
@@ -78,13 +78,7 @@
             "property":"min-width:",
             "value":"0",
             "type":"numeric"
-        },
-        {
-            "name":"Anchura Máxima",
-            "property":"max-width:",
-            "value":"100",
-            "type":"numeric"
-        },        
+        },       
         {
             "name":"Altura Máxima",
             "property":"max-height:",

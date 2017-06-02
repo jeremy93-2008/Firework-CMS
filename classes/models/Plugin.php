@@ -99,6 +99,10 @@ class Plugin
     {
         return Plugin::execute("reload");
     }
+    public static function ready()
+    {
+        return Plugin::execute("ready");
+    }
     public static function BeforeHeader()
     {
         return Plugin::execute("beforeHeader");
@@ -369,6 +373,7 @@ class Plugin
      * @param string $username Nombre de Usuario
      * @param string $password Contraseña
      * @param string $password2 Contraseña2
+     * @param number optional $rol Inserta un rol que quieres que tenga el usuario
      * @return boolean
      */
     public static function Register($username,$password,$password2,$rol=1)

@@ -51,12 +51,23 @@ El fichero PHP que se inicializará a la hora de cargarse su plugin.
 
 Ahora que sabemos como crear un Plugin en Firework vamos a ver lo que podemos realizar con su interfaz.
 
+## Clase principal del plugin
+Una vez cargado nuestro plugin en Firework CMS, podemos llamar su clase maestra desde cualquier sitio de Firework, para posteriormente usarla para lo que plazcas como ejecutar una función, recuperar una variable, etc...
+
+Asi para crear una instancia de clase deberemos:
+
+```php
+    Plugin::instanceClass($nombre_del_plugin)
+```
+
+Esto nos devolverá nuestra clase principal instanciada, que deberemos recuperar en una variable, para poder usarla a lo largo de la aplicación sin preocuparnos del *scope*.
+
 ## Hooks
 Estos son los ganchos (funciones) que permiten hacer ejecutar nuestro código en un momento dado de la carga del CMS, por ejemplo, podríamos decirle de realizar una función antes de que se cargue el encabezado de la página o antes que se cargue el menú, también podriamos hacerlo recursivo y pedir que se cargue una función por cada articulo que se muestre en la web, etc..
 
 Pero los hooks no nos permite sólo ejecutar funciones en un momento dado del ciclo de vida de la página, sino que también nos permite visualizar los resultados de tal función, simplemente añadiendo tantas funciones **echo** como queramos en los mismos métodos que realizan una función en un momento dado.
 
-Para ello se tiene *26 Hooks*, donde cada uno corresponde con un estado dado del CMS:
+Para ello se tiene *27 Hooks*, donde cada uno corresponde con un estado dado del CMS:
 
 ### Init
 Hook que se carga cuando el sitio web inicia una nueva sesión.
@@ -72,6 +83,15 @@ Hook que se carga a cada refresco de la página, menos la primera vez que se ini
         //Codigo que se cargará al recargar el sitio en una misma sesión
         }
 ```
+
+### Ready
+Hook que se carga cuando el sitio web a terminado de cargarse completamente
+```javascript
+    function ready(){
+        //Codigo que se cargará al recargar el sitio en una misma sesión
+        }
+```
+
 ### beforeHeader
 Hook que se carga antes de la visualización del header.php del template del CMS.
 ```javascript
@@ -368,7 +388,7 @@ Este método tiene dos sobrecargas:
 ```
 >*Rol:* Mirar en el apartado __Rol__ en la sección __Objetos JSON__
 
-## Getters Interplays
+### Getters Interplays
 
 **View**
 ```php

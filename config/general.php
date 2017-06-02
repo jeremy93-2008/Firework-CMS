@@ -60,3 +60,4 @@ if(strpos($_SESSION["stats"],$_SERVER["REQUEST_URI"]) === false)
     $e->setNewStat($_SERVER["REQUEST_URI"]);
     $_SESSION["stats"] .= $_SERVER["REQUEST_URI"].",";
 }
+echo Plugin::ready();

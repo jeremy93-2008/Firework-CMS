@@ -53,6 +53,9 @@ class Template
     {
         $page = $this;
         echo Plugin::BeforeHeader();
+        $theme_custom = new Theme_Custom();
+        if($theme_custom->isThemeCustomEnabled())
+                echo "<link rel='stylesheet' href='css/custom.css' />";
         include $this->folder."/header.php";
         echo Plugin::AfterHeader();
     }

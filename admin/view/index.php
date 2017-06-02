@@ -22,6 +22,7 @@ include 'admin/controller/admin.php';
         <script type="text/javascript" src="js/admin/user.js"></script>
         <script type="text/javascript" src="js/admin/api.js"></script>
         <script type="text/javascript" src="js/admin/theme.js"></script>
+        <script type="text/javascript" src="js/admin/theme_custom.js"></script>
         <script type="text/javascript" src="js/textboxio.js"></script>
         <script type="text/javascript" src="js/resources/emmet.min.js"></script>
     </head>

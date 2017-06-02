@@ -173,4 +173,23 @@ else if(isset($_GET["getConfig"]))
 {
     $c= new Comment(1);
     echo $c->getAnonymCommentOption();
+}else if(isset($_GET["isThemeCustomEnabled"]))
+{
+    $t = new Theme_Custom();
+    echo $t->isThemeCustomEnabled();
+}
+else if(isset($_GET["getCSSModel"]))
+{
+    $t = new Theme_Custom();
+    echo $t->getCSSModel();
+}
+else if(isset($_GET["getCSSModel"]))
+{
+    $t = new Theme_Custom();
+    echo $t->getCSSModel();
+}
+else if(isset($_GET["getCSSSave"]))
+{
+    $t = new Theme_Custom();
+    echo $t->getCSSSave();
 }

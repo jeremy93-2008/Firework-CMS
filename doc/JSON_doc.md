@@ -18,6 +18,9 @@
     articulos, puede contener tanto nombres de usuarios,
     como numero de roles, separados por comas. P.ej: 
     paco,2,jeremy",
+    "deny":"Denegación a la hora de visualizar los articulos, puede contener tanto 
+    nombres de usuarios, como numero de roles, separados por comas. P.ej: 
+    paco,2,jeremy ",
     "category":"Debe ser un entero que concorde con una 
     de las categorias creadas previamente en el CMS.",
 
