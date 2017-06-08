@@ -161,7 +161,7 @@ body
     text-shadow:1px 1px 2px black;
     border:solid 1px darkgrey;
 }
-.stats,.articles,.menu,.users,.plugins,.configuration,.temas,.comment
+.stats,.articles,.menu,.users,.plugins,.configuration,.temas,.comment,.theme_custom,.custom_tem,.custom_prop
 {
     margin-left: 2%;
     background: linear-gradient(to bottom,#eeeeee,#dddddd);
@@ -174,6 +174,8 @@ body
   display:inline-block;
   width:14%;
   min-width:88px;
+  margin-top: 4%;
+  margin-bottom: 4%;
 }
 .chart
 {
@@ -674,7 +676,7 @@ body
     text-align: right;
     display: inline-block;
 }
-.api_row select,.comment select
+.api_row select,.comment select,select#enabled_custom
 {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -807,6 +809,58 @@ body
 {
   font-size: 12px;
   font-weight: normal;
+}
+.custom_tem
+{
+  margin-right:2%;
+}
+.custom_prop p
+{
+  font-weight: bold;
+}
+.custom_prop span
+{
+  font-style: italic;
+  margin-right:10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.custom_prop span input[type=number]
+{
+  width: 50px;
+  text-align: center;
+}
+.custom_prop .val
+{
+  margin-right:15px;
+}
+.content_prop
+{
+  display:none;
+}
+.custom_tem .name,.custom_theme
+{
+  cursor:pointer;
+}
+.cursor
+{
+  margin-right: 10px;
+}
+.custom_save
+{
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    max-width: 500px;
+    font-size: 16px;
+    font-weight: bold;
+    border: solid 1px #fb0000;
+    transition: box-shadow .4s;
+    cursor:pointer;
+    outline: none;
+}
+.custom_save:hover
+{
+  box-shadow: 0px 0px 10px #fb0000;
 }
 @media screen and (max-width:700px)
 {

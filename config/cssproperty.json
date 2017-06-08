@@ -58,7 +58,7 @@
         {
             "name":"Color de Bordes",
             "property":"border-color:",
-            "value":"#FFF",
+            "value":"#FFFF00",
             "type":"color"
         },
         {
@@ -112,7 +112,7 @@
         {
             "name":"Color de la Fuente",
             "property":"color:",
-            "value":"0",
-            "type":"numeric"
+            "value":"#FFFF00",
+            "type":"color"
         }]
 }

@@ -65,29 +65,39 @@ class Theme_Custom
      */
     private function setCSSSave($json)
     {
-        $this->css_save->propiedades = json_decode($json);
-        return (file_put_contents($this->css_save_path,$this->css_save)!==false);
+        $tabla = json_decode($json);
+        $this->css_save->propiedades = (array)$tabla;
+        return (file_put_contents($this->css_save_path,json_encode($this->css_save))!==false);
     }
     /**
      * Función que permite generar el CSS a partir de los datos guardados del JSON de las propiedades del CSS
     */
     public function generateCSSFromSave($json)
     {
+        $bPrimero = false;
         $this->setCSSSave($json);
-        $anterior_clase = "";
+        $anterior_clase = "nonenothing";
         $cadena_style = "";
         $prop_CSS = $this->css_save->propiedades;
         foreach($prop_CSS as $reglas)
         {
-            if($anterior_clase == $reglas->class)
+            $valor = $reglas->value;
+            if(strpos($valor,",") !== false)
+                $valor = str_replace(","," ",$valor);
+            if($bPrimero == false)
             {
-                $cadena_style .= $reglas->property.$reglas->value.";";
+                $cadena_style .= $reglas->class."{
+                    ".$reglas->property.$valor.";";
+                $bPrimero = true;
+            }else if($anterior_clase == $reglas->class)
+            {
+                $cadena_style .= "
+                ".$reglas->property.$valor.";";
             }else
             {
-                $cadena_style .= "}
+                $cadena_style .= "} 
                 ".$reglas->class."{
-                    ".$reglas->property.$reglas->value.";
-                ";
+                    ".$reglas->property.$valor.";";
             }
             $anterior_clase = $reglas->class;
         }
