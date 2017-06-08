@@ -46,8 +46,19 @@ $(function () {
     }
     function VerificarConexion()
     {
-
-        //location.href = ".";
+        $.get("api/?current_user").done(function(data)
+        {
+            var js = data;
+            if(js.indexOf("Necesitas registrarte como usuario y tener ese permiso")==-1)
+            {
+                console.log("El Usuario actual es "+js);
+            }
+            else
+            {
+                alert("Se ha perdido la autentificación con el usuario");
+                location.href = ".";
+            }
+        });
     }
     /**
      * Genera la estadistica, cuando se visualiza por primera vez, el panel de administración
