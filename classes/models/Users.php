@@ -51,11 +51,11 @@
             {
                 if($linea->nombre == $name)
                 {
-                    if($linea->contrasenia == md5($password))
+                    if($linea->contrasenia == hash("ripemd256",$password))
                     {
-                        $_SESSION["usuario"] = array("user"=>$name,"password"=>md5($password));
+                        $_SESSION["usuario"] = array("user"=>$name,"password"=>hash("ripemd256",$password));
                         if($this->apiAccess($_SESSION["usuario"]["user"]))
-                            setcookie("token_auth",md5($name).md5($password),0,"/");
+                            setcookie("token_auth",hash("ripemd256",$name).hash("ripemd256",$password),0,"/");
                         else
                             setcookie("token_auth", "", time()-3600,"/");
                         return true;
@@ -75,7 +75,7 @@
                         return false;
                     }
                 }
-                $this->archivo->usuario[] = array("nombre"=>$name,"contrasenia"=>md5($password),"rol"=> strval($rol));
+                $this->archivo->usuario[] = array("nombre"=>$name,"contrasenia"=>hash("ripemd256",$password),"rol"=> strval($rol));
                 $conf = "../config/config.json";
                 if(file_exists("config/config.json"))
                     $conf = "config/config.json";

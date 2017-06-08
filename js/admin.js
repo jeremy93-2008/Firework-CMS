@@ -14,6 +14,7 @@ $(function () {
         $(".side").removeClass("selecc");
         $(this).addClass("selecc");
         var valor = $(this).html();
+        VerificarConexion();
         switch (valor) {
             case "Estadistica": Estadistica(); break;
             case "Articulos": Articulos(); break;
@@ -42,6 +43,11 @@ $(function () {
                     alert("Este plugin no tiene panel de administración");
                 break;
         }
+    }
+    function VerificarConexion()
+    {
+
+        //location.href = ".";
     }
     /**
      * Genera la estadistica, cuando se visualiza por primera vez, el panel de administración
@@ -446,8 +452,9 @@ $(function () {
     {
         $.get("api/?getConfig").done(function(data){
             var obj = JSON.parse(data);
-            var cont = "<div class='configuration'><h3>Configuración</h3><input type='hidden' id='usuariotxt' value='"+JSON.stringify(obj.usuario)+"'/><div class='row'><span class='title'>Titulo de la Web:</span><input type='text' id='titulotxt' value='"+obj.titulo+"' /></div><div class='row'><span class='desc'>Descripción de la Web:</span><input type='text' id='descripciontxt' value='"+obj.descripcion+"' /></div><div class='row'><span class='keyword'>Palabras Claves de la Web:</span><input type='text' id='palabras_clavestxt' value='"+obj.palabras_claves+"' /></div><div class='row'><span class='temas'>Tema de la Web:</span><input type='text' id='tematxt' value='"+obj.tema+"' /></div><button class='save'>Guardar Configuración</button></div>";
+            var cont = "<div class='configuration'><h3>Configuración</h3><input type='hidden' id='usuariotxt' value='"+JSON.stringify(obj.usuario)+"'/><div class='row'><span class='title'>Titulo de la Web:</span><input type='text' id='titulotxt' value='"+obj.titulo+"' /></div><div class='row'><span class='desc'>Descripción de la Web:</span><input type='text' id='descripciontxt' value='"+obj.descripcion+"' /></div><div class='row'><span class='keyword'>Palabras Claves de la Web:</span><input type='text' id='palabras_clavestxt' value='"+obj.palabras_claves+"' /></div><div class='row'><span class='temas'>Tema de la Web:</span><input type='text' id='tematxt' value='"+obj.tema+"' /></div><button class='btn soft_reset'>Reinicializar Firework</button></button><button class='save'>Guardar Configuración</button></div>";
             $(".content").html(cont);
+            $(".soft_reset").click(btn_reset);
             $(".save").click(btn_guardarConfig);
             });
     }
@@ -476,6 +483,20 @@ $(function () {
                 alert("No se pudo guardar los cambios al fichero de configuración");
             }
         });
+    }
+    function btn_reset()
+    {
+        if(confirm("Está acción eliminará los usuarios, el tema seleccionado - no el tema en sí - , el titulo y descripción de Firework ¿Está seguro de querer continuar?"))
+        {
+            $.get("api?removeConfigFile").done(function(info)
+            {
+                if(info)
+                {
+                    alert("Se elimino correctamente el fichero de configuración");
+                    location.reload();
+                }
+            });
+        }
     }
     /**
      * Convierte el numero del rol en nombre  

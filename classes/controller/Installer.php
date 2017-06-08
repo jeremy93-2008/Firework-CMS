@@ -15,6 +15,13 @@ class Installer
         $t_conf = json_decode(file_get_contents($con));
         return $t_conf;
     }
+    public function getConfigPath()
+    {
+        $con = "config/config.json";
+        if (!file_exists($con))
+            $con = "../config/config.json";
+        return $con;
+    }
     public function setUser($user,$pass,$rol)
     {
         $this->user = $user.",".$pass.",".$rol;

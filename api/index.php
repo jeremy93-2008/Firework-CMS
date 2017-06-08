@@ -20,12 +20,16 @@ if(!isset($_COOKIE["token_auth"]))
     }
 }else
 {
-    $token = md5($_SESSION["usuario"]["user"]);
-    $numUser = substr($_COOKIE["token_auth"],0,32);
+    $token = hash("ripemd256",$_SESSION["usuario"]["user"]);
+    $numUser = substr($_COOKIE["token_auth"],0,64);
     if($token == $numUser)
     {
         try
         {
+            if(count($_GET) == 0 && count($_POST) == 0)
+            {
+                include "../doc/doc_api.html";
+            }
             // All GET Params to Select Values
             include 'GET.php';
             // All POST Params to Insert,Modify,UNDONE[Delete] Values

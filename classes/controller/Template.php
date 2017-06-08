@@ -388,7 +388,7 @@ class Template
     }
     public function isHome()
     {
-        if(!isset($_GET))
+        if(count($_GET) == 0)
         {
             return true;
         }else

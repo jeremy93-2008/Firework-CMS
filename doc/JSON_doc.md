@@ -58,7 +58,7 @@
 {
     "nombre":"Nombre de Usuario",
     "contrasenia":"Contraseña del usuario almacenada en 
-    MD5",
+    RIPEMD256",
     "rol":"A que grupo de usuarios pertenece, debe ser 
     un entero"
 }

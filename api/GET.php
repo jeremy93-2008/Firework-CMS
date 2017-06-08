@@ -193,3 +193,9 @@ else if(isset($_GET["getCSSSave"]))
     $t = new Theme_Custom();
     echo $t->getCSSSave();
 }
+else if(isset($_GET["removeConfigFile"]))
+{
+    $rCF = new Installer();
+    $path = $rCF->getConfigPath();
+    echo unlink($path);
+}

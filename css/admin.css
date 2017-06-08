@@ -862,6 +862,11 @@ body
 {
   box-shadow: 0px 0px 10px #fb0000;
 }
+.soft_reset
+{
+  margin-bottom:20px;
+  cursor: pointer;
+}
 @media screen and (max-width:700px)
 {
   .login

@@ -350,7 +350,7 @@ class Plugin
     }
     /**
      * Devuelve el array del Usuario actual con todos sus datos
-     * @return array usuario,contraseña en md5 y rol
+     * @return array usuario,contraseña en ripemd256 y rol
      */
     public static function CurrentUser()
     {

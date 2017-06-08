@@ -13,7 +13,7 @@
                 $i->setName($_POST["title"]);
                 $i->setDescription($_POST["descripcion"]);
                 $i->setKeyword($_POST["keyword"]);
-                $i->setUser($_POST["usuario"],md5($_POST["contrasenia"]),$_POST["rol"]);
+                $i->setUser($_POST["usuario"],hash("ripemd256",$_POST["contrasenia"]),$_POST["rol"]);
                 $i->setTheme($_POST["theme"]);
                 $escrito = $i->writeconfig();
                 if($escrito)
