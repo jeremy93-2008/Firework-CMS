@@ -4,7 +4,7 @@
         {
             "name":"Color de fondo de pantalla",
             "property":"background-color:",
-            "value":"#FFFF00",
+            "value":"#FFFFFF",
             "type":"color"
         },
         {
@@ -16,7 +16,7 @@
         {
             "name":"Tipo de posición",
             "property":"position:",
-            "value":"absolute,fixed,relative,static",
+            "value":"relative,fixed,absolute,static",
             "type":"select"            
         },
         {
@@ -52,25 +52,25 @@
         {
             "name":"Anchura de Bordes",
             "property":"border-width:",
-            "value":"1",
+            "value":"0",
             "type":"numeric"
         },
         {
             "name":"Color de Bordes",
             "property":"border-color:",
-            "value":"#FFFF00",
+            "value":"#FFFFFF",
             "type":"color"
         },
         {
             "name":"Estilo de Bordes",
             "property":"border-style:",
-            "value":"solid,dotted,dashed,none",
+            "value":"none,solid,dashed,dotted",
             "type":"select"
         },
         {
             "name":"Anchura Máxima",
             "property":"max-width:",
-            "value":"100",
+            "value":"0",
             "type":"numeric"
         },
         {
@@ -82,7 +82,7 @@
         {
             "name":"Altura Máxima",
             "property":"max-height:",
-            "value":"100",
+            "value":"0",
             "type":"numeric"
         },
         {
@@ -94,13 +94,13 @@
         {
             "name":"Exposición",
             "property":"display:",
-            "value":"block,inline-block,inline,table,inline-table,none",
+            "value":"initial,none,block,inline-block,inline,table,inline-table",
             "type":"select"
         },
         {
             "name":"Nombre de la Fuente",
             "property":"font-family:",
-            "value":"Helvetica,Lucida,Georgia,Menlo,Hoefler",
+            "value":"initial,Helvetica,Lucida,Georgia,Menlo,Hoefler",
             "type":"select"
         },
         {
@@ -112,7 +112,7 @@
         {
             "name":"Color de la Fuente",
             "property":"color:",
-            "value":"#FFFF00",
+            "value":"#000000",
             "type":"color"
         }]
 }

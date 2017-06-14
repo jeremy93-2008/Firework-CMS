@@ -12,7 +12,7 @@ function verPersonalizacion()
             {
                 var cadena_clase = clase.split(",");
                 
-                txt += "<div class='custom_tem' clase_custom='"+cadena_clase[0]+"'><h3 title='"+cadena_clase[0]+"' class='name'><i class='fa fa-caret-right cursor' aria-hidden='true'></i>"+cadena_clase[1]+"</h3><div class='content_prop'>";
+                txt += "<div class='custom_tem' clase_custom='"+cadena_clase[0]+"'><h3 title='"+cadena_clase[0]+"' class='name'><i class='fa fa-caret-right cursor' aria-hidden='true'></i>"+cadena_clase[1]+"<button class='btn revertir_btn'>Revertir cambios</button></h3><div class='content_prop'>";
                 for(var prop of obj.propiedades)
                 {
                     var valor = "";
@@ -50,6 +50,7 @@ function verPersonalizacion()
             $(".custom_tem .name").click(AbriryCerrar);
             $("#enabled_custom").on("change",HabilitarPersonalizacion);
             $(".custom_save").click(GuardarPersonalizacion);
+            $(".revertir_btn").click(VolveraValoresporDefecto);
             $.get("api/?getCSSSave").done(function(data)
                 {
                     var obj = JSON.parse(data);
@@ -154,4 +155,28 @@ function GuardarPersonalizacion()
             alert("Se han guardado los datos cambiados");
         }
     });
+}
+/**
+ * Permitir insertar los valores por defecto en una clase en particular, y asi exigir su comportamiento por defecto a nivel de plantilla
+ */
+function VolveraValoresporDefecto()
+{
+    var lista_prop = $(this).parent().parent().find(".custom_prop");
+    for(var prop of lista_prop)
+    {
+        var valores = lista_prop.find(".custom_val")
+        for(var valu of valores)
+        {
+            if(valu.tagName == "SELECT")
+            {
+                $(valu).children("option:first").attr("selectable","selectable");
+            }else
+            {
+                var defecto = $(valu).attr("default");
+                if(defecto.indexOf(",") != -1)
+                    defecto = defecto.split(",")[0];
+                $(valu).val(defecto);
+            }
+        }
+    }
 }
