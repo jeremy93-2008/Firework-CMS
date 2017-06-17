@@ -355,6 +355,7 @@ $(function () {
             var contenedor = createEmmetNodes("div.menu>h3{Men&uacute}+button.annadir_menu{Añadir nuevo men&uacute}" + cadena_menu);
             $(".content").html("");
             $(".content").append(contenedor);
+            var bool = false;
             for (var selecto of $(".accordion .enlace")) {
                 var seleccionado = false;
                 var $selecto = $(selecto);
@@ -370,7 +371,6 @@ $(function () {
                         seleccionado = true;
                     }
                 }
-                var bool = false;
                 $selecto.append("<optgroup label='Páginas'>");
                 for (var linea of obj_full[2]) {
                     var url = encodeURIComponent("?pa=" + linea.id);
@@ -414,11 +414,12 @@ $(function () {
             {
                 cont += "<div json='"+JSON.stringify(usuario)+"' class='accordion'><span class='titulo'>"+usuario.nombre+"</span><div class='icon' title='Eliminar Página'><i class='fa fa-times delete' aria-hidden='true' /></div><p class='parr'><b>Contraseña:</b> "+usuario.contrasenia+"</p><p class='parr'><b>Rol:</b> "+Rol(usuario.rol)+"</p></div>";
             }
-            cont += "</div><div class='usuario'><h4>Crear nuevo Usuario</h4><p><label>Nombre de Usuario: </label><input class='username' type='text' /></p><p><label>Contraseña: </label><input class='pass' type='password' /></p><p><label>Rol: </label><select id='rol'><option value='1'>Usuario</option><option value='2'>Colaborador</option><option value='3'>Editor</option><option value='4'>Administrador</option></select></p><button class='add_usuario'>Crear Usuario</button></div>";
+            cont += "</div><div class='usuario'><h4>Crear nuevo Usuario <div class='icon' title='Cerrar Ventana'><i class='fa fa-times delete' aria-hidden='true'></i></div></h4><p><label>Nombre de Usuario: </label><input class='username' type='text' /></p><p><label>Contraseña: </label><input class='pass' type='password' /></p><p><label>Rol: </label><select id='rol'><option value='1'>Usuario</option><option value='2'>Colaborador</option><option value='3'>Editor</option><option value='4'>Administrador</option></select></p><button class='add_usuario'>Crear Usuario</button></div>";
             $(".content").html(cont)
             $(".accordion .icon").click(EliminarUser);
             $(".users .add_user").click(MostrarUser);
             $(".usuario .add_usuario").click(CrearUser);
+            $(".usuario .icon").click(CerrarUser);
         });
     }
     /**

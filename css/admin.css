@@ -557,7 +557,6 @@ body
 }
 .accordion .icon
 {
-  display:inline-block;
   float:right;
 }
 .accordion .icon .fa
@@ -643,13 +642,12 @@ body
   border: solid 1px darkgrey;
   background: linear-gradient(#ebebeb,#dddddd);
   border-radius: 5px;
+  box-shadow: 0px 0px 5px #9f9b9b;
 }
 .usuario label
 {
   display:inline-block;
   width:160px;
-  text-align: right;
-  padding-right: 5px;
 }
 .usuario select,.usuario input
 {
@@ -871,6 +869,56 @@ body
 {
   margin-left: 28px;
   width: 180px;
+  cursor: pointer;
+}
+.usuario input[type=text], .usuario input[type=password]
+{
+  border: none;
+border-bottom: solid 1px black;
+margin: 10px;
+width: 85%;
+background: transparent;
+outline: none;
+transition: border-bottom .3s ease-in-out;
+}
+.usuario select
+{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url(../img/arrow.png);
+  background-repeat: no-repeat;
+  background-position: 95% 5px;
+  padding: 5px 30px 5px 5px;
+  border: solid 1px black;
+  border-radius: 10px;
+  outline: none;
+  width: 32%;
+  transition: border .3s ease-in-out;
+  margin-right: 10px;
+}
+.usuario input:focus
+{
+  border-bottom:solid 1px lightskyblue;
+}
+.usuario select:focus
+{
+  border:solid 1px lightskyblue;
+}
+.usuario .icon
+{
+  float: right;
+  margin-top: -6px;
+}
+.usuario .icon i
+{
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-top: -3px;
+  padding: 7px 9px;
+  border: solid #e3e0e0 1px;
+  background: linear-gradient(#fb0000,#d00);
+  cursor: pointer;
+  color: #e3e0e0;
 }
 @media screen and (max-width:700px)
 {

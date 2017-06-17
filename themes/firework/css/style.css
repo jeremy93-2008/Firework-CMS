@@ -4,14 +4,13 @@ body
 }
 .header_menu
 {
-    padding-left: 60%;
-    background: saddlebrown;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 li.item_menu
 {
     display: inline-block;
-    margin: 10px;
+    margin: 10px 3px 10px 10px;
 }
 .slide
 {
@@ -24,4 +23,33 @@ li.item_menu
 .head
 {
     text-align: center;
+}
+li.item_menu a
+{
+    text-decoration:none;
+    color:black;
+    font-weight:bold;
+    padding:5px 10px;
+    font-family:Arial;
+    color:white;
+    text-shadow:1px 1px 2px black;
+    font-size:14px;
+    background:linear-gradient(rgba(211, 211, 211,0.4),rgba(128, 128, 128,0.4));
+    border:solid 1px lightgray;
+    border-radius:5px;
+}
+li.item_menu a:hover
+{
+    background:linear-gradient(rgba(211, 211, 211,1),rgba(128, 128, 128,1));
+}
+ul.list_menu:before
+{
+    padding-right:25px;
+    font-weight:bold;
+    content: "Firework";
+    font-family:Arial;
+    font-style:italic;
+    color:white;
+    font-size:24px;
+    text-shadow:1px 1px 5px black;
 }

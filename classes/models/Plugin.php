@@ -40,6 +40,7 @@ class Plugin
             {
                 $json = json_decode(file_get_contents($ruta."/plugin.json"));
                 Plugin::$_clases[$json->name] = $json;
+                Plugin::$_clases[$json->name]->ruta = $ruta;
                 include $ruta."/".$json->file;
                 Plugin::$_build[$json->name] = new $json->mainClass();
             }
@@ -296,13 +297,13 @@ class Plugin
         {
             switch ($operacion)
             {
-                case "get": return $i->getAllImage(); break;
+                case "get": return $i->getAllImageFullPath(); break;
             }
         }else
         {
             switch ($operacion)
             {
-                case "get": return $i->getImage(intval($id)); break;
+                case "get": return $i->getImageFullPath(intval($id)); break;
                 case "set": return $i->setImage($file); break;
             }
         }

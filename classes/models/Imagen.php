@@ -15,9 +15,22 @@ class Imagen
     {
         return $this->tabla[$num];
     }
+    public function getImageFullPath($num)
+    {
+        return "img/client/".$this->tabla[$num];
+    }
     public function getAllImage()
     {
         return $this->tabla;
+    }
+    public function getAllImageFullPath()
+    {
+        $rutas = array();
+        foreach($this->tabla as $ruta)
+        {
+            $rutas[] = "img/client/".$ruta;
+        }
+        return $rutas;
     }
     public function setImage($archivo)
     {

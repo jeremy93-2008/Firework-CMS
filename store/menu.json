@@ -1,1 +1,1 @@
-[{"titulo":"Pagina 1","orden":"0","url":"?pa=1"},{"titulo":"Articulo 2","orden":"1","url":"?pa=1&ac=1"},{"titulo":"Articulo 5","orden":"2","url":"?pa=1&ac=2"},{"titulo":"Articulo final","orden":"3","url":"?pa=1&ac=3"}]
+[{"titulo":"Pagina 1","orden":"0","url":"?pa=1"},{"titulo":"Articulo 5","orden":"2","url":"?pa=1&ac=2"},{"titulo":"Articulo final","orden":"3","url":"?pa=1&ac=3"},{"titulo":"Lista Articulos","orden":"3","url":"?pa=1"}]

@@ -52,6 +52,11 @@ function showAdmin()
     <?php
         if(Plugin::hasPlugin())
         {
+            if(isset($_POST["pluginName"]))
+            {
+                $var = Plugin::instanceClass($_POST["pluginName"]);
+                ?><div id='returnPlugin'><?=$var->doPostFunction()?></div><?php
+            }
             echo Plugin::AdminView();
         }
 }

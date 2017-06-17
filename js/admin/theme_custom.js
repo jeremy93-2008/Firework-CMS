@@ -12,7 +12,7 @@ function verPersonalizacion()
             {
                 var cadena_clase = clase.split(",");
                 
-                txt += "<div class='custom_tem' clase_custom='"+cadena_clase[0]+"'><h3 title='"+cadena_clase[0]+"' class='name'><i class='fa fa-caret-right cursor' aria-hidden='true'></i>"+cadena_clase[1]+"<button class='btn revertir_btn'>Revertir cambios</button></h3><div class='content_prop'>";
+                txt += "<div class='custom_tem' clase_custom='"+cadena_clase[0]+"'><h3 title='"+cadena_clase[0]+"' class='name'><i class='fa fa-caret-right cursor' aria-hidden='true'></i>"+cadena_clase[1]+"<button title='Revertir cambios de "+cadena_clase[1]+" ("+cadena_clase[0]+")' class='btn revertir_btn'>Revertir cambios</button></h3><div class='content_prop'>";
                 for(var prop of obj.propiedades)
                 {
                     var valor = "";
@@ -169,7 +169,8 @@ function VolveraValoresporDefecto()
         {
             if(valu.tagName == "SELECT")
             {
-                $(valu).children("option:first").attr("selectable","selectable");
+                var opcion = $(valu).children("option:first");
+                opcion.attr("selected","selected");
             }else
             {
                 var defecto = $(valu).attr("default");

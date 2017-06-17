@@ -1,5 +1,6 @@
 <?php 
 include 'config/autoload.php';
+error_reporting(E_ERROR);
 session_start();
 if(file_exists('config/config.json'))
 {

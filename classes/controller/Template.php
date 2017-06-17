@@ -34,7 +34,7 @@ class Template
     {
         $this->folder = $name;
     }
-    public function getFolder($name)
+    public function getFolder()
     {
         return $this->folder;
     }

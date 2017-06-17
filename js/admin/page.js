@@ -39,11 +39,18 @@ function EliminarPag()
 {
     if(confirm("¿Desea realmente eliminar esta página?"))
     {
-        $.post("api/",{del_page: $(this).attr("pagina")}).done(function(info)
+        var obj = JSON.parse($(this).next("div").attr("alt"));
+        if($(this).next("div").attr("alt").indexOf("showArticleFromParam") != -1 && obj.id == "1")
         {
-            alert(info);
-        });
-        Paginas();
+            alert("No puedes borrar esta página, ya que corresponde a la visualización de todos los articulos del blog");
+        }else
+        {
+            $.post("api/",{del_page: $(this).attr("pagina")}).done(function(info)
+            {
+                alert(info);
+            });
+            Paginas();
+        }
     }
 }
 function guardarPage()

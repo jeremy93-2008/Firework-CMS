@@ -30,6 +30,10 @@ function MostrarUser()
 {
     $(".usuario").css("display","block");
 }
+function CerrarUser()
+{
+    $(".usuario").css("display","none");
+}
 function Mostrar()
 {
      $.get("api/?users").done(function(data)
