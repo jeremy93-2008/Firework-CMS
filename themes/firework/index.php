@@ -14,7 +14,7 @@
 <div class="head">
     <h1>Firework CMS</h1>
     <p>Make Website Great Again! With a Awesome File-based CMS</p>
-    <a href='.'><button>Download Now (v.1.0)</button></a>
+    <a href='img/client/Firework_CMS.zip'><button>Download Now (v.1.0)</button></a>
     <a href='#learn' class='learn'><button class='btn'>Learn More</button></a>
 </div>
 <div class='flecha'>
