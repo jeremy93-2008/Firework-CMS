@@ -18,8 +18,9 @@ $(function()
     {
         var lista = "";
         var tiempo = $("#timer").val();
-        var elementos = $(".slide-image ul li");
-        console.log($(".slide-image"));   
+        var slide = $(".slide-image")[0];
+        console.log(slide);
+        var elementos = $(slide).find("li");   
         for(var elem of elementos)
         {
             lista += $(elem).children("img").attr("src")+",";
@@ -27,9 +28,7 @@ $(function()
         lista = lista.substring(0,lista.length-1);
         $.post("#",{pluginName:'Slideshow Plugin',datos:lista,intervalo:tiempo}).done(function(info)
         {
-           var doc = document.createElement("div");
-           doc.innerHTML = info;
-           alert(doc.querySelector("#returnPlugin").innerHTML);
+           alert($("<html/>").html(info).find("#returnPlugin").text());
         });
     }
 });

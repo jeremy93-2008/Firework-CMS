@@ -11,10 +11,10 @@ function Guardar()
 }
 function Eliminar()
 {
-    if($(this).parent().parent().attr("enlace") != "%3Fpa%3D1" || $(this).parent().parent().attr("arr") != "0")
+    if($(".accordion").length > 1)
         $(this).parent().parent().remove();
     else
-        alert("No puedes borrar el acceso a los articulos del blog");
+        alert("No puedes dejar la web sin menú");
 }
 function Annadir()
 {

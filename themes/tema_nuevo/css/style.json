@@ -1,5 +1,0 @@
-/*
-    .header{} .wrapper{} .content{} .art_group{} .art_single{} .page_single{} .page_group{} .sidebar{} .footer{} .login_grp{}
-    .login_each{} .register_grp{} .register_each{}
-*/
-[{"selector":"login_grp","style":"background:red;border:solid 1px black"},{"selector":"login_each","style":"font-weight:bold;font-size:14px"}]

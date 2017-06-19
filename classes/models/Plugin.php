@@ -196,6 +196,10 @@ class Plugin
     {
         return Plugin::execute("showAdminView");
     }
+    public static function setDependenciesForAdmin()
+    {
+        return Plugin::execute("inHeadAdmin");
+    }
     /**
      * Ejecuta las funciones en los Plugin según su Hook
      *
@@ -215,7 +219,7 @@ class Plugin
                 $res = ob_get_contents();
                 ob_end_clean();
                 if($name=="showAdminView"){
-                    $t_res .= "<div idPlugin=".$b." class='plugin admin'>".$res."</div>";
+                    $t_res .= "<div idPlugin=".$b." class='contenedorPlugin plugin admin'>".$res."</div>";
                     $b++;
                 }else{
                     $t_res .= $res;

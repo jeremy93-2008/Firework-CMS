@@ -19,6 +19,12 @@ class Article
                 $tabla[] = $art->getArticle($numero);
             }
         }
+        usort($tabla,function($a,$b)
+        {
+            $date1 = str_replace("/","-",$a->date);
+            $date2 = str_replace("/","-",$b->date);
+            return (strtotime($date1)>strtotime($date2))? -1:(strtotime($date1)==strtotime($date2))? ($a->id>$b->id)?-1:($a->id==$b->id)? 0 : 1 : 1;
+        });
         return $tabla;
     }
     public function getNextId()

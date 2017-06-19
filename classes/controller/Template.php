@@ -178,7 +178,7 @@ class Template
                     $ver++;
                 }
                 $html .= $this->showComments($art->id);
-                
+
             }else
             {
                 $html .= "<div class='access_denied'>Sin permiso para visualizar este contenido</div>";
@@ -381,9 +381,9 @@ class Template
         }
         $comentarios .= $com->getComments();
         if($this->user->getCurrentUser() !== false)
-            $edicion = "<form action='#' method='POST'><input type='hidden' name='comment_id' value='".$id."' /><div class='edition-comment'><input readonly name='comment' type='text' value='".$this->user->getCurrentUser()->nombre."' /><textarea id='com-edit' name='comment_text'></textarea><input type='submit' value='Enviar' /></div></form>";
+            $edicion = "<form action='#' class='comment_insertion' method='POST'><input type='hidden' name='comment_id' value='".$id."' /><div class='edition-comment'><input readonly name='comment' type='text' value='".$this->user->getCurrentUser()->nombre."' /><textarea id='com-edit' name='comment_text'></textarea><input type='submit' value='Enviar' /></div></form>".Plugin::AfterComment();
         else
-            $edicion = "<form action='#' method='POST'><input type='hidden' name='comment_id' value='".$id."' /><div class='edition-comment'><input name='comment' type='text' value='' /><textarea name='comment_text'></textarea><input type='submit' value='Enviar' /></div></form>";
+            $edicion = "<form action='#' class='comment_insertion' method='POST'><input type='hidden' name='comment_id' value='".$id."' /><div class='edition-comment'><input name='comment' type='text' value='' /><textarea name='comment_text'></textarea><input type='submit' value='Enviar' /></div></form>";
         return $comentarios.$edicion."</div>".Plugin::AfterComment();
     }
     public function isHome()

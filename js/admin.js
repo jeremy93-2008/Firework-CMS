@@ -28,16 +28,25 @@ $(function () {
             case "Configuración":Config();break;
             default:
                 var pl = $(this).attr("idplugin");
-                var t = false;
+                var t = true;
+                $("body").addClass("wait");
                 if (pl != undefined) {
-                    for (var a = 0; a < $(".admin").length; a++) {
-                        if ($($(".admin")[a]).attr("idplugin") == pl) {
-                            $(".content").html($($(".admin")[a]).html());
-                            t = true;
-                        }
-                    }
+                    $.get("api/?get_admin_plugin_panel").done(function(data)
+                    {
+                        $(".contenedorPlugin").remove();
+                        $(".content").after(data);
+                        $(".content").html($(".contenedorPlugin[idplugin="+pl+"]").html());
+                        var lista_script = $("script").clone();
+                        $("script:not(*[principal])").remove();
+                        lista_script.each(function()
+                        {
+                            if($(this).attr("src").indexOf("admin.js") == -1)
+                                $("<script/>").attr("src",$(this).attr("src")).appendTo("head");
+                        });
+                        $("body").removeClass("wait");
+                    });
                 } else {
-                    t = true;
+                    t = false;
                 }
                 if (!t)
                     alert("Este plugin no tiene panel de administración");
@@ -118,7 +127,7 @@ $(function () {
             var datos = JSON.parse(data);
             var n_veces = 1;
             for (var linea of datos) {
-                var js = JSON.stringify(linea);
+                var js = JSON.stringify(linea).replace(/'/g,"&#39;").replace(/\"/g,"&#34;");
                 var img = "";
                 if (linea.image != "")
                     img = "<img height='150px' src='" + linea.image + "' />";
@@ -153,7 +162,7 @@ $(function () {
             var datos = JSON.parse(data);
             var n_veces = 1;
             for (var linea of datos) {
-                var js = JSON.stringify(linea);
+                var js = JSON.stringify(linea).replace(/'/g,"&#39;").replace(/\"/g,"&#34;");
                 var img = "";
                 if (linea.image != "")
                     img = "<img height='150px' src='" + linea.image + "' />";
@@ -198,6 +207,7 @@ $(function () {
     }
     function getRightObject(obj)
     {
+        obj = obj.toLowerCase();
         if(obj.indexOf(".jpg") != -1 || obj.indexOf(".png") != -1 || obj.indexOf(".gif") != -1 || obj.indexOf(".bmp") != -1)
         {
             return "<img obj='img/client/"+obj+"' src='img/client/"+obj+"' style='width:128px;margin: 10px;' />";
@@ -377,7 +387,6 @@ $(function () {
                     if ($cont.attr("enlace") != url) {
                         $selecto.append("<option value='" + url + "'>" + linea.name + "</option>");
                     } else if (url == encodeURIComponent("?pa=1") && bool == false) {
-                        $selecto.attr('disabled', 'disabled');
                         $selecto.append("<option selected value='" + url + "'>" + linea.name + "</option>");
                         bool = true;
                         seleccionado = true;
@@ -464,7 +473,7 @@ $(function () {
     {
         $.get("api/?getConfig").done(function(data){
             var obj = JSON.parse(data);
-            var cont = "<div class='configuration'><h3>Configuración</h3><input type='hidden' id='usuariotxt' value='"+JSON.stringify(obj.usuario)+"'/><div class='row'><span class='title'>Titulo de la Web:</span><input type='text' id='titulotxt' value='"+obj.titulo+"' /></div><div class='row'><span class='desc'>Descripción de la Web:</span><input type='text' id='descripciontxt' value='"+obj.descripcion+"' /></div><div class='row'><span class='keyword'>Palabras Claves de la Web:</span><input type='text' id='palabras_clavestxt' value='"+obj.palabras_claves+"' /></div><div class='row'><span class='temas'>Tema de la Web:</span><input type='text' id='tematxt' value='"+obj.tema+"' /></div><button class='btn soft_reset'>Reinicializar Firework</button></button><button class='save'>Guardar Configuración</button></div>";
+            var cont = "<div class='configuration'><h3>Configuración</h3><input type='hidden' id='usuariotxt' value='"+JSON.stringify(obj.usuario)+"'/><div class='row'><span class='title'>Titulo de la Web:</span><input type='text' id='titulotxt' value='"+obj.titulo+"' /></div><div class='row'><span class='desc'>Descripción de la Web:</span><input type='text' id='descripciontxt' value='"+obj.descripcion+"' /></div><div class='row'><span class='keyword'>Palabras Claves de la Web:</span><input type='text' id='palabras_clavestxt' value='"+obj.palabras_claves+"' /></div><div class='row'><span class='theme'>Tema de la Web:</span><input type='text' id='tematxt' value='"+obj.tema+"' /></div><button class='btn soft_reset'>Reinicializar Firework</button></button><button class='save'>Guardar Configuración</button></div>";
             $(".content").html(cont);
             $(".soft_reset").click(btn_reset);
             $(".save").click(btn_guardarConfig);

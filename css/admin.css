@@ -920,6 +920,10 @@ transition: border-bottom .3s ease-in-out;
   cursor: pointer;
   color: #e3e0e0;
 }
+body.wait *, body.wait
+{
+    cursor: wait !important;
+}
 @media screen and (max-width:700px)
 {
   .login

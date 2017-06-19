@@ -20,21 +20,55 @@ class Slideshow
     {
         echo "<script type='text/javascript' src='".$this->getPath()."/js/script.js' ></script>";
     }
+    function includeJSClient()
+    {
+        echo '<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>';
+        echo "<script type='text/javascript' src='".$this->getPath()."/js/client.js' ></script>";
+    }
+    /**
+     * Add Files to Header
+     */
+    function beforeHeader()
+    {
+        $this->includeJSClient();
+        $this->includeCSS();
+    }
+    function inHeadAdmin()
+    {
+        $this->includeCSS();
+        $this->includeJS();
+    }
     /**
      * Client View
      */
-    function beforeMenu()
+    function showSlide()
     {
         $this->includeImageClass();
-        echo "<div class='slide'></div>";
+        $class = new imagesSlide();
+        $imagenes = $class->getImages();
+        $lista_imagenes = "";
+        $ultima_ruta = "";
+        $a = false;
+        foreach($imagenes as $img)
+        {
+            if(!$a){
+                $lista_imagenes .= "<div class='SlideshowImg current' style='display:block;background-image:url(".$img.");background-size:100% 100%;'></div>
+                ";
+                $a = true;
+            }
+            else{
+                $lista_imagenes .= "<div class='SlideshowImg' style='background-image:url(".$img.");background-size:100% 100%;'></div>
+                ";
+            }
+            $ultima_ruta = $img;
+        }
+        echo "<div style='background-image:url(".$img.");background-size:100% 100%' timer='".$class->getTime()."' class='slide SlideshowMain'>".$lista_imagenes."</div>";
     } 
     /**
      * Server View
      * */ 
     function showAdminView()
     {
-        $this->includeCSS();
-        $this->includeJS();
         $this->includeImageClass();
         echo "<div class='slideshow-main'><h2>Slideshow Plugin</h2>";
         echo "<p>Elige las imagenes que deseas incluir en el pase de diapositivas, en la lista de arriba <sub>(Para incluir nuevas imagenes, debe ir a el menu Medios, y añadir imagenes desde alli)</sub></p>";

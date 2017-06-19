@@ -199,3 +199,8 @@ else if(isset($_GET["removeConfigFile"]))
     $path = $rCF->getConfigPath();
     echo unlink($path);
 }
+else if(isset($_GET["get_admin_plugin_panel"]))
+{
+    $p = new Plugin();
+    echo Plugin::AdminView();
+}

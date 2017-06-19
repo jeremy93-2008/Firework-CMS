@@ -48,8 +48,8 @@ function EliminarPag()
             $.post("api/",{del_page: $(this).attr("pagina")}).done(function(info)
             {
                 alert(info);
+                Paginas();
             });
-            Paginas();
         }
     }
 }
@@ -145,6 +145,7 @@ function imagen()
 }
 function getRightObject(obj)
 {
+    obj = obj.toLowerCase();
     if(obj.indexOf(".jpg") != -1 || obj.indexOf(".png") != -1 || obj.indexOf(".gif") != -1 || obj.indexOf(".bmp") != -1)
     {
         return "<img obj='img/client/"+obj+"' src='img/client/"+obj+"' style='width:128px;margin: 10px;' />";
@@ -301,6 +302,40 @@ function VerPageIndiv(on,tittxt)
     $(".img_art").click(annadirImg);
     instantiateTextbox();
 }
+/**
+    * Genera vista para visualizar la lista de paginas desde el array de json enviado.
+    */
+    function Paginas() {
+        $.get("api/?Allpage").done(function (data) {
+            $(".content").html("");
+            var txt = "<div class='articles'><h2 style='margin-top: 0px;padding-top: 5px;'>Página <sub style='font-size:12px'>De la web</sub></h2><button class='add_page'>Nueva Página</button>";
+            //Página
+            var datos = JSON.parse(data);
+            var n_veces = 1;
+            for (var linea of datos) {
+                var js = JSON.stringify(linea).replace(/'/g,"&#39;").replace(/\"/g,"&#34;");
+                var img = "";
+                if (linea.image != "")
+                    img = "<img height='150px' src='" + linea.image + "' />";
+                else
+                    img = "<img height='150px' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Imagen&w=150&h=150' />";
+                var description = linea.description;
+                if (linea.description.length > 34)
+                    linea.description = linea.description.substring(0, 36) + "...";
+                if (n_veces % 2 == 1 && n_veces != 1) {
+                    txt += "<br><div title='Eliminar Página' pagina='" + linea.id + "' class='close-page'><i class='fa fa-times' aria-hidden='true' /></div><div alt='" + js + "' class='single'><h3>" + linea.name + "</h3>" + img + "<p title='" + description + "' class='desc'>" + linea.description + "</p><p class='author'>" + linea.autor + "</p></div>";
+                } else {
+                    txt += "<div title='Eliminar Página' pagina='" + linea.id + "' class='close-page'><i class='fa fa-times' aria-hidden='true' /></div><div alt='" + js + "' class='single'><h3>" + linea.name + "</h3>" + img + "<p title='" + description + "' class='desc'>" + linea.description + "</p><p class='author'>" + linea.autor + "</p></div>";
+                }
+                n_veces++;
+            }
+            txt += "<div class='info'></div></div>";
+            $(".content").html(txt);
+            $(".single").click(EditarPageIndiv);
+            $(".add_page").click(NuevoPageIndiv);
+            $(".close-page").click(EliminarPag);
+        });
+    }
 /**
  * Añade un Cero a la izquierda del número cuando este es inferior a 10
  * @param {number} num 

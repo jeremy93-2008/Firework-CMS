@@ -13,7 +13,7 @@ include 'admin/controller/admin.php';
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="js/admin.js"></script>
+        <script type="text/javascript" principal="principal" src="js/admin.js"></script>
         <script type="text/javascript" src="js/admin/article.js"></script>
         <script type="text/javascript" src="js/admin/page.js"></script>
         <script type="text/javascript" src="js/admin/statistic.js"></script>
@@ -25,6 +25,7 @@ include 'admin/controller/admin.php';
         <script type="text/javascript" src="js/admin/theme_custom.js"></script>
         <script type="text/javascript" src="js/textboxio.js"></script>
         <script type="text/javascript" src="js/resources/emmet.min.js"></script>
+        <?=Plugin::setDependenciesForAdmin();?>
     </head>
     <body>
 <?php

@@ -1,1 +1,1 @@
-<div class='list-comment list-comment-2'><!--Comment--><div class='com com-0'><h4>jose:</h4><p>Buenas</p></div>
+<!--Comment--><div class='com com_0'><h4>admin:</h4><p>Don't forget to comment if you have any questions</p></div>

@@ -13,11 +13,11 @@
             $this->_comment_artmod_path = "store/articulos/comment-".$id_art."mod.php";
             if(file_exists($this->_comment_art_path))
             {
-                $this->_comment_content = file_get_contents($this->_comment_art_path);
+                $this->_comment_content = "<div class='list_comment list_comment-".$id_art."'>".file_get_contents($this->_comment_art_path);
             }else if(file_exists("../store/articulos/comment-".$id_art.".php"))
             {
                 $this->_comment_art_path = "../store/articulos/comment-".$id_art.".php";
-                $this->_comment_content = file_get_contents($this->_comment_art_path);
+                $this->_comment_content = "<div class='list_comment list_comment-".$id_art."'>".file_get_contents($this->_comment_art_path);
             }
             else
             {
