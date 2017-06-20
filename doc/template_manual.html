@@ -1,0 +1,49 @@
+<meta charset="utf-8" />
+<link rel='stylesheet' href='doc.css' />
+<link rel='stylesheet' href='doc/doc.css' />
+<div class="doc">
+<h1 id="firework-template">Firework Template</h1>
+<p>El CMS permite crear plantillas para crear una realidad visual y aumentar la estética base de este, para ello, los desarolladores tienen acceso a múltiples funciones, los <strong>$Page</strong>, esto está coordinado por un fichero JSON único por cada template.</p>
+<h2 id="como-se-crea-un-template">¿Como se crea un template?</h2>
+<p>Primeramente debe haber visto que en la jerarquía raiz, existe ya una carpeta <em>plugin</em>, si entra dentro verá ya una carpeta que sirve de plugin de ejemplo, donde verá lo siguiente:</p>
+<ul>
+<li><p><em>theme.json</em>: Corresponde con el fichero de configuración necesario para hacer funcionar nuestro template.</p></li>
+<li><p><em>index.php</em>: Corresponde con el PHP inicial que se cargará a la hora de inicializar el template.</p></li>
+</ul>
+<p>Para crear un nuevo template, lo único que debemos hacer es crear una nueva carpeta dentro de la carpeta themes y copiar el contenido del tema de ejemplo a la nueva carpeta, también puede optar por crear su propio JSON desde cero, en ese caso necesita saber varias cosas:</p>
+<h3 id="theme.json">theme.json</h3>
+<p>Un fichero Template debe tener la estructura siguiente:</p>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="dt">&quot;nombre&quot;</span>:<span class="st">&quot;Nombre del template&quot;</span>,
+    <span class="dt">&quot;descripcion&quot;</span>:<span class="st">&quot;Descripción de este&quot;</span>,
+    <span class="dt">&quot;author&quot;</span>:<span class="st">&quot;Autor del contenido&quot;</span>,
+    <span class="dt">&quot;imagen&quot;</span>:<span class="st">&quot;Imagen promocional de vuestra creación&quot;</span>,
+    <span class="dt">&quot;url&quot;</span>:<span class="st">&quot;URL para consultar más de sus trabajos&quot;</span>
+}</code></pre>
+<h2 id="page">$page</h2>
+<p>Para facilitar tu trabajo a la hora de construir una plantilla y tener acceso al CMS, hemos puesto a tu disposición diferentes funciones que te permitirá añadir contenido dinamico a tu plantilla.</p>
+<p>Esta función devuelve el contenido de <em>header.php</em> del tema actual.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showHeader<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el contenido de <em>sidebar.php</em> del tema actual.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showSideBar<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el contenido de <em>footer.php</em> del tema actual.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showFooter<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el contenido de <em>404.php</em> del tema actual.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showError<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el contenido de <em>[$nombre_del_fichero].php</em> del tema actual.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showView<span class="ot">(</span><span class="kw">$nombre_del_fichero</span><span class="ot">)</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el articulo que establece la propiedad <span class="math">$_GET['ac'], sino se encuentra, por defecto es 1. ```php &lt;?=$</span>page-&gt;showArticle()?&gt; <code>Esta función devuelve la página que establece la propiedad $_GET['pa'], sino se encuentra, por defecto es 1.</code>php &lt;?=<span class="math">$page-&gt;showPage()?&gt; ``` Esta función devuelve el articulo que establece la propiedad $</span>_GET['ac'], sino se encuentra, devuelve showAllArticles().</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showArticleFromParam<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve todos los articulos del CMS, ordenados por fecha de publicación.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showAllArticles<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve todas las paginas del CMS, ordenados por ID.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showAllPages<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el formulario de inicio de sesión. (2 estados posibles: formulario -o- informacion del usuario registrado)</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showUserLogin<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el formulario de registro de nuevo usuario.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showUserRegister<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve el menu del CMS.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;showMenu<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+<p>Esta función devuelve true si se esta en la página principal o false, si hay algún parametro indicado.</p>
+<pre class="sourceCode php"><code class="sourceCode php"><span class="kw">&lt;?=$page</span>-&gt;isHome<span class="ot">()</span><span class="kw">?&gt;</span></code></pre>
+</div>

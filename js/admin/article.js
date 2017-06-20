@@ -2,7 +2,7 @@ var titulo = false;
 var imageco = {
     id : 'Imagen',
     text : 'Añadir Imagen',
-    icon: '../img/picture.png',
+    icon: 'img/picture.png',
     action : function () {
         titulo = false;
         imagen();

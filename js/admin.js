@@ -437,7 +437,7 @@ $(function () {
     function Plugin()
     {
         var objeto_pl = JSON.parse($(".infoPlugin").html());
-        var cont = "<div class='plugins'><h3>Plugins/API</h3><a target='_blank' href='../doc/doc_api.html'><button class='btn doc api'>Documentación API</button></a><a target='_blank' href='../doc/doc_plugin.html'><button class='btn doc plugin'>Documentación Plugin</button></a><a target='_blank' href='../doc/JSON_doc.html'><button class='btn doc JSON'>Documentación Objetos JSON</button></a><h4>Plugins</h4>";
+        var cont = "<div class='plugins'><h3>Plugins/API</h3><a target='_blank' href='doc/doc_api.html'><button class='btn doc api'>Documentación API</button></a><a target='_blank' href='doc/doc_plugin.html'><button class='btn doc plugin'>Documentación Plugin</button></a><a target='_blank' href='doc/JSON_doc.html'><button class='btn doc JSON'>Documentación Objetos JSON</button></a><h4>Plugins</h4>";
         for(var plugin of objeto_pl)
         {
             cont += "<div class='acc_plugin'><span class='titulo'>"+plugin.name+"</span><p class='parr'><b>Descripción:</b> "+plugin.description+"</p><p class='parr'><b>Autor:</b> "+plugin.author+"</p><p class='parr'><b>Imagen:</b><br /><img src='"+plugin.image+"' style='max-width:150px;width:80%;border-radius:5px;border:solid 1px darkgrey' /></p><p class='parr'><b>URL:</b> <a target='_blank' href='"+plugin.url+"'>"+plugin.url+"</a></p></div>";

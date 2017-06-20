@@ -2,7 +2,7 @@ var titulo = false;
 var imageco = {
     id : 'Imagen',
     text : 'Añadir Archivo',
-    icon: '../img/picture.png',
+    icon: 'img/picture.png',
     action : function () {
         titulo = false;
         imagen();
@@ -244,7 +244,7 @@ function EditarPageIndiv()
     var on = JSON.parse(this.getAttribute("alt"));
     if(on.content.indexOf("<?=$page") != -1)
     {
-        if(on.name != "Los Articulos del Blog")
+        if(on.name != "Lista de Articulos")
         {
             if(confirm("Esta página tiene funciones PHP especiales, si edita esta página se perderá estas funciones. ¿Está seguro que desea continuar?"))
             {
