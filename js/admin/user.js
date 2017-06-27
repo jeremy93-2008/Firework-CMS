@@ -6,13 +6,13 @@ function EliminarUser()
         $.post("api/", { delete_user: txt }).done(function(info)
             {
                 if(info == "218")
-                    alert("Borrado exitosamente");
+                    toastInfo("Borrado exitosamente");
                 Mostrar();
             });
     }else
     {
         if(txt.indexOf("\"admin\"") != -1)
-            alert("No se puede borrar el administrador del CMS");
+            toastInfo("No se puede borrar el administrador del CMS");
     }
 }
 function CrearUser()
@@ -22,7 +22,7 @@ function CrearUser()
     $.post("api/", { add_user: usuario }).done(function(info)
             {
                 if(info == "218")
-                    alert("Borrado exitosamente");
+                    toastInfo("Borrado exitosamente");
                 Mostrar();
             });
 }

@@ -4,9 +4,9 @@ function anadirUsuario()
     $.post("api/",{add_user_api_access: nombre}).done(function(info)
     {
         if(info)
-            alert("Usuario añadido");
+            toastInfo("Usuario añadido");
         else
-            alert("Problema a la hora de insertar el Usuario");
+            toastInfo("Problema a la hora de insertar el Usuario");
         Plugin();
     });
 }
@@ -16,9 +16,9 @@ function quitarUsuario()
     $.post("api/",{remove_user_api_access: nombre}).done(function(info)
     {
         if(info)
-            alert("Usuario eliminado");
+            toastInfo("Usuario eliminado");
         else
-            alert("Problema a la hora de eliminar el Usuario");
+            toastInfo("Problema a la hora de eliminar el Usuario");
         Plugin();
     });
 }

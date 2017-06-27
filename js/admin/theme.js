@@ -7,7 +7,7 @@ function SetMain()
     $.post("api/",{set_main_theme:txt}).done(function(info)
     {
         if(info)
-            alert("Su tema principal se ha cambiado con éxito");
+            toastInfo("Su tema principal se ha cambiado con éxito");
             refreshMainTheme();
     });
 }

@@ -9,7 +9,7 @@ function EliminarComment()
     $.post("api/",{del_comment:json}).done(function(info)
     {
         if(info)
-            alert("Comentario eliminado con éxito");
+            toastInfo("Comentario eliminado con éxito");
         Comentar();
     });
 }
@@ -24,7 +24,7 @@ function ApproveComment()
     $.post("api/",{approve_comment:json}).done(function(info)
     {
         if(info)
-            alert("Comentario aprobado con éxito");
+            toastInfo("Comentario aprobado con éxito");
         Comentar();
     });    
 }
@@ -39,7 +39,7 @@ function EliminarCommentMod()
     $.post("api/",{del_comment_mod:json}).done(function(info)
     {
         if(info)
-            alert("Comentario eliminado con éxito");
+            toastInfo("Comentario eliminado con éxito");
         Comentar();
     });
 }
@@ -103,7 +103,7 @@ function EliminarCommentMod()
                     $.post("api/",{set_moderation:$("#mod_comment").val()}).done(function(info){
                         if(info)
                         {
-                            alert("Configuración de moderación cambiada");
+                            toastInfo("Configuración de moderación cambiada");
                         }
                     });
                 });
@@ -112,7 +112,7 @@ function EliminarCommentMod()
                     $.post("api/",{set_anonym:$("#anom_comment").val()}).done(function(info){
                         if(info)
                         {
-                            alert("Configuración de comentarios anonimos cambiada");
+                            toastInfo("Configuración de comentarios anonimos cambiada");
                         }
                     });
                 });

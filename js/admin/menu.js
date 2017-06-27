@@ -6,7 +6,7 @@ function Guardar()
     var json = pCrearJSONMenu();
     $.post("api/", { set_menu_json: json }).done(function(info)
         {
-            alert(info);
+            toastInfo(info);
         });
 }
 function Eliminar()
@@ -14,7 +14,7 @@ function Eliminar()
     if($(".accordion").length > 1)
         $(this).parent().parent().remove();
     else
-        alert("No puedes dejar la web sin menú");
+        toastInfo("No puedes dejar la web sin menú");
 }
 function Annadir()
 {

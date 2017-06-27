@@ -41,7 +41,7 @@ function EliminarArt()
     {
         $.post("api/",{del_article: $(this).attr("articulo")}).done(function(info)
         {
-            alert(info);
+            toastInfo(info);
             Articulos();
         });
     }
@@ -70,7 +70,7 @@ function guardarArticulo()
         }
         $.post("api/", { set_article: JSON.stringify(json) }).done(function(info)
         {
-            alert(info);
+            toastInfo(info);
         })
     });
 }
@@ -176,7 +176,7 @@ function subirImagenes()
             processData:false,        // To send DOMDocument or non processed data file it is set to false
             success: function(data)   // A function to be called if request succeeds
             {
-                alert("Imagen súbida con éxito");
+                toastInfo("Imagen súbida con éxito");
                 $.get("api/?getImage").done(function(data)
                 {
                     $(".imagen").html("");
@@ -297,7 +297,7 @@ function EditarArtIndiv()
         VerArtIndiv(on,"Editar");
     }else
     {
-        alert("No tiene acceso a este Articulo");
+        toastInfo("No tiene acceso a este Articulo");
     }
 }
 function VerArtIndiv(on,tittxt)

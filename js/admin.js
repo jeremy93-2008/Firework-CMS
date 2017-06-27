@@ -3,8 +3,7 @@ $(function () {
     $("#cerrar").click(Cerrar);
     function Cerrar() {
         $.get("api/?close").done(function (data) {
-            alert("Sesión cerrada");
-            location.href = ".";
+            toastInfo("Sesión cerrada",function(){location.href = ".";});
         });
     }
     /**
@@ -49,7 +48,7 @@ $(function () {
                     t = false;
                 }
                 if (!t)
-                    alert("Este plugin no tiene panel de administración");
+                    toastInfo("Este plugin no tiene panel de administración");
                 break;
         }
     }
@@ -64,8 +63,7 @@ $(function () {
             }
             else
             {
-                alert("Se ha perdido la autentificación con el usuario");
-                location.href = ".";
+                toastInfo("Se ha perdido la autentificación con el usuario",function(){location.href = ".";});
             }
         });
     }
@@ -292,7 +290,7 @@ $(function () {
                     $.post("api/",{set_moderation:$("#mod_comment").val()}).done(function(info){
                         if(info)
                         {
-                            alert("Configuración de moderación cambiada");
+                            toastInfo("Configuración de moderación cambiada");
                         }
                     });
                 });
@@ -301,7 +299,7 @@ $(function () {
                     $.post("api/",{set_anonym:$("#anom_comment").val()}).done(function(info){
                         if(info)
                         {
-                            alert("Configuración de comentarios anonimos cambiada");
+                            toastInfo("Configuración de comentarios anonimos cambiada");
                         }
                     });
                 });
@@ -498,10 +496,10 @@ $(function () {
         {
             if(info)
             {
-                alert("Guardado fichero de configuración con éxito");
+                toastInfo("Guardado fichero de configuración con éxito");
             }else
             {
-                alert("No se pudo guardar los cambios al fichero de configuración");
+                toastInfo("No se pudo guardar los cambios al fichero de configuración");
             }
         });
     }
@@ -513,8 +511,7 @@ $(function () {
             {
                 if(info)
                 {
-                    alert("Se elimino correctamente el fichero de configuración");
-                    location.reload();
+                    toastInfo("Se elimino correctamente el fichero de configuración",function(){location.reload();});
                 }
             });
         }
@@ -562,7 +559,7 @@ $(function () {
             processData: false,        // To send DOMDocument or non processed data file it is set to false
             success: function (data)   // A function to be called if request succeeds
             {
-                alert("Archivo súbido con éxito");
+                toastInfo("Archivo súbido con éxito");
                 $.get("api/?getImage").done(function (data) {
                     $(".imagen").html("");
                     for (var img of JSON.parse(data)) {

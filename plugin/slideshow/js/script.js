@@ -28,7 +28,7 @@ $(function()
         lista = lista.substring(0,lista.length-1);
         $.post("#",{pluginName:'Slideshow Plugin',datos:lista,intervalo:tiempo}).done(function(info)
         {
-           alert($("<html/>").html(info).find("#returnPlugin").text());
+           toastInfo($("<html/>").html(info).find("#returnPlugin").text());
         });
     }
 });

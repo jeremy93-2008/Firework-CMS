@@ -42,12 +42,12 @@ function EliminarPag()
         var obj = JSON.parse($(this).next("div").attr("alt"));
         if($(this).next("div").attr("alt").indexOf("showArticleFromParam") != -1 && obj.id == "1")
         {
-            alert("No puedes borrar esta página, ya que corresponde a la visualización de todos los articulos del blog");
+            toastInfo("No puedes borrar esta página, ya que corresponde a la visualización de todos los articulos del blog");
         }else
         {
             $.post("api/",{del_page: $(this).attr("pagina")}).done(function(info)
             {
-                alert(info);
+                toastInfo(info);
                 Paginas();
             });
         }
@@ -75,7 +75,7 @@ function guardarPage()
         }
         $.post("api/", { set_page: JSON.stringify(json) }).done(function(info)
         {
-            alert(info);
+            toastInfo(info);
         })
     });
 }
@@ -181,7 +181,7 @@ function subirImagenes()
             processData:false,        // To send DOMDocument or non processed data file it is set to false
             success: function(data)   // A function to be called if request succeeds
             {
-                alert("Imagen súbida con éxito");
+                toastInfo("Imagen súbida con éxito");
                 $.get("api/?getImage").done(function(data)
                 {
                     $(".imagen").html("");
@@ -253,12 +253,12 @@ function EditarPageIndiv()
                     VerPageIndiv(on,"Editar");
                 }else
                 {
-                    alert("No se permite editar esta página.");
+                    toastInfo("No se permite editar esta página.");
                 }
             }
         }else
         {
-            alert("No se permite editar esta página.");
+            toastInfo("No se permite editar esta página.");
         }
     }
     else
@@ -268,7 +268,7 @@ function EditarPageIndiv()
             VerPageIndiv(on,"Editar");
         }else
         {
-            alert("No se permite editar esta página.");
+            toastInfo("No se permite editar esta página.");
         }
     }
 }

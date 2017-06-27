@@ -110,7 +110,7 @@ function HabilitarPersonalizacion()
     {
         if(info)
         {
-            alert("Se ha cambiado los parametros requeridos del personalizador de temas.");
+            toastInfo("Se ha cambiado los parametros requeridos del personalizador de temas.");
         }
     });
 }
@@ -152,7 +152,7 @@ function GuardarPersonalizacion()
     {
         if(info)
         {
-            alert("Se han guardado los datos cambiados");
+            toastInfo("Se han guardado los datos cambiados");
         }
     });
 }
