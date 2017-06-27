@@ -32,7 +32,7 @@ class Template
     }
     public function setFolder($name)
     {
-        $this->folder = $name;
+        $this->folder = str_replace("\/","/",$name);
     }
     public function getFolder()
     {

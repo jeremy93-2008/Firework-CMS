@@ -15,11 +15,11 @@ else if(isset($_GET["current_user_role"]))
     echo json_encode($r->getNameByUser($_SESSION["usuario"]["user"]));
 }else if(isset($_GET["current_theme"]))
 {
-    echo json_encode($_CONF->tema);
+    echo json_encode(str_replace("\/","/",$_CONF->tema));
 }
 else if(isset($_GET["current_theme_more"]))
 {
-    $path = "../".$_CONF->tema."/theme.json";
+    $path = "../".str_replace("\/","/",$_CONF->tema)."/theme.json";
     $contenido = file_get_contents($path);
     echo $contenido;
 }
