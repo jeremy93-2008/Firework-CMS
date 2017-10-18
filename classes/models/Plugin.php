@@ -254,7 +254,7 @@ class Plugin
             switch ($operacion)
             {
                 case "get": return $a->getArticle(intval($id)); break;
-                case "set": return $a->setArticle($json); break;
+                case "set": return $a->setArticle($contenido); break;
                 case "del": return $a->removeArticle(intval($id));break;
             }
         }
@@ -281,7 +281,7 @@ class Plugin
             switch ($operacion)
             {
                 case "get": return $p->getPage(intval($id)); break;
-                case "set": return $p->setPage($json); break;
+                case "set": return $p->setPage($contenido); break;
                 case "del": return $p->removePage(intval($id));break;
             }
         }

@@ -111,7 +111,10 @@ class Page
         $r = new Rol();
         $bPage = $r->getAccessPage($num,$clase_json);
         if($bPage){
-            $bool = file_put_contents("../store/paginas_maestras/page-".$num.".php",$txt);
+            if(file_exists("../store/paginas_maestras"))
+                $bool = file_put_contents("../store/paginas_maestras/page-".$num.".php",$txt);
+            else
+                $bool = file_put_contents("store/paginas_maestras/page-".$num.".php",$txt);
             if($bool===false){
                 return false;
             }else{

@@ -129,7 +129,11 @@ class Article
         $bArticle = $r->getAccessArticle($num,$clase_json);
         if($bArticle)
         {
-            $bool = file_put_contents("../store/articulos/article-".$num.".php",$txt);
+            if(file_exists("../store/articulos"))
+                $bool = file_put_contents("../store/articulos/article-".$num.".php",$txt);
+            else
+                $bool = file_put_contents("store/articulos/article-".$num.".php",$txt);
+                
             if($bool===false){
                 return false;
             }
