@@ -38,9 +38,11 @@ class Plugin
             
             if(file_exists($ruta."/plugin.json"))
             {
-                $json = json_decode(file_get_contents($ruta."/plugin.json"));
+                $json = json_decode(str_replace("~",$ruta,file_get_contents($ruta."/plugin.json")));
                 Plugin::$_clases[$json->name] = $json;
                 Plugin::$_clases[$json->name]->ruta = $ruta;
+                Plugin::$_clases[$json->name]->dependencia = $json->dependencies;
+                Plugin::$_clases[$json->name]->admindependencia = $json->adminDependencies;
                 include $ruta."/".$json->file;
                 Plugin::$_build[$json->name] = new $json->mainClass();
             }
@@ -67,6 +69,48 @@ class Plugin
         {
             return Plugin::$_clases[$nombre];
         }
+    }
+    /**
+     * Función que sirve para añadir las dependencias solicitadas por el plugin en el json
+     */
+    public static function callPluginDependencies()
+    {
+        $jsandcss = "";
+        foreach(Plugin::$_clases as $clase)
+        {
+            foreach($clase->dependencia as $each)
+            {
+                if(strpos($each,".css"))
+                {
+                    $jsandcss .= "<link name='plugin' rel='stylesheet' href='".$each."' />\n";
+                }else
+                {
+                    $jsandcss .= "<script src='".$each."' type='text/javascript'></script>\n";
+                }
+            }
+        }
+        return $jsandcss;
+    }
+    /**
+     * Función que sirve para añadir las dependencias solicitadas por el plugin en el json
+     */
+    public static function callAdminPluginDependencies()
+    {
+        $jsandcss = "";
+        foreach(Plugin::$_clases as $clase)
+        {
+            foreach($clase->admindependencia as $each)
+            {
+                if(strpos($each,".css"))
+                {
+                    $jsandcss .= "<link rel='stylesheet' href='".$each."' />\n";
+                }else
+                {
+                    $jsandcss .= "<script name='plugin' src='".$each."' type='text/javascript'></script>\n";
+                }
+            }
+        }
+        return $jsandcss;
     }
     /**
      * Función que sirve para crear una instancia de la clase principal de un plugin 

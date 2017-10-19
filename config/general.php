@@ -6,7 +6,7 @@ if(isset($_GET["co"]))
 else
     $p->setView();
 $p->setConfig($_CONF);
-Plugin::init();
+echo Plugin::init();
 
 $tem = new Template();
 if(isset($_GET["admin"])){

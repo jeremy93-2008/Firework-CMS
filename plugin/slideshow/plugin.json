@@ -5,5 +5,11 @@
 	"image":"img/client/17.jpg",
 	"url":"http://www.algo.com/",
 	"file":"main.php",
-	"mainClass":"Slideshow"
+	"mainClass":"Slideshow",
+	"dependencies":[
+		"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js",
+		"~/js/client.js",
+		"~/css/style.css"
+	],
+	"adminDependencies":["~/js/script.js","~/css/style.css"]
 }

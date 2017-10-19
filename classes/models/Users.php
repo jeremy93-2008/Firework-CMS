@@ -4,7 +4,6 @@
         private $usuarios;
         private $archivo;
         private $fichero;
-        private $current_user;
         public function __construct()
         {
             if(file_exists('config/config.json'))
@@ -21,11 +20,27 @@
         }
         public function __get($nombre)
         {
-            if($nombre == "usuarios")
+            if($nombre="all")
+            {
                 return $this->usuarios;
-            else
-                return $this->current_user[$nombre];
+            }else
+            {
+                foreach($this->usuarios as $linea)
+                {
+                    if($linea->nombre == $nombre)
+                        return $linea;
+                }
+            }
         } 
+        public function existUser($name)
+        {
+            foreach($this->usuarios as $linea)
+            {
+                if($linea->nombre == $name)
+                    return true;
+            }
+            return false;
+        }
         private function apiAccess($nombre)
         {
             if(file_exists("api/config/user.json"))
@@ -137,8 +152,21 @@
         {
             $conf = "../api/config/user.json";
             if(file_exists("api/config/user.json"))
+            {
                 $conf = "api/config/user.json";
-            return json_decode(file_get_contents($conf));
+            }
+            $new_list = new stdClass();
+            $new_list->usuario = [];
+            $lista = json_decode(file_get_contents($conf));
+            for($a = 0;$a < count($lista->usuario);$a++)
+            {
+                $linea = $lista->usuario[$a];
+                if($this->existUser($linea->nombre))
+                {
+                    $new_list->usuario[] = $lista->usuario[$a];
+                }
+            }
+            return $new_list;
         }
         public function removeAccessApi($json)
         {

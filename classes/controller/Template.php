@@ -90,7 +90,15 @@ class Template
         $this->fw_show = $page;
         if(file_exists($this->folder."/$pagina.php"))
         {
+            ob_start();
             include $this->folder."/$pagina.php";
+            if(isset($_GET["admin"]) == false)
+                $inicial = htmlspecialchars_decode(Plugin::callPluginDependencies());
+            else
+                $inicial= htmlspecialchars_decode(Plugin::callAdminPluginDependencies());
+            $contenido = str_replace("<head>","<head>\n".$inicial,ob_get_contents());
+            ob_end_clean();
+            echo html_entity_decode($contenido);
         }else
         {
             throw new Exception();

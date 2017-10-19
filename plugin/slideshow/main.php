@@ -28,7 +28,7 @@ class Slideshow
     /**
      * Add Files to Header
      */
-    function beforeHeader()
+    /*function beforeHeader()
     {
         $this->includeJSClient();
         $this->includeCSS();
@@ -37,7 +37,7 @@ class Slideshow
     {
         $this->includeCSS();
         $this->includeJS();
-    }
+    }*/
     /**
      * Client View
      */
