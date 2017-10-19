@@ -21,6 +21,11 @@ if(isset($_GET["admin"])){
     $tem->setFolder($_CONF->tema);
     $tem->AuthPostLogin();
 }
+$tem->setVar("fw_afterHeader",$_CONF->beforehead);
+$tem->setVar("fw_afterCloseHeader",$_CONF->beforeclosehead);
+$tem->setVar("fw_afterBody",$_CONF->beforebody);
+$tem->setVar("fw_afterCloseBody",$_CONF->beforeclosebody);
+
 $tem->setVar("fw_title",$_CONF->titulo);
 $tem->setVar("fw_descripcion",$_CONF->descripcion);
 $tem->setVar("fw_keywords",$_CONF->palabras_claves);

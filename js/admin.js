@@ -471,8 +471,13 @@ $(function () {
     {
         $.get("api/?getConfig").done(function(data){
             var obj = JSON.parse(data);
-            var cont = "<div class='configuration'><h3>Configuración</h3><input type='hidden' id='usuariotxt' value='"+JSON.stringify(obj.usuario)+"'/><div class='row'><span class='title'>Titulo de la Web:</span><input type='text' id='titulotxt' value='"+obj.titulo+"' /></div><div class='row'><span class='desc'>Descripción de la Web:</span><input type='text' id='descripciontxt' value='"+obj.descripcion+"' /></div><div class='row'><span class='keyword'>Palabras Claves de la Web:</span><input type='text' id='palabras_clavestxt' value='"+obj.palabras_claves+"' /></div><div class='row'><span class='theme'>Tema de la Web:</span><input type='text' id='tematxt' value='"+obj.tema+"' /></div><button class='btn soft_reset'>Reinicializar Firework</button></button><button class='save'>Guardar Configuración</button></div>";
+            var afterhead = obj.beforehead.replace(/</g,"&lt;").replace(/>/g,"&gt;") || "";
+            var afterclosehead = obj.beforeclosehead.replace(/</g,"&lt;").replace(/>/g,"&gt;") || "";
+            var afterbody = obj.beforebody.replace(/</g,"&lt;").replace(/>/g,"&gt;") || "";
+            var afterclosebody = obj.beforeclosebody.replace(/</g,"&lt;").replace(/>/g,"&gt;") || "";
+            var cont = "<div class='configuration'><h3>Configuración</h3><input type='hidden' id='usuariotxt' value='"+JSON.stringify(obj.usuario)+"'/><div class='row'><span class='title'>Titulo de la Web:</span><input type='text' id='titulotxt' value='"+obj.titulo+"' /></div><div class='row'><span class='desc'>Descripción de la Web:</span><input type='text' id='descripciontxt' value='"+obj.descripcion+"' /></div><div class='row'><span class='keyword'>Palabras Claves de la Web:</span><input type='text' id='palabras_clavestxt' value='"+obj.palabras_claves+"' /></div><div class='row'><span class='theme'>Tema de la Web:</span><input type='text' id='tematxt' value='"+obj.tema+"' /></div><h5 class='btn btnCustomBoton'><i class='fa fa-caret-right cursor' aria-hidden='true'></i>Código HTML Personalizado</h5><div id='customhtml'><p>After &lt;head&gt;:</p><textarea id='nextOpenTagHeader' >"+afterhead+"</textarea><p>After &lt;/head&gt;:</p><textarea id='nextCloseTagHeader' >"+afterclosehead+"</textarea><p>After &lt;body&gt;:</p><textarea id='nextOpenTagBody' >"+afterbody+"</textarea><p>After &lt;/body&gt;:</p><textarea id='nextCloseTagBody'>"+afterclosebody+"</textarea></div><button class='btn soft_reset'>Reinicializar Firework</button></button><button class='save'>Guardar Configuración</button></div>";
             $(".content").html(cont);
+            $(".btnCustomBoton").click(btn_customHTML)
             $(".soft_reset").click(btn_reset);
             $(".save").click(btn_guardarConfig);
             });
@@ -489,7 +494,11 @@ $(function () {
             "descripcion":$("#descripciontxt").val(),
             "palabras_claves":$("#palabras_clavestxt").val(),
             "usuario":usuario,
-            "tema":$("#tematxt").val()
+            "tema":$("#tematxt").val(),
+            "beforehead":$("#nextOpenTagHeader").val(),
+            "beforeclosehead":$("#nextCloseTagHeader").val(),
+            "beforebody":$("#nextOpenTagBody").val(),
+            "beforeclosebody":$("#nextCloseTagBody").val()
         };
         var txtjson = JSON.stringify(json);
         $.post("api/",{set_config: txtjson}).done(function(info)
@@ -515,6 +524,11 @@ $(function () {
                 }
             });
         }
+    }
+    function btn_customHTML()
+    {
+        $(".configuration .btnCustomBoton i").toggleClass("select");      
+        $("#customhtml").fadeToggle();
     }
     /**
      * Convierte el numero del rol en nombre  

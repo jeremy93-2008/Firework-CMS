@@ -58,6 +58,10 @@ class Installer
         $conf["palabras_claves"] = $this->pclaves;
         $conf["usuario"][] = array("nombre"=>$usuario[0],"contrasenia"=>$usuario[1],"rol"=>$usuario[2]);
         $conf["tema"] = $this->folder;
+        $conf["beforehead"] = "";
+        $conf["beforeclosehead"] = "";
+        $conf["beforebody"] = "";
+        $conf["beforeclosebody"] = "";
         $fichero = json_encode($conf);
         $con = "config/config.json";
         if (file_exists($con))

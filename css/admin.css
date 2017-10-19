@@ -106,6 +106,10 @@ body
     font-weight: bold;
     max-width:374px;
 }
+.btn:hover
+{
+  border-color: lightskyblue;
+}
 .content h2
 {
   text-shadow: 1px 1px 2px white;
@@ -118,6 +122,10 @@ body
   text-shadow: 1px 1px 2px white;
   cursor: pointer;
   max-width: none;
+}
+.side:hover
+{
+  border-color: #d40000;
 }
 .sidebar
 {
@@ -674,7 +682,7 @@ body
     text-align: right;
     display: inline-block;
 }
-.api_row select,.comment select,select#enabled_custom
+.api_row select,.comment select,select#enabled_custom,.dropdownflat
 {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -746,6 +754,35 @@ body
 .configuration .row input:focus
 {
   border-bottom: solid 1px lightskyblue;
+}
+.configuration textarea
+{
+  display:block;
+  margin:auto;
+  width:70%;
+  height:250px;
+  border: solid 1px lightgrey;
+  border-radius: 10px;
+  font-family: Arial;
+}
+.configuration h5
+{
+  margin:auto;
+  cursor:pointer;
+}
+.configuration h5:hover i,.select
+{
+  transform: rotate(90deg);
+}
+.configuration #customhtml
+{
+  width: 100%;
+  display: none;
+  transition: height 2s ease-in-out;
+}
+.configuration textarea:focus
+{
+  border-color:lightskyblue;
 }
 .temas .selectedTheme::before
 {
