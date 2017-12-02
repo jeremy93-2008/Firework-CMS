@@ -1,9 +1,9 @@
 /**
  * Create a Custom Alert Message, with a text and title, and callback function to do whatever after you push Ok button
  * 
- * @param {strig} info = Message of Alert
- * @param {function} [callback=undefined] = function excute after the disparition of Alert
- * @param {string} [titulo="Información"] = Title for the Alert message
+ * @param {strig} info Message of Alert
+ * @param {function} [callback=undefined] Function executed after the disparition of Alert
+ * @param {string} [titulo="Información"] Title for the Alert message
  */
 function toastInfo(info,callback=function(){},titulo="Información")
 {

@@ -22,35 +22,104 @@ function quitarUsuario()
         Plugin();
     });
 }
-function Plugin()
-    {
-        var objeto_pl = JSON.parse($(".infoPlugin").html());
-        var cont = "<div class='plugins'><h3>Plugins/API</h3><button class='btn doc api'>Documentación API</button><button class='btn doc plugin'>Documentación Plugin</button><button class='btn doc JSON'>Documentación Objetos JSON</button><h4>Plugins</h4>";
-        for(var plugin of objeto_pl)
+/**
+ * Subir el ZIP al servidor y descomprimirlo y instalar el plugin
+ */
+function UploadPlugin()
+{
+    var form = new FormData();
+    form.append("opcionZip", "plugin");
+    form.append("set_zip_file", "Zip");
+    form.append("zipFile", $("#uploadPlugin").prop("files")[0]);
+    $.ajax({
+        url: "api/", // Url to which the request is send
+        type: "POST",             // Type of request to be send, called as method
+        data: form, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false,       // The content type used when sending data to the server.
+        cache: false,             // To unable request pages to be cached
+        processData: false,        // To send DOMDocument or non processed data file it is set to false
+        success: function (data)   // A function to be called if request succeeds
         {
-            cont += "<div class='acc_plugin'><span class='titulo'>"+plugin.name+"</span><p class='parr'><b>Descripción:</b> "+plugin.description+"</p><p class='parr'><b>Autor:</b> "+plugin.author+"</p><p class='parr'><b>Imagen:</b><br /><img src='"+plugin.image+"' style='max-width:150px;border-radius:5px;border:solid 1px darkgrey' /></p><p class='parr'><b>URL:</b> <a target='_blank' href='"+plugin.url+"'>"+plugin.url+"</a></p></div>";
+            toastInfo("Archivo súbido con éxito");
+            Plugin();
         }
-        cont += "<h4>API</h4><div class='api_row'><span class='us'>Usuario Existentes:</span><select id='userlist'></select><button id='access_user'>Añadir Acceso</button></div><div class='api_row'><span class='us'>Usuarios con acceso a la API:</span><select id='accesslist'></select><button id='delete_user'>Quitar Acceso</button></div>";
-        $(".content").html(cont);
-
-        $("#access_user").click(anadirUsuario);
-        $("#delete_user").click(quitarUsuario);
-        
-        $.get("api/?users").done(function(data){
-            var sel = $("#userlist");
-            for(var user of JSON.parse(data))
+    });
+}
+/**
+ * Activa o Desactiva un Plugin según su estado actual
+ */
+function ActivePlugin()
+{
+    let color = $(this).css("color");
+    let txt = "¿Desea activar este plugin: "+$(this).attr("plugin")+" ?";
+    if(color=="rgb(0, 128, 0)")
+        txt = "¿Desea desactivar este plugin: "+$(this).attr("plugin")+" ?";
+    let conf = confirm(txt);
+    
+    if(conf)
+    {
+        $.post("api/",{set_plugin_activation: $(this).attr("plugin")}).done(function(info)
+        {
+            if(info!="false")
+                toastInfo("Plugin activado con éxito")
+            else
+                toastInfo("Plugin desactivado con éxito")
+            $.get("api/?plugin_info").done(function(data)
             {
-                var html = sel.html();
-                sel.html(html+"<option>"+user.nombre+"</option>");
-            }
-        });
-        $.get("api/?access_user_api").done(function(data){
-            var sel = $("#accesslist");
-            var obj = JSON.parse(data);
-            for(var us of obj.usuario)
-            {
-                var html = sel.html();
-                sel.html(html+"<option value=',"+JSON.stringify(us)+"'>"+us.nombre+"</option>");
-            }
+                $(".infoPlugin").html(data);
+                $(".btn.side.plugin").remove();
+                var a = 0;
+                let html = "";
+                for(pl of JSON.parse(data))
+                {
+                    if(pl.instance != undefined)
+                    {
+                        html += "<button idPlugin="+a+" class='btn side plugin'>"+pl.name+"</button>"
+                    }
+                    a++;
+                }
+                $(".infoPlugin").after(html);
+                Plugin();
+                $(".btn.side.plugin").click(Clique);
+            });
         });
     }
+}
+/**
+ * Desinstala un Plugin elegido
+ */
+function UninstallPlugin()
+{
+    let txt = "¿Está seguro de querer desinstalar este plugin?";
+    let conf = confirm(txt);
+    
+    if(conf)
+    {
+        $.post("api/",{uninstall_plugin: $(this).attr("plugin")}).done(function(info)
+        {
+            console.log(info);
+            if(info!="false")
+                toastInfo("Plugin desinstalado con éxito")
+            else
+                toastInfo("No se pudo desinstalar el plugin")
+            $.get("api/?plugin_info").done(function(data)
+            {
+                $(".infoPlugin").html(data);
+                $(".btn.side.plugin").remove();
+                var a = 0;
+                let html = "";
+                for(pl of JSON.parse(data))
+                {
+                    if(pl.instance != undefined)
+                    {
+                        html += "<button idPlugin="+a+" class='btn side plugin'>"+pl.name+"</button>"
+                    }
+                    a++;
+                }
+                $(".infoPlugin").after(html);
+                Plugin();
+                $(".btn.side.plugin").click(Clique);
+            });
+        });
+    }
+}

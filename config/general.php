@@ -6,6 +6,11 @@ if(isset($_GET["co"]))
 else
     $p->setView();
 $p->setConfig($_CONF);
+if(isset($_SESSION["ErrorPlugin"]))
+{
+    echo "<div class='errorPlugin'>".$_SESSION["ErrorPlugin"]."</div>";
+    unset($_SESSION["ErrorPlugin"]);
+}
 echo Plugin::init();
 
 $tem = new Template();

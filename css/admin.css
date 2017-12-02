@@ -810,6 +810,39 @@ body
     font-weight: bold;
     margin-right: 10px;
 }
+.theme_upload,.plugins .plugin_upload
+{
+  width:34px;
+}
+.errorPlugin
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 14px;
+  width: 100%;
+  height: 30px;
+  background-color: #b90c0c;
+  border-bottom: solid 1px black;
+  font-family: Arial;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  z-index: 55;
+  animation: desvanecer 6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.ablePlugin
+{
+  float:left;
+  cursor:pointer;
+}
+.unPlugin
+{
+  float:right;
+  cursor:pointer;  
+}
 .comment .comment_container
 {
     font-size: 12px;
@@ -997,4 +1030,9 @@ body.wait *, body.wait
   {
     width:92%;
   }
+}
+@keyframes desvanecer
+{
+  75%{opacity:1;}
+  100%{opacity:0;display:none;}
 }

@@ -204,3 +204,13 @@ else if(isset($_GET["get_admin_plugin_panel"]))
     $p = new Plugin();
     echo Plugin::AdminView();
 }
+else if(isset($_GET["is_plugin_activated"]))
+{
+    $p = new Plugin();
+    echo json_encode($p->isPluginExist($_GET["is_plugin_activated"]));
+}
+else if(isset($_GET["plugin_info"]))
+{
+    $p = new Plugin();
+    echo json_encode(Plugin::infoPlugin());
+}

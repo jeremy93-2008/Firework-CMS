@@ -1,0 +1,53 @@
+.file-image,.slide-image
+{
+    margin:15px;
+    height:250px;
+    overflow-x: auto;
+    border:solid 1px lightgray;
+}
+.file-image ul li,.slide-image ul li
+{
+    list-style: none;
+    text-align: left;
+    font-style: italic;
+    cursor:pointer;
+}
+.file-image ul li:hover,.slide-image ul li:hover
+{
+    background-color: lightgrey;
+}
+.file-image ul li img,.slide-image ul li img
+{
+    width:150px;
+    border:solid 2px white;
+    outline:solid 1px lightgray;
+    border-radius: 5px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+ul
+{
+    padding-left: 5px;
+}
+button
+{
+    margin-bottom:15px;
+    cursor: pointer;
+}
+.slideshow-main
+{
+    background: linear-gradient(#EEE,#DDD);
+    border: solid 1px lightgray;
+    border-radius:5px;
+    margin-left:2%;
+    padding:10px;
+}
+.SlideshowMain .SlideshowImg
+{
+    display:none;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}

@@ -23,7 +23,7 @@ function CrearUser()
             {
                 if(info == "218")
                     toastInfo("Borrado exitosamente");
-                Mostrar();
+                Usuarios();
             });
 }
 function MostrarUser()
@@ -33,22 +33,6 @@ function MostrarUser()
 function CerrarUser()
 {
     $(".usuario").css("display","none");
-}
-function Mostrar()
-{
-     $.get("api/?users").done(function(data)
-        {
-            var cont = "<div class='users'><h3>Usuarios</h3><button class='add_user'>Añadir Usuario</button>";
-            for(var usuario of JSON.parse(data))
-            {
-                cont += "<div json='"+JSON.stringify(usuario)+"' class='accordion'><span class='titulo'>"+usuario.nombre+"</span><div class='icon' title='Eliminar Página'><i class='fa fa-times delete' aria-hidden='true' /></div><p class='parr'><b>Contraseña:</b> "+usuario.contrasenia+"</p><p class='parr'><b>Rol:</b> "+Rol(usuario.rol)+"</p></div>";
-            }
-            cont += "</div><div class='usuario'><h4>Crear nuevo Usuario</h4><p><label>Nombre de Usuario: </label><input class='username' type='text' /></p><p><label>Contraseña: </label><input class='pass' type='password' /></p><p><label>Rol: </label><select id='rol'><option value='1'>Usuario</option><option value='2'>Colaborador</option><option value='3'>Editor</option><option value='4'>Administrador</option></select></p><button class='add_usuario'>Crear Usuario</button></div>";
-            $(".content").html(cont)
-            $(".accordion .icon").click(EliminarUser);
-            $(".users .add_user").click(MostrarUser);
-            $(".usuario .add_usuario").click(CrearUser);
-        });
 }
 /**
  * Convierte el numero del rol en nombre  

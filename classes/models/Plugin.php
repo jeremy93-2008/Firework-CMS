@@ -2,12 +2,16 @@
 class Plugin
 {
     private static $_clases;
-    private static $_build;
+    private static $_numPlugin;
     private static $_view;
     private static $_config;
     public function __construct()
     {
         $this->getJsonPluginFolder();
+    }
+    public static function errorhandling($num, $str, $file, $line, $context = null)
+    {
+        throw new Exception("Error de plugin");
     }
     public function setConfig($CONF)
     {
@@ -19,10 +23,11 @@ class Plugin
     }
     public static function hasPlugin()
     {
-        return (count(Plugin::$_build)>0);
-    }   
+        return (count(Plugin::$_numPlugin)>0);
+    }  
     private function getJsonPluginFolder()
     {
+        Plugin::$_numPlugin = 0;
         $lista = "";
         $carpeta = "";
         if(file_exists("../plugin")){
@@ -32,19 +37,54 @@ class Plugin
             $lista = scandir("plugin");
             $carpeta = "plugin/";
         }
-        for($num = 2;$num < count($lista);$num++)
+        usort($lista, function($a, $b){
+            if(file_exists("../plugin"))
+                $folder = "../plugin/";
+            else
+                $folder = "plugin/";
+            return filectime($folder.$a) > filectime($folder.$b);
+        });
+        for($num = 0;$num < count($lista);$num++)
         {
             $ruta = $carpeta.$lista[$num];
             
-            if(file_exists($ruta."/plugin.json"))
+            if(($lista[$num] != "." || $lista[$num] != "..") && file_exists($ruta."/plugin.json"))
             {
+                $json_original = json_decode(file_get_contents($ruta."/plugin.json"));
                 $json = json_decode(str_replace("~",$ruta,file_get_contents($ruta."/plugin.json")));
-                Plugin::$_clases[$json->name] = $json;
-                Plugin::$_clases[$json->name]->ruta = $ruta;
-                Plugin::$_clases[$json->name]->dependencia = $json->dependencies;
-                Plugin::$_clases[$json->name]->admindependencia = $json->adminDependencies;
-                include $ruta."/".$json->file;
-                Plugin::$_build[$json->name] = new $json->mainClass();
+                try
+                {
+                    set_error_handler("Plugin::errorhandling");
+                    if(!isset($json))
+                    {
+                        $json = new stdClass();
+                        $json->dependencia = [];
+                        $json->adminDependencies = [];
+                        $json->disabled = "true";
+                    }
+                    Plugin::$_clases[$json->name] = $json;
+                    Plugin::$_clases[$json->name]->ruta = $ruta;
+                    Plugin::$_clases[$json->name]->dependencia = $json->dependencies;
+                    Plugin::$_clases[$json->name]->admindependencia = $json->adminDependencies;
+                    if((!isset($json->disabled)) || (isset($json->disabled) && $json->disabled != "true"))
+                    {
+                        if(isset($json->mainClass) && array_search($json->mainClass,get_declared_classes()) === FALSE)
+                        {
+                            include_once $ruta."/".$json->file;
+                            Plugin::$_clases[$json->name]->instance = new $json->mainClass();
+                        }else
+                        {
+                            throw new Exception();
+                        }
+                        Plugin::$_numPlugin++;
+                    }
+                }catch(Exception $exp)
+                {
+                    $json_original->disabled = "true";
+                    file_put_contents($ruta."/plugin.json",json_encode($json_original));
+                    $_SESSION["ErrorPlugin"] = "Un Plugin ha dejado de funcionar correctamente y se ha desactivado, se recomienda su desinstalación o actualización.";
+                }
+                restore_error_handler();
             }
         }
     }
@@ -71,21 +111,85 @@ class Plugin
         }
     }
     /**
+     * Función que permite saber si un plugin esta activado o no
+     */
+    public function isPluginExist($nombre)
+    {
+        if(isset(Plugin::$_clases[$nombre]) && isset(Plugin::$_clases[$nombre]->instance))
+            return true;
+        else
+            return false;
+    }
+    /**
+     * Función que permite desinstalar un plugin en concreto
+     */
+    public function desinstall($nombre)
+    {
+        $pl = Plugin::$_clases[$nombre];
+        if(isset($pl->ruta))
+        {
+            return $this->delTree($pl->ruta);
+        }
+    }
+    /**
+     * Funcion que sirve para borrar un directorio de manera recursiva
+     */
+    public function delTree($dir)
+    {
+        $files = array_diff(scandir($dir), array('.','..')); 
+        $str ="";
+        foreach ($files as $file) { 
+            $str = "$dir/$file";
+          (is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file"); 
+        } 
+        rmdir($dir);
+        return true; 
+    }
+    /**
+     * Función que permite activar o desactivar el plugin en cuestión
+     */
+    public function setDisabled($nombre)
+    {
+        $boo = $this->isPluginExist($nombre);
+        if($boo)
+        {
+            Plugin::$_clases[$nombre]->instance = null;
+            $json = json_decode(file_get_contents(Plugin::$_clases[$nombre]->ruta."/plugin.json"));
+            $json->disabled = "true";
+            file_put_contents(Plugin::$_clases[$nombre]->ruta."/plugin.json",json_encode($json));
+            return false;
+        }else
+        {
+            $json = json_decode(file_get_contents(Plugin::$_clases[$nombre]->ruta."/plugin.json"));
+            if(isset($json->mainClass) && array_search($json->mainClass,get_declared_classes()) === FALSE)
+            {
+                include_once Plugin::$_clases[$nombre]->ruta."/".Plugin::$_clases[$nombre]->file;
+            }
+            Plugin::$_clases[$nombre]->instance = new $json->mainClass();
+            unset($json->disabled);
+            file_put_contents(Plugin::$_clases[$nombre]->ruta."/plugin.json",json_encode($json));
+            return true;            
+        }
+    }
+    /**
      * Función que sirve para añadir las dependencias solicitadas por el plugin en el json
      */
     public static function callPluginDependencies()
     {
         $jsandcss = "";
-        foreach(Plugin::$_clases as $clase)
+        if(isset(Plugin::$_clases) && Plugin::$_clases !== NULL)
         {
-            foreach($clase->dependencia as $each)
+            foreach(Plugin::$_clases as $clase)
             {
-                if(strpos($each,".css"))
+                foreach($clase->dependencia as $each)
                 {
-                    $jsandcss .= "<link name='plugin' rel='stylesheet' href='".$each."' />\n";
-                }else
-                {
-                    $jsandcss .= "<script src='".$each."' type='text/javascript'></script>\n";
+                    if(strpos($each,".css"))
+                    {
+                        $jsandcss .= "<link name='plugin' rel='stylesheet' href='".$each."' />\n";
+                    }else
+                    {
+                        $jsandcss .= "<script name='plugin' src='".$each."' type='text/javascript'></script>\n";
+                    }
                 }
             }
         }
@@ -97,16 +201,19 @@ class Plugin
     public static function callAdminPluginDependencies()
     {
         $jsandcss = "";
-        foreach(Plugin::$_clases as $clase)
+        if(isset(Plugin::$_clases) && Plugin::$_clases !== NULL)
         {
-            foreach($clase->admindependencia as $each)
+            foreach(Plugin::$_clases as $clase)
             {
-                if(strpos($each,".css"))
+                foreach($clase->admindependencia as $each)
                 {
-                    $jsandcss .= "<link rel='stylesheet' href='".$each."' />\n";
-                }else
-                {
-                    $jsandcss .= "<script name='plugin' src='".$each."' type='text/javascript'></script>\n";
+                    if(strpos($each,".css"))
+                    {
+                        $jsandcss .= "<link name='plugin' rel='stylesheet' href='".$each."' />\n";
+                    }else
+                    {
+                        $jsandcss .= "<script name='plugin' name='plugin' src='".$each."' type='text/javascript'></script>\n";
+                    }
                 }
             }
         }
@@ -119,7 +226,14 @@ class Plugin
      */
      public static function instanceClass($nombre)
      {
-        return Plugin::$_build[$nombre];
+        if(isset(Plugin::$_clases[$nombre]))
+        {
+            if(isset(Plugin::$_clases[$nombre]->instance))
+            {
+                return Plugin::$_clases[$nombre]->instance;
+            }
+        }
+        return "Este plugin se encuentra desactivado o no existe";
      }
 
     /** Hooks que permiten comunicar los plugins con la diferentes partes del CMS --> 26 Hooks */
@@ -254,19 +368,50 @@ class Plugin
     {
         $t_res = "";
         $b = 0;
-        foreach(Plugin::$_build as $conector)
+        if(isset(Plugin::$_clases) && Plugin::$_clases !== NULL)
         {
-            if(method_exists($conector,$name))
+            foreach(Plugin::$_clases as $obj)
             {
-                ob_start();
-                $conector->$name();
-                $res = ob_get_contents();
-                ob_end_clean();
-                if($name=="showAdminView"){
-                    $t_res .= "<div idPlugin=".$b." class='contenedorPlugin plugin admin'>".$res."</div>";
-                    $b++;
-                }else{
-                    $t_res .= $res;
+                if(isset($obj->instance))
+                {
+                    $conector = $obj->instance;
+                    if(method_exists($conector,$name))
+                    {
+                        set_error_handler("Plugin::errorhandling");
+                        try
+                        {
+                            ob_start();
+                            $conector->$name();
+                            $res = ob_get_contents();
+                            ob_end_clean();
+                            if($name=="showAdminView"){
+                                $t_res .= "<div idPlugin=".$b." class='contenedorPlugin plugin admin'>".$res."</div>";
+                                $b++;
+                            }else{
+                                $t_res .= $res;
+                            }
+                        }catch(Exception $exp)
+                        {
+                            $json_original = json_decode(file_get_contents($obj->ruta."/plugin.json"));
+                            $json_original->disabled = "true";
+                            file_put_contents($obj->ruta."/plugin.json",json_encode($json_original));
+                            $_SESSION["ErrorPlugin"] = "Un Plugin ha dejado de funcionar correctamente y se ha desactivado, se recomienda su desinstalación o actualización.";
+                        }
+                        restore_error_handler();
+                    }else
+                    {
+                        if($name=="showAdminView"){
+                            $t_res .= "<div idPlugin=".$b." class='contenedorPlugin plugin admin'>Este Plugin no dispone de panel de administración</div>";
+                            $b++;
+                        }
+                    }
+                }else
+                {
+                    if($name=="showAdminView")
+                    {
+                        $t_res .= "<div idPlugin=".$b." class='contenedorPlugin plugin admin'>Este Plugin se encuentra desactivado y no se puede usar.</div>";
+                        $b++;
+                    }
                 }
             }
         }

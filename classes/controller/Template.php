@@ -96,8 +96,8 @@ class Template
                 $inicial = htmlspecialchars_decode(Plugin::callPluginDependencies());
             else
                 $inicial= htmlspecialchars_decode(Plugin::callAdminPluginDependencies());
-            $contenido = str_replace("<head>","<head>\n".$this->fw_afterHeader."\n".$inicial,ob_get_contents());
-            $contenido = str_replace("</head>",$this->fw_afterCloseHeader."\n</head>",$contenido);
+            $contenido = str_replace("<head>","<head>\n".$this->fw_afterHeader."\n",ob_get_contents());
+            $contenido = str_replace("</head>",$this->fw_afterCloseHeader.$inicial."\n</head>",$contenido);
             $contenido = str_replace("<body>","<body>\n".$this->fw_afterBody,$contenido);
             $contenido = str_replace("</body>",$this->fw_afterCloseBody."\n</body>",$contenido);
             ob_end_clean();

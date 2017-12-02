@@ -9,10 +9,10 @@ include 'admin/controller/admin.php';
 <html>
     <head>
         <title>Administración de <?=$_CONF->titulo?></title>
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <link rel="stylesheet" href="css/admin.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="js/ui.js"></script>
         <script type="text/javascript" principal="principal" src="js/admin.js"></script>
         <script type="text/javascript" src="js/admin/article.js"></script>

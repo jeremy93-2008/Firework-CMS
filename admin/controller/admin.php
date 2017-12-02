@@ -39,8 +39,10 @@ function showAdmin()
                 $a = 0;
                 foreach($arr as $field)
                 {
+                    if(isset($field->instance)){
                     ?><button idPlugin='<?=$a?>' class="btn side plugin"><?=$field->name?></button>
                     <?php
+                    }
                     $a++;
                 }
             }

@@ -45,10 +45,15 @@ else if(isset($_REQUEST["close"]))
 }else if(isset($_POST["set_image"]))
 {
     $i = new Imagen();
-    return $i->setImage($_FILES);
-}else if(isset($_POST["set_category"]))
+    echo $i->setImage($_FILES);
+}else if(isset($_POST["set_zip_file"]))
 {
-    return Categoria::setCategoria($_POST["set_category"]);
+    $i = new Imagen();
+    echo $i->setZipFile($_FILES,$_POST["opcionZip"]);
+}
+else if(isset($_POST["set_category"]))
+{
+    echo Categoria::setCategoria($_POST["set_category"]);
 }else if(isset($_POST["add_menu"]))
 {
     $menu = new Menu();
@@ -135,4 +140,14 @@ else if(isset($_POST["set_css_and_generate"]))
 {
     $t = new Theme_Custom();
     echo $t->generateCSSFromSave($_POST["set_css_and_generate"]);
+}
+else if(isset($_POST["set_plugin_activation"]))
+{
+    $p = new Plugin();
+    echo json_encode($p->setDisabled($_POST["set_plugin_activation"]));
+}
+else if(isset($_POST["uninstall_plugin"]))
+{
+    $p = new Plugin();
+    echo json_encode($p->desinstall($_POST["uninstall_plugin"]));
 }
