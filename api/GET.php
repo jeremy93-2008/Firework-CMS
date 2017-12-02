@@ -214,3 +214,10 @@ else if(isset($_GET["plugin_info"]))
     $p = new Plugin();
     echo json_encode(Plugin::infoPlugin());
 }
+else if(isset($_GET["get_doc"]))
+{
+    if(file_exists("doc/".$_GET["get_doc"]))
+        echo file_get_contents("doc/".$_GET["get_doc"]);
+    else
+        echo file_get_contents("../doc/".$_GET["get_doc"]);
+}

@@ -431,7 +431,7 @@
      */
     function Plugin() {
         var objeto_pl = JSON.parse($(".infoPlugin").html());
-        var cont = "<div class='plugins'><h3>Plugins/API</h3><a target='_blank' href='doc/doc_api.html'><button class='btn doc api'>Documentación API</button></a><a target='_blank' href='doc/doc_plugin.html'><button class='btn doc plugin'>Documentación Plugin</button></a><a target='_blank' href='doc/JSON_doc.html'><button class='btn doc JSON'>Documentación Objetos JSON</button></a><h4>Plugins</h4><label>Subir un Plugin (.ZIP) </label><br /><input id='uploadPlugin' type='file' />&nbsp;<button class='btn plugin_upload' style='margin-bottom:10px'><i class='fa fa-upload' aria-hidden='true' /></button><br />";
+        var cont = "<div class='plugins'><h3>Plugins/API</h3><a target='_blank' href='doc/doc.html?name=API&doc_api.md'><button class='btn doc api'>Documentación API</button></a><a target='_blank' href='doc/doc.html?name=Plugin&doc_plugin.md'><button class='btn doc plugin'>Documentación Plugin</button></a><a target='_blank' href='doc/doc.html?name=JSON&JSON_doc.md'><button class='btn doc JSON'>Documentación Objetos JSON</button></a><a target='_blank' href='doc/doc.html?name=Plantilla&template_manual.md'><button class='btn doc JSON'>Documentación Plantilla</button></a><h4>Plugins</h4><label>Subir un Plugin (.ZIP) </label><br /><input id='uploadPlugin' type='file' />&nbsp;<button class='btn plugin_upload' style='margin-bottom:10px'><i class='fa fa-upload' aria-hidden='true' /></button><br />";
         for (var plugin of objeto_pl) {
             var activado = "style='color:green;' title='Activado' plugin='"+plugin.name+"'";
             if(plugin.instance == undefined)
