@@ -48,23 +48,31 @@ Esta función devuelve el contenido de *[$nombre_del_fichero].php* del tema actu
 ```
 Esta función devuelve el articulo que establece la propiedad $_GET['ac'], sino se encuentra, por defecto es 1.
 ```php
-<?=$page->showArticle()?>
+<?=$page->showArticle(array("name","date","image","content","author","category","description"),[array("search_by_name","search_by_date"...)])?>
 ```
 Esta función devuelve la página que establece la propiedad $_GET['pa'], sino se encuentra, por defecto es 1.
 ```php
-<?=$page->showPage()?>
+<?=$page->showPage(array("name","date","image","content","author","category","description"),[array("search_by_name","search_by_date"...)])?>
 ```
 Esta función devuelve el articulo que establece la propiedad $_GET['ac'], sino se encuentra, devuelve showAllArticles().
 ```php
-<?=$page->showArticleFromParam()?>
+<?=$page->showArticleFromParam(array("name","date","image","content","author","category","description"),[array("search_by_name","search_by_date"...)],[enlaceHaciaArtIndividuales:boolean])?>
+```
+Esta función devuelve todos los articulos del CMS, dentro de un rango númerico.
+```php
+<?=$page->showRangeArticles(array("name","date","image","content","author","category","description"),[numArtCadaPagina],[array("search_by_name","search_by_date"...)],[enlaceHaciaArtIndividuales:boolean])?>
+```
+Esta función devuelve el articulo que establece la propiedad $_GET['ac'], sino se encuentra, devuelve showRangeArticles().
+```php
+<?=$page->showArticleRangeFromParam(array("name","date","image","content","author","category","description"),[numArtCadaPagina],[array("search_by_name","search_by_date"...)],[enlaceHaciaArtIndividuales:boolean])?>
 ```
 Esta función devuelve todos los articulos del CMS, ordenados por fecha de publicación.
 ```php
-<?=$page->showAllArticles()?>
+<?=$page->showAllArticles(array("name","date","image","content","author","category","description"),[array("search_by_name","search_by_date"...)],[enlaceHaciaArtIndividuales:boolean])?>
 ```
 Esta función devuelve todas las paginas del CMS, ordenados por ID.
 ```php
-<?=$page->showAllPages()?>
+<?=$page->showAllPages(array("name","date","image","content","author","category","description"),[array("search_by_name","search_by_date"...)])?>
 ```
 Esta función devuelve el formulario de inicio de sesión. (2 estados posibles: formulario -o- informacion del usuario registrado)
 ```php
