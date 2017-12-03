@@ -55,6 +55,26 @@ class Theme
         return $ret_arr;
     }
     /**
+     * Retrieve CSS style for admin panel
+     */
+    public function getAdminStyle()
+    {
+        $ruta_tema = $this->conf["tema"];
+        $json = json_decode(file_get_contents($ruta_tema."/theme.json"));
+        $ruta_css = "";
+        if(isset($json->admin_style))
+        {
+            if(file_exists($ruta_tema."/".$json->admin_style))
+            {
+                if(isset($json->admin_overwrite) && $json->admin_overwrite == "true")
+                    $ruta_css = "<link href='../".$ruta_tema."/".$json->admin_style."' rel='stylesheet' />";
+                else
+                    $ruta_css = "<link rel=\"stylesheet\" href=\"css/admin.css\" />\n<link href='../".$ruta_tema."/".$json->admin_style."' rel='stylesheet' />";
+            }
+        }
+        return $ruta_css;
+    }
+    /**
      * Add a new theme from a zip file and copy it in /themes folder
      *
      * @param [$_FILES] $archivo

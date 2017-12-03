@@ -31,7 +31,7 @@
         <?=$page->showMenu()?>
     </div>
     <div class='mainOther'>
-        <?=$page->showArticleFromParam(array("name","date","content"))?>
+        <?=$page->showArticleRangeFromParam(array("name","date","content"),10);?>
     </div>
 <?php } ?>
 <?=$page->showFooter()?>

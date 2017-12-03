@@ -1,6 +1,7 @@
 $(function()
 {
-    Diapositiva();
+    if($(".SlideshowMain").length > 0)
+        Diapositiva();
 
     function Diapositiva()
     {

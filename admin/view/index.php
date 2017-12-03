@@ -10,7 +10,18 @@ include 'admin/controller/admin.php';
     <head>
         <title>Administración de <?=$_CONF->titulo?></title>
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <?php
+        $theme = new Theme();
+        $txt = $theme->getAdminStyle();
+        if($txt == ""){
+        ?>
         <link rel="stylesheet" href="css/admin.css" />
+        <?php
+        }else
+        {
+            echo $txt;
+        }
+        ?>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/ui.js"></script>

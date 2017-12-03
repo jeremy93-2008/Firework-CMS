@@ -116,6 +116,14 @@ class Template
         else
             return $this->showAllArticles($tabla,$contenido,$enlace);
     }
+    public function showArticleRangeFromParam($tabla,$cantidad,$contenido=array(),$enlace=false)
+    {
+        $page = $this;
+        if(isset($_GET["ac"]))
+            return $this->showArticle($tabla,$contenido);
+        else
+            return $this->showRangeArticles($tabla,$cantidad,$contenido,$enlace);
+    }
     public function showArticle($tabla,$contenido=array())
     {
         $html = Plugin::BeforeArticle();
@@ -150,6 +158,68 @@ class Template
         }
         $html .= "</div>";
         $html .= Plugin::AfterArticle();
+        return $html;
+    }
+    public function showRangeArticles($tabla,$cantidad=10,$contenido=array(),$enlace=false)
+    {
+        $page = $this;
+        $html = "<div class='art_group'>";
+        $tamanio_total = count($this->fw_articles);
+        $paginas_total = intval(intval($tamanio_total/$cantidad)+($tamanio_total%$cantidad!=0?1:0));
+        //$tabla contiene todos los valores de las variables que quieres ver.
+        $inicio = 0;
+        if(isset($_GET["i"]))
+            $inicio = intval($_GET["i"]);
+        $articulos = $this->article->getRangeArticle($inicio,$cantidad);
+        foreach($articulos as $art)
+        {
+            $html .= Plugin::BeforeArticle()."<div class='art_inside art_single'>";
+            if($art->content !== "sin_permiso")
+            {
+                $ver = 0;
+                foreach($tabla as $campo)
+                {
+                    if($campo == "content")
+                    {
+                        ob_start();
+                        include $art->$campo;
+                        $art->$campo = ob_get_contents();
+                        ob_end_clean();
+                    }
+                    $nuevo = $art->$campo;
+                     if(count($contenido) > 0){
+                        if($nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False)
+                            $html .= "<div class='art_$campo'>".$art->$campo."</div>";
+                    }else{
+                            if($campo == "name" && $enlace)
+                            {
+                                $html .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
+                            }else
+                            {
+                                $html .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                            }
+                        }
+                    $ver++;
+                }
+                $html .= $this->showComments($art->id);
+
+            }else
+            {
+                $html .= "<div class='access_denied'>Sin permiso para visualizar este contenido</div>";
+            }
+            $html .= "</div>".Plugin::AfterArticle();
+        }
+        $html .= "<div class='art_pagination'>";
+        for($b = 0;$b < $paginas_total;$b++)
+        {
+            $url = preg_replace(array("/[?|&]i=\w/"),array(""),$_SERVER['REQUEST_URI']);
+            $inicio2 = $b*$cantidad;
+            $selecc = "";
+            if($inicio==$inicio2)
+                $selecc = " select_pagination";
+            $html .= "<a class='num_pagination".$selecc."' href='".$url."&i=".$inicio2."'>".($b+1)."</a>";
+        }
+        $html .= "</div></div>";
         return $html;
     }
     public function showAllArticles($tabla,$contenido=array(),$enlace=false)

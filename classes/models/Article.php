@@ -27,6 +27,44 @@ class Article
         });
         return $tabla;
     }
+    public function getRangeArticle($inicio=0,$cantidad=10)
+    {
+        $tabla = array();
+        if(file_exists("./store/articulos"))
+            $files = array_diff(scandir("./store/articulos"),array(".",".."));
+        else
+            $files = array_diff(scandir("../store/articulos"),array(".",".."));
+        $numMax = $this->getNextId()-1;
+        for($a = $inicio+2;$a < $cantidad+$inicio+2;)
+        {
+            $value = "";
+            if(isset($files[$a]))
+            {
+                $value = $files[$a];
+            }else
+            {
+                break;
+            }
+            if(strpos($value,"article-") !== false)
+            {
+                $value = str_replace("article-","",$value);
+                $numero = str_replace(".php","",$value);
+                $art = new Article();
+                $tabla[] = $art->getArticle($numero);
+                if($numero >= $numMax)
+                    $a = $cantidad+$inicio+2;
+                else
+                    $a++;
+            }
+        }
+        usort($tabla,function($a,$b)
+        {
+            $date1 = str_replace("/","-",$a->date);
+            $date2 = str_replace("/","-",$b->date);
+            return (strtotime($date1)>strtotime($date2))? -1:(strtotime($date1)==strtotime($date2))? ($a->id>$b->id)?-1:($a->id==$b->id)? 0 : 1 : 1;
+        });
+        return $tabla;
+    }
     public function getNextId()
     {
         $num = 0;

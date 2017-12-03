@@ -350,6 +350,33 @@ ul.list_menu
     padding:35px;
     font-family:Colibri;
 }
+.art_pagination
+{
+    background:linear-gradient(#DDD,#CCC);
+    border:solid 1px #222;
+    border-radius:15px;
+    padding:10px;
+    font-family:Colibri;
+    margin: 10px 65px;
+}
+.num_pagination
+{
+    background:linear-gradient(#DDD,#CCC);
+    border:solid 1px #222;
+    border-radius:15px; 
+    padding:5 9;
+    margin-right: 5px;   
+    color:black;
+    text-decoration:none;
+}
+.num_pagination:hover
+{
+    background: lightsalmon;
+}
+.select_pagination,.select_pagination:hover
+{
+    background: orange;
+}
 @keyframes animar
 {
     from
