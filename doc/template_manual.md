@@ -24,7 +24,7 @@ Un fichero Template debe tener la estructura siguiente:
 ```
 
 ## $page
-Para facilitar tu trabajo a la hora de construir una plantilla y tener acceso al CMS, hemos puesto a tu disposición diferentes funciones que te permitirá añadir contenido dinamico a tu plantilla.
+Para facilitar tu trabajo a la hora de construir una plantilla y tener acceso al CMS, hemos puesto a tu disposición diferentes funciones que te permitirá añadir contenido dinámico a tu plantilla.
 
 Esta función devuelve el contenido de *header.php* del tema actual.
 ```php
@@ -84,9 +84,54 @@ Esta función devuelve el formulario de registro de nuevo usuario.
 ```
 Esta función devuelve el menu del CMS.
 ```php
-<?=$page->showMenu()?>
+<?=$page->showMenu([MenuQueContieneEstaCadena:String])?>
 ```
 Esta función devuelve true si se esta en la página principal o false, si hay algún parametro indicado.
 ```php
 <?=$page->isHome()?>
+```
+Esta función devuelve la ruta del tema actual.
+```php
+<?=$page->getThemePath()?>
+```
+
+Y también tienes acceso a diferentes variables globales del CMS.
+
+Titulo de la página
+```php
+<?=$page->fw_title?>
+```
+
+Descripción de la página
+```php
+<?=$page->fw_description?>
+```
+
+Palabras claves de la página
+```php
+<?=$page->fw_keywords?>
+```
+Todos los articulos del CMS en formato JSON
+```php
+<?=$page->fw_articles?>
+```
+
+El Articulo del parametro $_GET["ac"] o por defecto el primero
+```php
+<?=$page->fw_article?>
+```
+
+Todas las páginas del CMS en formato JSON
+```php
+<?=$page->fw_pages?>
+```
+
+La página del parametro $_GET["pa"] o por defecto el primero
+```php
+<?=$page->fw_page?>
+```
+
+La página de la plantilla que ha sido cargada. p.ej.: index.php 
+```php
+<?=$page->fw_show?>
 ```

@@ -25,14 +25,16 @@ function toastInfo(info,callback=function(){},titulo="Información")
     div.style.wordWrap = "break-word";
     div.style.textAlign = "justify";
     div.style.boxShadow = "0 0 10px black";
-    div.style.zIndex = "400";
+    div.style.zIndex = "600";
     div.innerHTML = "<h3 style='margin: 0 0 5px 0;background: #cac9c9;padding: 5px;color: black;'>"+titulo+"</h3><span style='display:block;text-align: center;font-family: sans-serif;'>"+info + "</span><p style='margin-top:5px;margin-bottom: 0px;text-align:center;'><button id='acceptToastInfo' style='padding: 5px 10px 5px 10px;margin-top: 10px;width: 100%;background: linear-gradient(#EEE,#DDD);border: solid 1px lightgrey;border-radius: 5px;font-weight: bold;max-width: 374px;'>Aceptar</button></p>";
+    div = CrearFondoOscuro(div)
     document.body.appendChild(div);
     document.querySelector("#acceptToastInfo").onclick = function(){acceptToastInfo(this,callback);}
 }
 function acceptToastInfo(esto,callback)
 {
     esto.parentNode.parentNode.remove()
+    document.querySelector("#backlock").remove();
     callback();
 }
 /**
@@ -64,6 +66,7 @@ function toastConfirm(info,callback=function(res){},titulo="Información")
     div.style.boxShadow = "0 0 10px black";
     div.style.zIndex = "400";
     div.innerHTML = "<h3 style='margin: 0 0 5px 0;background: #cac9c9;padding: 5px;color: black;'>"+titulo+"</h3><span style='display:block;text-align: center;font-family: sans-serif;'>"+info + "</span><p style='margin-top:5px;margin-bottom: 0px;text-align:center;'><button id='acceptToastInfo' style='padding: 5px 10px 5px 10px;margin-top: 10px;width: 40%;background: linear-gradient(#EEE,#DDD);border: solid 1px lightgrey;border-radius: 5px;font-weight: bold;max-width: 374px;'>Si</button><button id='cancelToastInfo' style='padding: 5px 10px 5px 10px;margin-top: 10px;width: 40%;background: linear-gradient(#EEE,#DDD);border: solid 1px lightgrey;border-radius: 5px;font-weight: bold;max-width: 374px;'>No</button></p>";
+    div = CrearFondoOscuro(div)
     document.body.appendChild(div);
     document.querySelector("#acceptToastInfo").onclick = function(){CallToastConfirm(this,callback);}
     document.querySelector("#cancelToastInfo").onclick = function(){CallToastConfirm(this,callback);}
@@ -71,9 +74,16 @@ function toastConfirm(info,callback=function(res){},titulo="Información")
 function CallToastConfirm(esto,callback)
 {
     let text = esto.innerHTML;
-    esto.parentNode.parentNode.remove()
+    esto.parentNode.parentNode.remove();
+    document.querySelector("#backlock").remove();
     if(text == "No")
         callback(false)
     else
         callback(true)
+}
+function CrearFondoOscuro(dentro)
+{
+    var div = createEmmetNodes("#backlock");
+    div.childNodes[0].innerHTML = dentro.outerHTML;
+    return div.childNodes[0];
 }

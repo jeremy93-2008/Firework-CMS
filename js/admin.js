@@ -151,9 +151,9 @@
                 var js = JSON.stringify(linea).replace(/'/g, "&#39;").replace(/\"/g, "&#34;");
                 var img = "";
                 if (linea.image != "")
-                    img = "<img height='150px' src='" + linea.image + "' />";
+                    img = "<img width='180px' height='130px' src='" + linea.image + "' />";
                 else
-                    img = "<img height='150px' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Imagen&w=150&h=150' />";
+                    img = "<img width='180px' height='130px' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Imagen&w=150&h=150' />";
                 var description = linea.description;
                 if (linea.description.length > 34)
                     linea.description = linea.description.substring(0, 36) + "...";
@@ -186,9 +186,9 @@
                 var js = JSON.stringify(linea).replace(/'/g, "&#39;").replace(/\"/g, "&#34;");
                 var img = "";
                 if (linea.image != "")
-                    img = "<img height='150px' src='" + linea.image + "' />";
+                    img = "<img width='180px' height='130px' src='" + linea.image + "' />";
                 else
-                    img = "<img height='150px' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Imagen&w=150&h=150' />";
+                    img = "<img width='180px' height='130px' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=Imagen&w=150&h=150' />";
                 var description = linea.description;
                 if (linea.description.length > 34)
                     linea.description = linea.description.substring(0, 36) + "...";

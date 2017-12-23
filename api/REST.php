@@ -9,7 +9,7 @@
             {
                 $u = new Users();
                 $res = $u->loginUser($username,$password);
-                return true;
+                return $res;
             }else
             {
                 return false;

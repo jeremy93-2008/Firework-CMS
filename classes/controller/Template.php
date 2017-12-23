@@ -38,6 +38,10 @@ class Template
     {
         return $this->folder;
     }
+    public function getThemePath()
+    {
+        return $this->getFolder();
+    }
     public function setVar($name,$value)
     {
         $this->variable[$name] = $value;
@@ -116,7 +120,7 @@ class Template
         else
             return $this->showAllArticles($tabla,$contenido,$enlace);
     }
-    public function showArticleRangeFromParam($tabla,$cantidad,$contenido=array(),$enlace=false)
+    public function showArticleRangeFromParam($tabla,$cantidad=10,$contenido=array(),$enlace=false)
     {
         $page = $this;
         if(isset($_GET["ac"]))
@@ -124,7 +128,7 @@ class Template
         else
             return $this->showRangeArticles($tabla,$cantidad,$contenido,$enlace);
     }
-    public function showArticle($tabla,$contenido=array())
+    public function showArticle($tabla,$contenido=array(),$nocomment=false)
     {
         $html = Plugin::BeforeArticle();
         $page = $this;
@@ -134,6 +138,7 @@ class Template
         if($art->content !== "sin_permiso")
         {
            $ver = 0;
+           $ok_content = false;
                 foreach($tabla as $campo)
                 {
                     if($campo == "content")
@@ -144,14 +149,26 @@ class Template
                         ob_end_clean();
                     }
                     $nuevo = $art->$campo;
-                     if(count($contenido) > 0){
-                        if($nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False)
-                            $html .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                    if(count($contenido) > 0){
+                        if((isset($contenido[$ver]))){
+                            if($contenido[$ver] == "" || $nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False){
+                                $html .= "<div class='art_$campo'>".$art->$campo."</div>";
+                                $ok_content = true;
+                            }else
+                            {
+                                $ok_content = false;
+                            }
+                        }else
+                        {
+                            if($ok_content)
+                                $html .= "<div class='art_$campo'>".$art->$campo."</div>";
+                        }
                     }else{
                         $html .= "<div class='art_each art_$campo'>".$art->$campo."</div>";}
                     $ver++;
                 }
-                $html .= $this->showComments($art->id);
+                if(count($contenido) == 0 || $ok_content)
+                    $html .= $this->showComments($art->id);
         }else
         {
             $html .= "<div class='access_denied'>Sin permiso para visualizar este contenido</div>";
@@ -160,7 +177,7 @@ class Template
         $html .= Plugin::AfterArticle();
         return $html;
     }
-    public function showRangeArticles($tabla,$cantidad=10,$contenido=array(),$enlace=false)
+    public function showRangeArticles($tabla,$cantidad=10,$contenido=array(),$enlace=false,$nocomment=false)
     {
         $page = $this;
         $html = "<div class='art_group'>";
@@ -173,10 +190,11 @@ class Template
         $articulos = $this->article->getRangeArticle($inicio,$cantidad);
         foreach($articulos as $art)
         {
-            $html .= Plugin::BeforeArticle()."<div class='art_inside art_single'>";
+            $htmlin = Plugin::BeforeArticle()."<div class='art_inside art_single'>";
             if($art->content !== "sin_permiso")
             {
                 $ver = 0;
+                $ok_content = false;
                 foreach($tabla as $campo)
                 {
                     if($campo == "content")
@@ -187,27 +205,55 @@ class Template
                         ob_end_clean();
                     }
                     $nuevo = $art->$campo;
-                     if(count($contenido) > 0){
-                        if($nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False)
-                            $html .= "<div class='art_$campo'>".$art->$campo."</div>";
+                    if(count($contenido) > 0){
+                        if((isset($contenido[$ver]))){
+                            if($contenido[$ver] == "" || $nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False){
+                                if($campo == "name" && $enlace)
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
+                                }else
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                                }
+                                $ok_content = true;
+                            }else
+                            {
+                                $ok_content = false;
+                            }
+                        }else
+                        {
+                            if($ok_content)
+                                if($campo == "name" && $enlace)
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
+                                }else
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                                }
+                        }
                     }else{
                             if($campo == "name" && $enlace)
                             {
-                                $html .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
+                                $htmlin .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
                             }else
                             {
-                                $html .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                                $htmlin .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
                             }
                         }
                     $ver++;
                 }
-                $html .= $this->showComments($art->id);
-
+                if(count($contenido) == 0 || $ok_content)
+                    if(!$nocomment)
+                        $htmlin .= $this->showComments($art->id)."</div>".Plugin::AfterArticle();
+                    else
+                        $htmlin .= "</div>".Plugin::AfterArticle();
+                else
+                    $htmlin = "";
+                    $html .= $htmlin;
             }else
             {
                 $html .= "<div class='access_denied'>Sin permiso para visualizar este contenido</div>";
             }
-            $html .= "</div>".Plugin::AfterArticle();
         }
         $html .= "<div class='art_pagination'>";
         for($b = 0;$b < $paginas_total;$b++)
@@ -222,7 +268,7 @@ class Template
         $html .= "</div></div>";
         return $html;
     }
-    public function showAllArticles($tabla,$contenido=array(),$enlace=false)
+    public function showAllArticles($tabla,$contenido=array(),$enlace=false,$nocomment=false)
     {
         $page = $this;
         $html = "<div class='art_group'>";
@@ -230,10 +276,11 @@ class Template
         $articulos = $this->fw_articles;
         foreach($articulos as $art)
         {
-            $html .= Plugin::BeforeArticle()."<div class='art_inside art_single'>";
+            $htmlin = Plugin::BeforeArticle()."<div class='art_inside art_single'>";
             if($art->content !== "sin_permiso")
             {
                 $ver = 0;
+                $ok_content = false;
                 foreach($tabla as $campo)
                 {
                     if($campo == "content")
@@ -245,26 +292,54 @@ class Template
                     }
                     $nuevo = $art->$campo;
                      if(count($contenido) > 0){
-                        if($nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False)
-                            $html .= "<div class='art_$campo'>".$art->$campo."</div>";
+                        if((isset($contenido[$ver]))){
+                            if($contenido[$ver] == "" || $nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False){
+                                if($campo == "name" && $enlace)
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
+                                }else
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                                }
+                                $ok_content = true;
+                            }else
+                            {
+                                $ok_content = false;
+                            }
+                        }else
+                        {
+                            if($ok_content)
+                                if($campo == "name" && $enlace)
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
+                                }else
+                                {
+                                    $htmlin .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                                }
+                        }
                     }else{
                             if($campo == "name" && $enlace)
                             {
-                                $html .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
+                                $htmlin .= "<div class='art_each art_$campo'><a href='?pa=1&ac=".$art->id."'>".$art->$campo."</a></div>";
                             }else
                             {
-                                $html .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
+                                $htmlin .= "<div class='art_each art_$campo'>".$art->$campo."</div>";
                             }
                         }
                     $ver++;
                 }
-                $html .= $this->showComments($art->id);
-
+                if(count($contenido) == 0 || $ok_content)
+                    if(!$nocomment)
+                        $htmlin .= $this->showComments($art->id)."</div>".Plugin::AfterArticle();
+                    else
+                        $htmlin .= "</div>".Plugin::AfterArticle();
+                else
+                    $htmlin = "";
+                $html .= $htmlin;
             }else
             {
                 $html .= "<div class='access_denied'>Sin permiso para visualizar este contenido</div>";
             }
-            $html .= "</div>".Plugin::AfterArticle();
         }
         $html .= "</div>";
         return $html;
@@ -279,6 +354,7 @@ class Template
         if($art->content !== "sin_permiso")
         {
             $ver = 0;
+            $ok_content = false;
                 foreach($tabla as $campo)
                 {
                     if($campo == "content")
@@ -290,12 +366,25 @@ class Template
                     }
                     $nuevo = $art->$campo;
                     if(count($contenido) > 0){
-                        if($nuevo == $contenido[$ver] || strpos($contenido[$ver],$nuevo) !== False)
-                            $html .= "<div class='page_each page_$campo'>".$art->$campo."</div>";
+                        if((isset($contenido[$ver]))){
+                            if($contenido[$ver] == "" || $nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False){
+                                $html .= "<div class='page_each page__$campo'>".$art->$campo."</div>";
+                                $ok_content = true;
+                            }else
+                            {
+                                $ok_content = false;
+                            }
+                        }else
+                        {
+                            if($ok_content)
+                                $html .= "<div class='page_each page_$campo'>".$art->$campo."</div>";
+                        }
                     }else{
                         $html .= "<div class='page_each page_$campo'>".$art->$campo."</div>";}
                     $ver++;
                 }
+                if(count($contenido) == 0 || $ok_content)
+                    $html .= $this->showComments($art->id);
                 $html .= "</div>";
         }else
         {
@@ -312,8 +401,9 @@ class Template
         $articulos = $this->fw_pages;
         foreach($articulos as $art)
         {
-            $html .= Plugin::BeforePage();
-            $html .= "<div class='page_inside page_single'>";
+            $htmlin = Plugin::BeforePage();
+            $htmlin .= "<div class='page_inside page_single'>";
+            $ok_content = false;
             if($art->content !== "sin_permiso")
             {
                 $ver = 0;
@@ -327,19 +417,36 @@ class Template
                         ob_end_clean();
                     }
                     $nuevo = $art->$campo;
-                     if(count($contenido) > 0){
-                        if($nuevo == $contenido[$ver] || strpos($contenido[$ver],$nuevo) !== False)
-                            $html .= "<div class='page_each page_$campo'>".$art->$campo."</div>";
+                    if(count($contenido) > 0){
+                        if((isset($contenido[$ver]))){
+                            if($contenido[$ver] == "" || $nuevo == $contenido[$ver] || strpos($nuevo,$contenido[$ver]) !== False){
+                                $htmlin .= "<div class='page_each page__$campo'>".$art->$campo."</div>";
+                                $ok_content = true;
+                            }else
+                            {
+                                $ok_content = false;
+                            }
+                        }else
+                        {
+                            if($ok_content)
+                                $htmlin .= "<div class='page_each page_$campo'>".$art->$campo."</div>";
+                        }
                     }else{
-                        $html .= "<div class='page_each page_$campo'>".$art->$campo."</div>";}
+                        $htmlin .= "<div class='page_each page_$campo'>".$art->$campo."</div>";}
                     $ver++;
                 }
+                if(count($contenido) == 0 || $ok_content)
+                    $htmlin .= $this->showComments($art->id)."</div>".Plugin::AfterArticle();
+                else
+                    $htmlin = "";
+                $html .= $htmlin;
+
                 $html .= "</div>";
             }else
             {
                 $html .= "<div class='access_denied'>Sin permiso para visualizar este contenido</div>";
             }
-            $html .= Plugin::BeforePage();
+            $html .= Plugin::AfterPage();
         }
         $html .= "</div>";
         return $html;
@@ -425,7 +532,7 @@ class Template
                     </form>".Plugin::AfterRegisterForm();
         }
     }
-    public function showMenu()
+    public function showMenu($titulo = "")
     {
         echo Plugin::BeforeMenu();
         $page = $this;
@@ -435,7 +542,10 @@ class Template
         $li = array();
         foreach($lista_item as $objeto)
         {
-            $li[$objeto["orden"]] = "<li class='item_menu'><a href='".$objeto["url"]."'>".$objeto["titulo"]."</a></li>";
+            if($titulo != "" && strpos($objeto["titulo"],$titulo) !== false)
+                $li[$objeto["orden"]] = "<li class='item_menu'><a href='".$objeto["url"]."'>".$objeto["titulo"]."</a></li>";
+            elseif($titulo == "")
+                $li[$objeto["orden"]] = "<li class='item_menu'><a href='".$objeto["url"]."'>".$objeto["titulo"]."</a></li>";
         }
         ksort($li);
         $inside_html = implode($li);
